@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 8 )
@@ -28,7 +30,16 @@ resource_name = "run"
 length = 0.6
 loop = true
 
+[sub_resource type="AnimationNodeStateMachine" id=5]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+
 [node name="assassin" type="KinematicBody2D"]
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "main character, ready for anything!"
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -8 )
@@ -38,8 +49,24 @@ shape = SubResource( 2 )
 anims/RESET = SubResource( 3 )
 anims/idle = SubResource( 1 )
 anims/run = SubResource( 4 )
+__meta__ = {
+"_editor_description_": "another more advanced way to make animations (a lot easier too!)"
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 5 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource( 6 )
+__meta__ = {
+"_editor_description_": "this will be used later to make animations easier to configure"
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -8 )
 hframes = 8
 vframes = 15
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -24.0
+margin_top = -48.0
+margin_right = 24.0
