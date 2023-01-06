@@ -1,17 +1,55 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 528, 10 )
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 189.5 )
+
 [node name="Node" type="Node"]
 
-[node name="Area2D" type="StaticBody2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="."]
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 position = Vector2( 496, 392 )
 shape = SubResource( 1 )
 
 [node name="assassin" parent="." instance=ExtResource( 1 )]
+collision_mask = 6
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2( 760, 281 )
+collision_layer = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2( 0, -90.5 )
+shape = SubResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Wall"]
+margin_left = -10.0
+margin_top = -274.0
+margin_right = 40.0
+margin_bottom = 95.0
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2( 418, 118 )
+collision_layer = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+position = Vector2( 0, -90.5 )
+shape = SubResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Wall2"]
+margin_left = -9.0
+margin_top = -117.0
+margin_right = 9.0
+margin_bottom = 98.0
