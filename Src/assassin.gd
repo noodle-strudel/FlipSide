@@ -23,8 +23,10 @@ var double_jump = true
 func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("ui_right"):
+		sprite.flip_h = false
 		velocity.x += speed
 	if Input.is_action_pressed("ui_left"):
+		sprite.flip_h = true
 		velocity.x -= speed
 
 func _physics_process(delta):
