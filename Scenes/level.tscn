@@ -1,21 +1,36 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Src/level.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 528, 10 )
+extents = Vector2( 528, 9 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 25, 96 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 189.5 )
+extents = Vector2( 20, 96 )
 
 [node name="Node" type="Node"]
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "level holder"
+}
 
 [node name="Ground" type="StaticBody2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2( 496, 392 )
+position = Vector2( 496, 393 )
 shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Ground"]
+margin_left = -32.0
+margin_top = 384.0
+margin_right = 1024.0
+margin_bottom = 416.0
+color = Color( 0.262745, 0.619608, 0.376471, 1 )
 
 [node name="assassin" parent="." instance=ExtResource( 1 )]
 collision_mask = 6
@@ -23,33 +38,31 @@ collision_mask = 6
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2( 760, 281 )
 collision_layer = 2
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2( 0, -90.5 )
-shape = SubResource( 2 )
+position = Vector2( 15, 7 )
+shape = SubResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="Wall"]
 margin_left = -10.0
-margin_top = -274.0
+margin_top = -89.0
 margin_right = 40.0
-margin_bottom = 95.0
+margin_bottom = 103.0
+color = Color( 0.443137, 0.27451, 0.129412, 1 )
 
 [node name="Wall2" type="StaticBody2D" parent="."]
 position = Vector2( 418, 118 )
 collision_layer = 2
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
-position = Vector2( 0, -90.5 )
+position = Vector2( 2, -22 )
 shape = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="Wall2"]
-margin_left = -9.0
-margin_top = -117.0
-margin_right = 9.0
-margin_bottom = 98.0
+margin_left = -18.0
+margin_top = -118.0
+margin_right = 22.0
+margin_bottom = 74.0
+color = Color( 0.443137, 0.27451, 0.129412, 1 )
+
+[connection signal="touch_floor" from="assassin" to="." method="_on_assassin_touch_floor"]
