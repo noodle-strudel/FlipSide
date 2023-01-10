@@ -19,5 +19,5 @@ func _ready():
 
 func _on_assassin_touch_floor():
 	var dust = dust_resource.instance()
-	dust.position = $assassin.position
+	dust.position = $Assassin.position
 	add_child(dust)
