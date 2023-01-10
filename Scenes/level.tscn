@@ -32,7 +32,7 @@ margin_right = 1575.0
 margin_bottom = 416.0
 color = Color( 0.262745, 0.619608, 0.376471, 1 )
 
-[node name="assassin" parent="." instance=ExtResource( 1 )]
+[node name="Assassin" parent="." instance=ExtResource( 1 )]
 collision_mask = 6
 
 [node name="Wall" type="StaticBody2D" parent="."]
@@ -65,4 +65,4 @@ margin_right = 22.0
 margin_bottom = 74.0
 color = Color( 0.443137, 0.27451, 0.129412, 1 )
 
-[connection signal="touch_floor" from="assassin" to="." method="_on_assassin_touch_floor"]
+[connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]

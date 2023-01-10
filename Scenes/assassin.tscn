@@ -144,7 +144,7 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[node name="assassin" type="KinematicBody2D"]
+[node name="Assassin" type="KinematicBody2D"]
 collision_mask = 2
 script = ExtResource( 1 )
 __meta__ = {
@@ -160,6 +160,7 @@ position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
 animation = "push"
+frame = 1
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
