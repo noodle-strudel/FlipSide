@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1012, 9 )
@@ -94,4 +95,9 @@ position = Vector2( 600, 360 )
 collision_layer = 4
 collision_mask = 3
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
+
+[connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]

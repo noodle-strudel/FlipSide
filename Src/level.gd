@@ -22,3 +22,7 @@ func _on_assassin_touch_floor():
 	var dust = dust_resource.instance()
 	dust.position = $Assassin.position
 	add_child(dust)
+
+
+func _on_Assassin_ded():
+	$CanvasLayer/HUD/Retry.popup()

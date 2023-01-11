@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # the signal touch_floor is emitted and can be used by other nodes in the tree that have a script
 signal touch_floor
+signal ded
 
 export (int) var speed = 500
 export (int) var jump_speed = -1000
@@ -28,7 +29,9 @@ var prev_y_velocity
 
 # if you hit a hostile enemy's head
 var was_on_enemy_head = false
-
+func _ready():
+	GameSwitches.state = GameSwitches.NORMAL
+	GameSwitches.health = 3
 func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("ui_right"):
@@ -45,8 +48,8 @@ func _physics_process(delta):
 		var collision = get_slide_collision(i)
 		print("I collided with ", collision.collider.name)
 	"""
-	print($AnimatedSprite.animation)
-	print($AnimatedSprite.frame)
+	
+	print(GameSwitches.state)
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -63,8 +66,12 @@ func _physics_process(delta):
 		# it is now touching some sort of ground so it  
 		else:
 			was_on_enemy_head = false
-	
-	if GameSwitches.state == GameSwitches.NORMAL:
+
+	if GameSwitches.state == GameSwitches.DED:
+		ded()
+	elif GameSwitches.state == GameSwitches.HIT:
+		hit()
+	elif GameSwitches.state == GameSwitches.NORMAL:
 		get_input()
 
 		# going forward
@@ -78,10 +85,6 @@ func _physics_process(delta):
 		if is_on_floor() and is_on_wall():
 			push(delta);
 		elif is_on_floor():
-			if in_the_air == true:
-				emit_signal("touch_floor")
-				in_the_air = false
-				sprite.animation = "landing"
 			on_floor(delta);
 		else:
 			in_air(delta);
@@ -98,14 +101,17 @@ func _physics_process(delta):
 				velocity.y = jump_speed 
 				double_jump = false
 				has_jumped = true
-	elif GameSwitches.state == GameSwitches.HIT:
-		hit()
+	
 
 func on_floor(delta):
 	print("on_floor")
 	# when you touch the floor, you are no longer jumping
 	has_jumped = false
 	double_jump = false
+	if in_the_air == true:
+		emit_signal("touch_floor")
+		in_the_air = false
+		sprite.animation = "landing"
 
 	if sprite.animation == "landing":
 		# wait for the animation to emit signal "animation_finished" to continue
@@ -140,6 +146,7 @@ func push(delta):
 
 func hit():
 	if hurting == false:
+		GameSwitches.health -= 1
 		velocity.x = prev_x_velocity * -1
 
 		if prev_y_velocity > 0:
@@ -158,8 +165,16 @@ func hit():
 	
 	# prevents the character from going back to a normal state if, per se, it hits the side of the enemy right as it
 	if is_on_floor() and was_on_enemy_head == false:
-		GameSwitches.state = GameSwitches.NORMAL
-		hurting = false
+		if GameSwitches.health <= 0:
+			GameSwitches.state = GameSwitches.DED
+		else:
+			GameSwitches.state = GameSwitches.NORMAL
+			hurting = false
+func ded():
+	velocity = Vector2.ZERO
+	sprite.animation = "ded"
+	yield(sprite, "animation_finished")
+	emit_signal("ded")
 
 func _on_HitPauseTimer_timeout():
 	get_tree().paused = false
