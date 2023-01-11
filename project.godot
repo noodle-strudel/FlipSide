@@ -24,6 +24,10 @@ config/name="FlipSide"
 run/main_scene="res://Scenes/level.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameSwitches="*res://Src/GAME_SWITCHES.gd"
+
 [editor]
 
 version_control_autoload_on_startup=true

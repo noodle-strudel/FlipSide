@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 807, 9 )
+extents = Vector2( 1012, 9 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 25, 96 )
+extents = Vector2( 32, 79.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20, 96 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 13, 77 )
 
 [node name="Node" type="Node"]
 script = ExtResource( 2 )
@@ -22,25 +25,29 @@ __meta__ = {
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2( 775, 393 )
+position = Vector2( 980, 393 )
 shape = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="Ground"]
 margin_left = -32.0
 margin_top = 384.0
-margin_right = 1575.0
+margin_right = 1992.0
 margin_bottom = 416.0
 color = Color( 0.262745, 0.619608, 0.376471, 1 )
 
-[node name="Assassin" parent="." instance=ExtResource( 1 )]
-collision_mask = 6
+[node name="assassin" parent="." instance=ExtResource( 1 )]
+position = Vector2( 144, 144 )
+collision_mask = 14
 
 [node name="Wall" type="StaticBody2D" parent="."]
-position = Vector2( 760, 281 )
+position = Vector2( 1592, 280 )
 collision_layer = 2
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2( 15, 7 )
+position = Vector2( 8, 23.5 )
 shape = SubResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="Wall"]
@@ -65,4 +72,16 @@ margin_right = 22.0
 margin_bottom = 74.0
 color = Color( 0.443137, 0.27451, 0.129412, 1 )
 
-[connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]
+[node name="HurtWall" type="Area2D" parent="."]
+position = Vector2( 1568, 368 )
+collision_layer = 8
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtWall"]
+position = Vector2( -3, -67 )
+shape = SubResource( 4 )
+
+[connection signal="touch_floor" from="assassin" to="." method="_on_assassin_touch_floor"]
+[connection signal="body_entered" from="HurtWall" to="." method="_on_HurtWall_body_entered"]
