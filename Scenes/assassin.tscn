@@ -162,7 +162,7 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[node name="assassin" type="KinematicBody2D"]
+[node name="Assassin" type="KinematicBody2D"]
 collision_mask = 2
 script = ExtResource( 1 )
 __meta__ = {
