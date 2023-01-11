@@ -45,7 +45,8 @@ func _physics_process(delta):
 		var collision = get_slide_collision(i)
 		print("I collided with ", collision.collider.name)
 	"""
-	
+	print($AnimatedSprite.animation)
+	print($AnimatedSprite.frame)
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -56,6 +57,7 @@ func _physics_process(delta):
 
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
+		print(collision.collider)
 		if collision.collider.is_in_group("enemy"):
 			GameSwitches.state = GameSwitches.HIT
 		# it is now touching some sort of ground so it  
@@ -76,6 +78,10 @@ func _physics_process(delta):
 		if is_on_floor() and is_on_wall():
 			push(delta);
 		elif is_on_floor():
+			if in_the_air == true:
+				emit_signal("touch_floor")
+				in_the_air = false
+				sprite.animation = "landing"
 			on_floor(delta);
 		else:
 			in_air(delta);
@@ -96,22 +102,19 @@ func _physics_process(delta):
 		hit()
 
 func on_floor(delta):
+	print("on_floor")
 	# when you touch the floor, you are no longer jumping
 	has_jumped = false
 	double_jump = false
-
-	if in_the_air == true:
-		emit_signal("touch_floor")
-		in_the_air = false
-		sprite.animation = "landing"
 
 	if sprite.animation == "landing":
 		# wait for the animation to emit signal "animation_finished" to continue
 		yield(sprite, "animation_finished")
 
-	if velocity.x == 0:
+	""""""
+	if velocity.x == 0 and in_the_air == false:
 		sprite.animation = "idle"
-	else:
+	elif in_the_air == false:
 		sprite.animation = "run"
 
 func in_air(delta):
