@@ -22,7 +22,3 @@ func _on_assassin_touch_floor():
 	var dust = dust_resource.instance()
 	dust.position = $Assassin.position
 	add_child(dust)
-
-
-func _on_HurtWall_body_entered(body):
-	GameSwitches.state = GameSwitches.HIT

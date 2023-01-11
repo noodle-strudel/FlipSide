@@ -7,13 +7,13 @@
 extents = Vector2( 1012, 9 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 32, 79.5 )
+extents = Vector2( 24, 95.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20, 96 )
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 13, 77 )
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 16, 16 )
 
 [node name="Node" type="Node"]
 script = ExtResource( 2 )
@@ -47,7 +47,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2( 8, 23.5 )
+position = Vector2( 16, 7.5 )
 shape = SubResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="Wall"]
@@ -72,16 +72,15 @@ margin_right = 22.0
 margin_bottom = 74.0
 color = Color( 0.443137, 0.27451, 0.129412, 1 )
 
-[node name="HurtWall" type="Area2D" parent="."]
-position = Vector2( 1568, 368 )
+[node name="yoyo" type="StaticBody2D" parent="." groups=["enemy"]]
+position = Vector2( 1104, 304 )
 collision_layer = 8
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtWall"]
-position = Vector2( -3, -67 )
-shape = SubResource( 4 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="yoyo"]
+shape = SubResource( 5 )
 
-[connection signal="touch_floor" from="assassin" to="." method="_on_assassin_touch_floor"]
-[connection signal="body_entered" from="HurtWall" to="." method="_on_HurtWall_body_entered"]
+[node name="ColorRect" type="ColorRect" parent="yoyo"]
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
