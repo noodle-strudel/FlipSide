@@ -112,10 +112,11 @@ func on_floor(delta):
 		yield(sprite, "animation_finished")
 
 	""""""
-	if velocity.x == 0 and in_the_air == false:
-		sprite.animation = "idle"
-	elif in_the_air == false:
-		sprite.animation = "run"
+	if in_the_air == false:
+		if velocity.x == 0:
+			sprite.animation = "idle"
+		else:
+			sprite.animation = "run"
 
 func in_air(delta):
 	in_the_air = true
