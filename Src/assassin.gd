@@ -5,7 +5,7 @@ signal touch_floor
 
 export (int) var speed = 500
 export (int) var jump_speed = -1000
-export (int) var gravity = 4000
+export (int) var gravity = 3000
 export (Vector2) var velocity = Vector2.ZERO
 
 # keeping track of states
@@ -37,13 +37,13 @@ func get_input():
 		velocity.x -= speed
 
 func _physics_process(delta):
-	
 	"""DEBUGGING
 	print(velocity.x)
 	
 
-	print("on wall: " , is_on_wall())
-	print("on floor: " , is_on_floor())
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		print("I collided with ", collision.collider.name)
 	"""
 	
 	velocity.y += gravity * delta
@@ -95,7 +95,6 @@ func _physics_process(delta):
 	elif GameSwitches.state == GameSwitches.HIT:
 		hit()
 
-
 func on_floor(delta):
 	# when you touch the floor, you are no longer jumping
 	has_jumped = false
@@ -104,6 +103,11 @@ func on_floor(delta):
 	if in_the_air == true:
 		emit_signal("touch_floor")
 		in_the_air = false
+		sprite.animation = "landing"
+
+	if sprite.animation == "landing":
+		# wait for the animation to emit signal "animation_finished" to continue
+		yield(sprite, "animation_finished")
 
 	if velocity.x == 0:
 		sprite.animation = "idle"
@@ -127,6 +131,7 @@ func in_air(delta):
 			sprite.animation = "jump_down"
 
 func push(delta):
+	in_the_air = false
 	sprite.animation = "push"
 
 func hit():
