@@ -1,5 +1,6 @@
 extends Node
 
+signal hit
 var dust_resource = preload("res://Scenes/dust.tscn")
 
 # Declare member variables here. Examples:
