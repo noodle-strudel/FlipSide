@@ -9,8 +9,10 @@ export (int) var gravity = 4000
 export (Vector2) var velocity = Vector2.ZERO
 
 # keeping track of states
+
 export var in_the_air = true
 export var has_jumped = false
+export var hurting = false
 
 # renaming for ease of use
 onready var sprite := $AnimatedSprite 
@@ -23,47 +25,52 @@ var double_jump = true
 func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("ui_right"):
-		sprite.flip_h = false
 		velocity.x += speed
 	if Input.is_action_pressed("ui_left"):
-		sprite.flip_h = true
 		velocity.x -= speed
 
 func _physics_process(delta):
-	# going forward
-	if velocity.x > 0:
-		sprite.flip_h = false
-	# going backward
-	elif velocity.x < 0:
-		sprite.flip_h = true
-
-	print("on wall: " , is_on_wall())
-	print("on floor: " , is_on_floor())
+	print(velocity.x)
 	
-	get_input()
+
+#	print("on wall: " , is_on_wall())
+#	print("on floor: " , is_on_floor())
+	
+	
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	if GameSwitches.state == GameSwitches.NORMAL:
 
-	# animation logic and current state
-	if is_on_floor() and is_on_wall():
-		push(delta);
-	elif is_on_floor():
-		on_floor(delta);
-	else:
-		in_air(delta);
+		get_input()
+		# going forward
+		if velocity.x > 0:
+			sprite.flip_h = false
+		# going backward
+		elif velocity.x < 0:
+			sprite.flip_h = true
+		# animation logic and current state
+		if is_on_floor() and is_on_wall():
+			push(delta);
+		elif is_on_floor():
+			on_floor(delta);
+		else:
+			in_air(delta);
 
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			sprite.animation = "jump_up"
-			has_jumped = true
-			velocity.y = jump_speed
-			double_jump = true
-		
+		if Input.is_action_just_pressed("jump"):
+			if is_on_floor():
+				sprite.animation = "jump_up"
+				has_jumped = true
+				velocity.y = jump_speed
+				double_jump = true
+			
 
-		elif double_jump == true:
-			velocity.y = jump_speed 
-			double_jump = false
-			has_jumped = true
+			elif double_jump == true:
+				velocity.y = jump_speed 
+				double_jump = false
+				has_jumped = true
+	elif GameSwitches.state == GameSwitches.HIT:
+		hit()
 
 
 func on_floor(delta):
@@ -96,3 +103,14 @@ func in_air(delta):
 
 func push(delta):
 	sprite.animation = "push"
+
+func hit():
+	if hurting == false:
+		var prev_velocity = velocity.x
+#		velocity.x = 0
+		velocity.x = prev_velocity * -1
+		hurting = true
+	sprite.animation = "hit"
+	yield(sprite, "animation_finished")
+	GameSwitches.state = GameSwitches.NORMAL
+	hurting = false

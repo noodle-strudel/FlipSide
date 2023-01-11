@@ -1,5 +1,6 @@
 extends Node
 
+signal hit
 var dust_resource = preload("res://Scenes/dust.tscn")
 
 # Declare member variables here. Examples:
@@ -21,3 +22,7 @@ func _on_assassin_touch_floor():
 	var dust = dust_resource.instance()
 	dust.position = $assassin.position
 	add_child(dust)
+
+
+func _on_HurtWall_body_entered(body):
+	GameSwitches.state = GameSwitches.HIT
