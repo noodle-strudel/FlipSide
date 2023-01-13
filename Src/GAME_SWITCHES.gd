@@ -1,6 +1,6 @@
 extends Node
 
-enum {NORMAL, HIT, DED}
+enum {NORMAL, HIT, DED, ATTACK}
 var state
 var health
 func _ready():

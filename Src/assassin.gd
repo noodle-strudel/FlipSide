@@ -11,7 +11,6 @@ export (int) var gravity = 3000
 export (Vector2) var velocity = Vector2.ZERO
 
 # keeping track of states
-
 export var in_the_air = true
 export var has_jumped = false
 export var hurting = false
@@ -28,11 +27,15 @@ var double_jump = true
 var prev_x_velocity
 var prev_y_velocity
 
+# current direction
+var direction
+
 # if you hit a hostile enemy's head
 var was_on_enemy_head = false
 func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
 	GameSwitches.health = 3
+
 func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("ui_right"):
@@ -41,6 +44,7 @@ func get_input():
 		velocity.x -= speed
 
 func _physics_process(delta):
+	print(GameSwitches.state)
 	"""DEBUGGING
 	print(velocity.x)
 
@@ -67,15 +71,22 @@ func _physics_process(delta):
 		ded()
 	elif GameSwitches.state == GameSwitches.HIT:
 		hit()
+	elif GameSwitches.state == GameSwitches.ATTACK:
+		attack()
 	elif GameSwitches.state == GameSwitches.NORMAL:
 		get_input()
 
 		# going forward
 		if velocity.x > 0:
 			sprite.flip_h = false
+			$Sword/CollisionShape2D.position.x = 45
+			direction = "right"
+
 		# going backward
 		elif velocity.x < 0:
 			sprite.flip_h = true
+			$Sword/CollisionShape2D.position.x = -45
+			direction = "left"
 
 		# animation logic and current state
 		if is_on_floor() and is_on_wall():
@@ -98,9 +109,12 @@ func _physics_process(delta):
 				velocity.y = jump_speed 
 				double_jump = false
 				has_jumped = true
-	
+		if Input.is_action_just_pressed("attack"):
+			if is_on_floor():
+				GameSwitches.state = GameSwitches.ATTACK
 
 func on_floor(delta):
+	sprite.position.x = 0
 	# when you touch the floor, you are no longer jumping
 	has_jumped = false
 	double_jump = false
@@ -166,11 +180,24 @@ func hit():
 		else:
 			GameSwitches.state = GameSwitches.NORMAL
 			hurting = false
+
+func _on_HitPauseTimer_timeout():
+	get_tree().paused = false
+
 func ded():
 	velocity = Vector2.ZERO
 	sprite.animation = "ded"
 	yield(sprite, "animation_finished")
 	emit_signal("ded")
 
-func _on_HitPauseTimer_timeout():
-	get_tree().paused = false
+func attack():
+	print(sprite.animation)
+	velocity = Vector2.ZERO
+	if sprite.flip_h == false:
+		sprite.position.x = 24
+	else:
+		sprite.position.x = -24
+	sprite.animation = "attack"
+	yield(sprite, "animation_finished")
+	GameSwitches.state = GameSwitches.NORMAL
+	
