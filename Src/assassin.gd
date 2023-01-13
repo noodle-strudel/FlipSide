@@ -49,7 +49,6 @@ func _physics_process(delta):
 		print("I collided with ", collision.collider.name)
 	"""
 	
-	print(GameSwitches.state)
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
