@@ -8,6 +8,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$dust.frame = 0
 	$dust.playing = true
 
 func _on_dust_animation_finished():

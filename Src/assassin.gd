@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # the signal touch_floor is emitted and can be used by other nodes in the tree that have a script
 signal touch_floor
+signal jumped
 signal ded
 
 export (int) var speed = 500
@@ -42,11 +43,7 @@ func get_input():
 func _physics_process(delta):
 	"""DEBUGGING
 	print(velocity.x)
-	
 
-	for i in get_slide_count():
-		var collision = get_slide_collision(i)
-		print("I collided with ", collision.collider.name)
 	"""
 	
 	velocity.y += gravity * delta
@@ -59,7 +56,7 @@ func _physics_process(delta):
 
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-		print(collision.collider)
+		print("I collided with ", collision.collider.name)
 		if collision.collider.is_in_group("enemy"):
 			GameSwitches.state = GameSwitches.HIT
 		# it is now touching some sort of ground so it  
@@ -90,6 +87,7 @@ func _physics_process(delta):
 
 		if Input.is_action_just_pressed("jump"):
 			if is_on_floor():
+				emit_signal("jumped")
 				sprite.animation = "jump_up"
 				has_jumped = true
 				velocity.y = jump_speed
@@ -103,7 +101,6 @@ func _physics_process(delta):
 	
 
 func on_floor(delta):
-	print("on_floor")
 	# when you touch the floor, you are no longer jumping
 	has_jumped = false
 	double_jump = false

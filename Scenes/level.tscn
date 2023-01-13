@@ -100,4 +100,5 @@ collision_mask = 3
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
 
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
+[connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
 [connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]
