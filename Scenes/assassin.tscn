@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
@@ -9,9 +9,42 @@
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_jump_double_anim_strip_3.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_hit_anim_strip_3.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_before_or_after_jump_srip_2.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_death_anim_strip_8.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18, 24 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 10 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 10 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 10 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 10 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 10 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 10 )
+region = Rect2( 96, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 10 )
+region = Rect2( 112, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 7 )
@@ -135,6 +168,11 @@ region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
+"frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), null ],
+"loop": false,
+"name": "ded",
+"speed": 8.0
+}, {
 "frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "double_jump",
@@ -153,12 +191,12 @@ animations = [ {
 "frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "jump_down",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "jump_up",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [ SubResource( 32 ), SubResource( 33 ) ],
 "loop": false,
@@ -191,8 +229,8 @@ shape = SubResource( 2 )
 position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
-animation = "landing"
-frame = 1
+animation = "idle"
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
