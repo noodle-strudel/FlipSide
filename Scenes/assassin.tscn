@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
@@ -10,26 +10,28 @@
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_hit_anim_strip_3.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_before_or_after_jump_srip_2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_death_anim_strip_8.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_sword_attack_anim_strip_4.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_attack_anim_strip_4(new).png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_sword_attack_anim_strip_4.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Sprites/herochar sprites(new)/sword_effect_strip_4(new).png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18, 24 )
 
 [sub_resource type="AtlasTexture" id=47]
 atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 32, 16 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=48]
 atlas = ExtResource( 11 )
-region = Rect2( 32, 0, 32, 16 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=49]
 atlas = ExtResource( 11 )
-region = Rect2( 64, 0, 32, 16 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=50]
 atlas = ExtResource( 11 )
-region = Rect2( 96, 0, 32, 16 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 10 )
@@ -240,6 +242,30 @@ animations = [ {
 radius = 16.0
 height = 16.0
 
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 13 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 13 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 13 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=55]
+animations = [ {
+"frames": [ SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), null ],
+"loop": false,
+"name": "swoosh",
+"speed": 16.0
+} ]
+
 [node name="Assassin" type="KinematicBody2D"]
 collision_mask = 2
 script = ExtResource( 1 )
@@ -255,8 +281,8 @@ shape = SubResource( 2 )
 position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
-animation = "attack"
-frame = 3
+animation = "idle"
+frame = 1
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -286,5 +312,27 @@ collision_mask = 0
 position = Vector2( 45, 0 )
 rotation = 1.57079
 shape = SubResource( 46 )
+disabled = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Sword"]
+position = Vector2( 48, -8 )
+scale = Vector2( 3, 3 )
+frames = SubResource( 55 )
+animation = "swoosh"
+frame = 4
+playing = true
+
+[node name="HerocharSwordAttackAnimStrip4" type="Sprite" parent="."]
+visible = false
+position = Vector2( 24, -24 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 12 )
+hframes = 4
+
+[node name="SwooshRight" type="Position2D" parent="."]
+position = Vector2( 48, -16 )
+
+[node name="SwooshLeft" type="Position2D" parent="."]
+position = Vector2( -48, -16 )
 
 [connection signal="timeout" from="HitPauseTimer" to="." method="_on_HitPauseTimer_timeout"]

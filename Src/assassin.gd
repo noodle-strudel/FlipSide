@@ -5,18 +5,22 @@ signal touch_floor
 signal jumped
 signal ded
 
+onready var air_swoosh_scene = preload("res://Scenes/air_swoosh.tscn")
+
 export (int) var speed = 500
 export (int) var jump_speed = -1000
 export (int) var gravity = 3000
 export (Vector2) var velocity = Vector2.ZERO
 
 # keeping track of states
-export var in_the_air = true
-export var has_jumped = false
-export var hurting = false
+var in_the_air = true
+var has_jumped = false
+var hurting = false
+var attacking = false
 
 # renaming for ease of use
 onready var sprite = $AnimatedSprite 
+onready var sword_sprite = $Sword/AnimatedSprite
 # assignes the variable type by seeing what is assigned to it. ex: var inferred_type := "String"
 
 
@@ -28,7 +32,7 @@ var prev_x_velocity
 var prev_y_velocity
 
 # current direction
-var direction
+var direction = "right"
 
 # if you hit a hostile enemy's head
 var was_on_enemy_head = false
@@ -49,7 +53,7 @@ func _physics_process(delta):
 	print(velocity.x)
 
 	"""
-	
+	print(sprite.animation)
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -79,13 +83,17 @@ func _physics_process(delta):
 		# going forward
 		if velocity.x > 0:
 			sprite.flip_h = false
+			sword_sprite.flip_h = false
 			$Sword/CollisionShape2D.position.x = 45
+			sword_sprite.position.x = 48
 			direction = "right"
 
 		# going backward
 		elif velocity.x < 0:
 			sprite.flip_h = true
+			sword_sprite.flip_h = true
 			$Sword/CollisionShape2D.position.x = -45
+			sword_sprite.position.x = -48
 			direction = "left"
 
 		# animation logic and current state
@@ -109,12 +117,10 @@ func _physics_process(delta):
 				velocity.y = jump_speed 
 				double_jump = false
 				has_jumped = true
-		if Input.is_action_just_pressed("attack"):
-			if is_on_floor():
-				GameSwitches.state = GameSwitches.ATTACK
+		elif Input.is_action_just_pressed("attack"):
+			GameSwitches.state = GameSwitches.ATTACK
 
 func on_floor(delta):
-	sprite.position.x = 0
 	# when you touch the floor, you are no longer jumping
 	has_jumped = false
 	double_jump = false
@@ -191,13 +197,33 @@ func ded():
 	emit_signal("ded")
 
 func attack():
-	print(sprite.animation)
-	velocity = Vector2.ZERO
-	if sprite.flip_h == false:
-		sprite.position.x = 24
+	# ground attack when on the ground
+	if is_on_floor():
+		in_the_air = false
+		velocity = Vector2.ZERO
+		sprite.animation = "attack"
+
+		if attacking == false:
+			sword_sprite.frame = 0
+			attacking = true
+			$Sword/CollisionShape2D.disabled = false
+
+		yield(sprite, "animation_finished")
+
+		GameSwitches.state = GameSwitches.NORMAL
+		$Sword/CollisionShape2D.disabled = true
+		attacking = false
+		
+	# otherwise, do an air attack!
 	else:
-		sprite.position.x = -24
-	sprite.animation = "attack"
-	yield(sprite, "animation_finished")
-	GameSwitches.state = GameSwitches.NORMAL
+		var air_swoosh = air_swoosh_scene.instance()
+		if direction == "right":
+			air_swoosh.position = $SwooshRight.global_position
+			air_swoosh.speed = 1000
+		elif direction == "left":
+			air_swoosh.get_node("Sprite").flip_h = true
+			air_swoosh.position = $SwooshLeft.global_position
+			air_swoosh.speed = -1000
+		get_parent().add_child(air_swoosh)
+		GameSwitches.state = GameSwitches.NORMAL
 	
