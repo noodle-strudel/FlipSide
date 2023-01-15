@@ -75,6 +75,7 @@ attack={
 2d_physics/layer_2="terrain"
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="air swoosh"
+2d_physics/layer_5="sword"
 
 [physics]
 

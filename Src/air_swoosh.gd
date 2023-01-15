@@ -1,11 +1,13 @@
 extends KinematicBody2D
 
+onready var hit_sparkle_scene = preload("res://Scenes/hit_sparkle.tscn")
+
 # specifying that it has to be an integer
 export var speed: int
 export (Vector2) var velocity
 
 func _ready():
-	pass 
+	$AnimationPlayer.play("swoosh")
 
 func _physics_process(delta):
 	velocity.x = 0
@@ -14,5 +16,25 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	# when it detects a collision with something that it can detect
-	if get_slide_count() > 0:
+	for i in get_slide_count():
+		var result
+		var collision = get_slide_collision(i)
+		var space_state = get_world_2d().direct_space_state
+		
+		var distance = global_position.distance_to(collision.collider.position)
+		if distance < 50:
+			result = space_state.intersect_ray(global_position, collision.collider.position, [self])
+		else:
+			if $Sprite.flip_h == true:
+				result = space_state.intersect_ray(global_position, Vector2(global_position.x - 100, global_position.y), [self])
+			else:
+				result = space_state.intersect_ray(global_position, Vector2(global_position.x + 100, global_position.y), [self])
+		if result:
+			var hit_sparkle = hit_sparkle_scene.instance()
+			hit_sparkle.position = result.position
+			get_parent().add_child(hit_sparkle)
 		queue_free()
+
+
+func _on_DespawnTimer_timeout():
+	queue_free()

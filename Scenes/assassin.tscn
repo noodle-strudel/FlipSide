@@ -282,7 +282,7 @@ position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -306,7 +306,7 @@ __meta__ = {
 [node name="Sword" type="Area2D" parent="."]
 position = Vector2( 0, -16 )
 collision_layer = 16
-collision_mask = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
 position = Vector2( 45, 0 )
@@ -336,3 +336,4 @@ position = Vector2( 48, -16 )
 position = Vector2( -48, -16 )
 
 [connection signal="timeout" from="HitPauseTimer" to="." method="_on_HitPauseTimer_timeout"]
+[connection signal="body_entered" from="Sword" to="." method="_on_Sword_body_entered"]

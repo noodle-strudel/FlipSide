@@ -2,10 +2,11 @@ extends KinematicBody2D
 
 # the signal touch_floor is emitted and can be used by other nodes in the tree that have a script
 signal touch_floor
-signal jumped
+signal air_jumped
 signal ded
 
 onready var air_swoosh_scene = preload("res://Scenes/air_swoosh.tscn")
+onready var hit_sparkle_scene = preload("res://Scenes/hit_sparkle.tscn")
 
 export (int) var speed = 500
 export (int) var jump_speed = -1000
@@ -28,7 +29,7 @@ onready var sword_sprite = $Sword/AnimatedSprite
 var double_jump = true
 
 # gets velocity for keeping track of direction
-var prev_x_velocity
+var prev_x_velocity = 500
 var prev_y_velocity
 
 # current direction
@@ -48,12 +49,6 @@ func get_input():
 		velocity.x -= speed
 
 func _physics_process(delta):
-	print(GameSwitches.state)
-	"""DEBUGGING
-	print(velocity.x)
-
-	"""
-	print(sprite.animation)
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -64,7 +59,7 @@ func _physics_process(delta):
 
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-		print("I collided with ", collision.collider.name)
+#		print("I collided with ", collision.collider.name)
 		if collision.collider.is_in_group("enemy"):
 			GameSwitches.state = GameSwitches.HIT
 		# it is now touching some sort of ground so it  
@@ -106,7 +101,6 @@ func _physics_process(delta):
 
 		if Input.is_action_just_pressed("jump"):
 			if is_on_floor():
-				emit_signal("jumped")
 				sprite.animation = "jump_up"
 				has_jumped = true
 				velocity.y = jump_speed
@@ -114,6 +108,7 @@ func _physics_process(delta):
 			
 
 			elif double_jump == true:
+				emit_signal("air_jumped")
 				velocity.y = jump_speed 
 				double_jump = false
 				has_jumped = true
@@ -226,4 +221,17 @@ func attack():
 			air_swoosh.speed = -1000
 		get_parent().add_child(air_swoosh)
 		GameSwitches.state = GameSwitches.NORMAL
+
+func _on_Sword_body_entered(body):
+	# grab the state of the 2d world
+	var space_state = get_world_2d().direct_space_state
 	
+	# create a ray that starts at the sword's global position and goes to the enemy's global position
+	var result = space_state.intersect_ray($Sword.global_position, body.global_position, [self])
+	# result is now filled with information about where the ray intersected something
+	
+	var hit_sparkle = hit_sparkle_scene.instance()
+	
+	# we now can make it so the position of the hit_sparkle is at the location where the ray hit something
+	hit_sparkle.position = result.position
+	get_parent().add_child(hit_sparkle)

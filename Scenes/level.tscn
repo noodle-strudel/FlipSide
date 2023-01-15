@@ -17,15 +17,11 @@ extents = Vector2( 20, 96 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 16, 16 )
 
-[node name="Node" type="Node"]
+[node name="Level" type="Node"]
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": "level holder"
 }
-
-[node name="Assassin" parent="." instance=ExtResource( 1 )]
-position = Vector2( 200, 80 )
-collision_mask = 6
 
 [node name="Ground" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -77,10 +73,10 @@ margin_right = 22.0
 margin_bottom = 74.0
 color = Color( 0.443137, 0.27451, 0.129412, 1 )
 
-[node name="yoyo" type="StaticBody2D" parent="." groups=["enemy"]]
+[node name="yoyo" type="KinematicBody2D" parent="." groups=["enemy"]]
 position = Vector2( 784, 304 )
 collision_layer = 4
-collision_mask = 9
+collision_mask = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="yoyo"]
 shape = SubResource( 5 )
@@ -90,16 +86,21 @@ margin_left = -16.0
 margin_top = -16.0
 margin_right = 16.0
 margin_bottom = 16.0
+color = Color( 0.741176, 0.317647, 0.317647, 1 )
 
 [node name="Enemy" parent="." groups=["enemy"] instance=ExtResource( 3 )]
 position = Vector2( 600, 360 )
 collision_layer = 4
-collision_mask = 3
+collision_mask = 11
+
+[node name="Assassin" parent="." instance=ExtResource( 1 )]
+position = Vector2( 200, 80 )
+collision_mask = 6
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
 
+[connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
-[connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
 [connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]

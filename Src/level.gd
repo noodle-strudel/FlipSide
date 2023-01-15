@@ -6,7 +6,7 @@ var dust_resource = preload("res://Scenes/dust.tscn")
 func _ready():
 	pass 
 
-func _on_Assassin_jumped():
+func _on_Assassin_air_jumped():
 	var dust = dust_resource.instance()
 	dust.position = $Assassin.position
 	dust.get_node("dust").animation = "before_jump"
