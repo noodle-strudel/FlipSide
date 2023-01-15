@@ -63,4 +63,10 @@ anims/swoosh = SubResource( 3 )
 wait_time = 0.75
 autostart = true
 
+[node name="Left" type="Position2D" parent="."]
+position = Vector2( -24, 0 )
+
+[node name="Right" type="Position2D" parent="."]
+position = Vector2( 24, 0 )
+
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_DespawnTimer_timeout"]

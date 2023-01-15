@@ -22,18 +22,17 @@ func _physics_process(delta):
 		var space_state = get_world_2d().direct_space_state
 		
 		var distance = global_position.distance_to(collision.collider.position)
-		if distance < 50:
-			result = space_state.intersect_ray(global_position, collision.collider.position, [self])
+		
+		# if it's facing left
+		if $Sprite.flip_h == true:
+			result = space_state.intersect_ray($Left.global_position, collision.collider.position, [self])
 		else:
-			if $Sprite.flip_h == true:
-				result = space_state.intersect_ray(global_position, Vector2(global_position.x - 100, global_position.y), [self])
-			else:
-				result = space_state.intersect_ray(global_position, Vector2(global_position.x + 100, global_position.y), [self])
+			result = space_state.intersect_ray($Right.global_position, collision.collider.position, [self])
 		if result:
 			var hit_sparkle = hit_sparkle_scene.instance()
 			hit_sparkle.position = result.position
 			get_parent().add_child(hit_sparkle)
-		queue_free()
+			queue_free()
 
 
 func _on_DespawnTimer_timeout():
