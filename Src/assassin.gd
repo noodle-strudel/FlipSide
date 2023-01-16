@@ -15,6 +15,7 @@ export (Vector2) var velocity = Vector2.ZERO
 export var in_the_air = true
 export var has_jumped = false
 export var hurting = false
+export var dead = false
 
 # renaming for ease of use
 onready var sprite = $AnimatedSprite 
@@ -176,6 +177,9 @@ func hit():
 func ded():
 	velocity = Vector2.ZERO
 	sprite.animation = "ded"
+	if dead == false:
+		$deadDie.play()
+		dead = true
 	yield(sprite, "animation_finished")
 	emit_signal("ded")
 

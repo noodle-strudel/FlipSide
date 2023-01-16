@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
@@ -234,7 +234,6 @@ position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
 animation = "idle"
-frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -256,24 +255,24 @@ __meta__ = {
 }
 
 [node name="hitHurt" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
+stream = ExtResource( 13 )
 volume_db = -10.0
 
 [node name="deadDie" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 14 )
 
 [node name="pushMove" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 volume_db = -10.0
 
 [node name="jumpBound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
 volume_db = -20.0
 pitch_scale = 0.9
 
 [node name="jumpBound2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
 volume_db = -20.0
 pitch_scale = 1.2
 
