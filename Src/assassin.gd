@@ -89,13 +89,15 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			if is_on_floor():
 				sprite.animation = "jump_up"
+				$jumpBound.play()
 				has_jumped = true
 				velocity.y = jump_speed
 				double_jump = true
 			
 
 			elif double_jump == true:
-				velocity.y = jump_speed 
+				velocity.y = jump_speed
+				$jumpBound2.play()
 				double_jump = false
 				has_jumped = true
 	elif GameSwitches.state == GameSwitches.HIT:
@@ -137,7 +139,9 @@ func in_air(delta):
 func push(delta):
 	in_the_air = false
 	sprite.animation = "push"
-
+	
+	# add something that lets the full sound play first before playing again
+	$pushMove.play()
 func hit():
 	if hurting == false:
 		velocity.x = prev_x_velocity * -1
@@ -149,8 +153,11 @@ func hit():
 
 		$HitPauseTimer.start()
 		
+		# plays sound when hit
+		$hitHurt.play()
+		
 		# literally pauses the game!
-		get_tree().paused = true
+		#get_tree().paused = true
 		
 		# timer is not paused because its property pause_mode is set to Process even when the game is paused
 

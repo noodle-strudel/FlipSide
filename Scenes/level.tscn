@@ -1,17 +1,25 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Music/Chipjoy.mp3" type="AudioStream" id=4]
+[ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=5]
+[ext_resource path="res://SFX/pushMove.wav" type="AudioStream" id=6]
+[ext_resource path="res://SFX/deadDie.wav" type="AudioStream" id=7]
+[ext_resource path="res://SFX/jumpBound.wav" type="AudioStream" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1012, 9 )
+extents = Vector2( 1034, 9 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 24, 95.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20, 96 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 20, 192.5 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 16, 16 )
@@ -23,19 +31,44 @@ __meta__ = {
 }
 
 [node name="Assassin" parent="." instance=ExtResource( 1 )]
-position = Vector2( 200, 80 )
+position = Vector2( 36, 48 )
 collision_mask = 6
+
+[node name="hitHurt" type="AudioStreamPlayer" parent="Assassin"]
+stream = ExtResource( 5 )
+volume_db = -10.0
+
+[node name="deadDie" type="AudioStreamPlayer" parent="Assassin"]
+stream = ExtResource( 7 )
+
+[node name="pushMove" type="AudioStreamPlayer" parent="Assassin"]
+pause_mode = 2
+stream = ExtResource( 6 )
+volume_db = -10.0
+
+[node name="jumpBound" type="AudioStreamPlayer" parent="Assassin"]
+stream = ExtResource( 8 )
+volume_db = -20.0
+pitch_scale = 0.9
+
+[node name="jumpBound2" type="AudioStreamPlayer" parent="Assassin"]
+stream = ExtResource( 8 )
+volume_db = -20.0
+pitch_scale = 1.2
 
 [node name="Ground" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 5
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2( 980, 393 )
+position = Vector2( 958, 393 )
 shape = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="Ground"]
-margin_left = -32.0
+margin_left = -17.0
 margin_top = 384.0
 margin_right = 1992.0
 margin_bottom = 416.0
@@ -64,6 +97,9 @@ color = Color( 0.443137, 0.27451, 0.129412, 1 )
 position = Vector2( 418, 118 )
 collision_layer = 2
 collision_mask = 5
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
 position = Vector2( 2, -22 )
@@ -74,7 +110,32 @@ margin_left = -18.0
 margin_top = -118.0
 margin_right = 22.0
 margin_bottom = 74.0
+rect_pivot_offset = Vector2( 20, 118 )
 color = Color( 0.443137, 0.27451, 0.129412, 1 )
+
+[node name="Wall3" type="StaticBody2D" parent="."]
+position = Vector2( -34, 311 )
+collision_layer = 2
+collision_mask = 5
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
+position = Vector2( 2, -118.5 )
+shape = SubResource( 6 )
+
+[node name="Wall4" type="StaticBody2D" parent="."]
+position = Vector2( 2011, 310 )
+collision_layer = 2
+collision_mask = 5
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
+position = Vector2( 2, -118.5 )
+shape = SubResource( 6 )
 
 [node name="yoyo" type="StaticBody2D" parent="." groups=["enemy"]]
 position = Vector2( 1104, 304 )
@@ -93,5 +154,10 @@ margin_bottom = 16.0
 position = Vector2( 600, 360 )
 collision_layer = 4
 collision_mask = 3
+
+[node name="Chipjoy" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -20.0
+autoplay = true
 
 [connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]

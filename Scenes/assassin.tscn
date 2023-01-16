@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_jump_double_anim_strip_3.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_hit_anim_strip_3.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_before_or_after_jump_srip_2.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/CAR.jpg" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18, 24 )
@@ -135,6 +136,11 @@ region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "car",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "double_jump",
@@ -191,8 +197,8 @@ shape = SubResource( 2 )
 position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
-animation = "landing"
-frame = 1
+animation = "idle"
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
