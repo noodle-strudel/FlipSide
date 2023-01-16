@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Break A Leg.mp3-3d0264343487c2425d97823dc466c565.mp3str"
+
+[deps]
+
+source_file="res://Music/Break A Leg.mp3"
+dest_files=[ "res://.import/Break A Leg.mp3-3d0264343487c2425d97823dc466c565.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

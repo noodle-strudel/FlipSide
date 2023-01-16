@@ -10,6 +10,10 @@
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_hit_anim_strip_3.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_before_or_after_jump_srip_2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_death_anim_strip_8.png" type="Texture" id=10]
+[ext_resource path="res://SFX/pushMove.wav" type="AudioStream" id=11]
+[ext_resource path="res://SFX/jumpBound.wav" type="AudioStream" id=12]
+[ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=13]
+[ext_resource path="res://SFX/deadDie.wav" type="AudioStream" id=14]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18, 24 )
@@ -250,5 +254,27 @@ one_shot = true
 __meta__ = {
 "_editor_description_": "does a cool lil' freeze effect when you get hit"
 }
+
+[node name="hitHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -10.0
+
+[node name="deadDie" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+
+[node name="pushMove" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 10 )
+volume_db = -10.0
+
+[node name="jumpBound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -20.0
+pitch_scale = 0.9
+
+[node name="jumpBound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -20.0
+pitch_scale = 1.2
 
 [connection signal="timeout" from="HitPauseTimer" to="." method="_on_HitPauseTimer_timeout"]
