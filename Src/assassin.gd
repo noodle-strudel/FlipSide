@@ -140,7 +140,7 @@ func push(delta):
 	in_the_air = false
 	sprite.animation = "push"
 	
-	# add something that lets the full sound play first before playing again
+	yield(sprite, "animation_finished")
 	$pushMove.play()
 func hit():
 	if hurting == false:
@@ -157,7 +157,7 @@ func hit():
 		$hitHurt.play()
 		
 		# literally pauses the game!
-		#get_tree().paused = true
+		get_tree().paused = true
 		
 		# timer is not paused because its property pause_mode is set to Process even when the game is paused
 
