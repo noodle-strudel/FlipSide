@@ -27,6 +27,8 @@ config/icon="res://icon.png"
 [autoload]
 
 GameSwitches="*res://Src/GAME_SWITCHES.gd"
+BackgroundMusic="*res://Scenes/BackgroundMusic.tscn"
+Music="*res://Src/music.gd"
 
 [editor]
 
@@ -63,6 +65,11 @@ jump={
 attack={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_H={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":72,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
