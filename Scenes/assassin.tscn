@@ -330,10 +330,10 @@ texture = ExtResource( 12 )
 hframes = 4
 
 [node name="SwooshRight" type="Position2D" parent="."]
-position = Vector2( 48, -16 )
+position = Vector2( 48, -24 )
 
 [node name="SwooshLeft" type="Position2D" parent="."]
-position = Vector2( -48, -16 )
+position = Vector2( -48, -24 )
 
 [connection signal="timeout" from="HitPauseTimer" to="." method="_on_HitPauseTimer_timeout"]
 [connection signal="body_entered" from="Sword" to="." method="_on_Sword_body_entered"]

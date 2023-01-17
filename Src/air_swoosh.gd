@@ -34,6 +34,6 @@ func _physics_process(delta):
 			get_parent().add_child(hit_sparkle)
 			queue_free()
 
-
+# if it doesnt hit anything by the time the timer runs out, it despawns
 func _on_DespawnTimer_timeout():
 	queue_free()

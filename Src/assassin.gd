@@ -197,30 +197,34 @@ func attack():
 		in_the_air = false
 		velocity = Vector2.ZERO
 		sprite.animation = "attack"
-
 		if attacking == false:
-			sword_sprite.frame = 0
+			if Input.is_action_pressed("ui_down"):
+				create_swoosh()
+			else:
+				sword_sprite.frame = 0
+				$Sword/CollisionShape2D.disabled = false
 			attacking = true
-			$Sword/CollisionShape2D.disabled = false
-
+		
 		yield(sprite, "animation_finished")
-
 		GameSwitches.state = GameSwitches.NORMAL
 		$Sword/CollisionShape2D.disabled = true
 		attacking = false
 		
 	# otherwise, do an air attack!
-	else:
-		var air_swoosh = air_swoosh_scene.instance()
-		if direction == "right":
-			air_swoosh.position = $SwooshRight.global_position
-			air_swoosh.speed = 1000
-		elif direction == "left":
-			air_swoosh.get_node("Sprite").flip_h = true
-			air_swoosh.position = $SwooshLeft.global_position
-			air_swoosh.speed = -1000
-		get_parent().add_child(air_swoosh)
+	elif in_the_air:
+		create_swoosh()
 		GameSwitches.state = GameSwitches.NORMAL
+
+func create_swoosh():
+	var air_swoosh = air_swoosh_scene.instance()
+	if direction == "right":
+		air_swoosh.position = $SwooshRight.global_position
+		air_swoosh.speed = 1000
+	elif direction == "left":
+		air_swoosh.get_node("Sprite").flip_h = true
+		air_swoosh.position = $SwooshLeft.global_position
+		air_swoosh.speed = -1000
+	get_parent().add_child(air_swoosh)
 
 func _on_Sword_body_entered(body):
 	# grab the state of the 2d world
