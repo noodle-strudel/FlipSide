@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
@@ -33,6 +33,22 @@ atlas = ExtResource( 11 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 11 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 11 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=63]
 atlas = ExtResource( 11 )
 region = Rect2( 48, 0, 16, 16 )
 
@@ -211,6 +227,11 @@ animations = [ {
 "name": "attack",
 "speed": 16.0
 }, {
+"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ) ],
+"loop": true,
+"name": "charge_attack",
+"speed": 8.0
+}, {
 "frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), null ],
 "loop": false,
 "name": "ded",
@@ -305,7 +326,7 @@ shape = SubResource( 2 )
 position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
-animation = "idle"
+animation = "charge_attack"
 frame = 2
 playing = true
 

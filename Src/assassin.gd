@@ -20,7 +20,7 @@ export var has_jumped = false
 export var hurting = false
 export var dead = false
 export var attacking = false
-
+export var charging_attack = false
 
 # renaming for ease of use
 onready var sprite = $AnimatedSprite 
@@ -118,7 +118,7 @@ func _physics_process(delta):
 				$jumpBound2.play()
 				double_jump = false
 				has_jumped = true
-		elif Input.is_action_just_pressed("attack"):
+		elif Input.is_action_pressed("attack"):
 			GameSwitches.state = GameSwitches.ATTACK
 
 func on_floor(delta):
@@ -160,9 +160,6 @@ func in_air(delta):
 func push(delta):
 	in_the_air = false
 	sprite.animation = "push"
-	
-	yield(sprite, "animation_finished")
-	$pushMove.play()
 func hit():
 	if hurting == false:
 		GameSwitches.health -= 1
