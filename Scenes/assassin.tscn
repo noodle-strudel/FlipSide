@@ -228,7 +228,7 @@ animations = [ {
 "speed": 16.0
 }, {
 "frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ) ],
-"loop": true,
+"loop": false,
 "name": "charge_attack",
 "speed": 8.0
 }, {
@@ -327,7 +327,7 @@ position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
 animation = "charge_attack"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

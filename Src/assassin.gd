@@ -21,6 +21,7 @@ export var hurting = false
 export var dead = false
 export var attacking = false
 export var charging_attack = false
+export var charged_up = false
 
 # renaming for ease of use
 onready var sprite = $AnimatedSprite 
@@ -207,23 +208,61 @@ func ded():
 
 func attack():
 	# ground attack when on the ground
+	print(GameSwitches.state)
 	if is_on_floor():
 		in_the_air = false
 		velocity = Vector2.ZERO
-		if attacking == false:
-			if Input.is_action_pressed("ui_down"):
-				sprite.animation = "ground_swoosh_attack"
-				create_swoosh()
-			else:
-				sprite.animation = "attack"
-				$Sword/CollisionShape2D.disabled = false
-			sword_sprite.frame = 0
-			attacking = true
-		
-		yield(sprite, "animation_finished")
-		attacking = false
-		$Sword/CollisionShape2D.disabled = true
-		GameSwitches.state = GameSwitches.NORMAL
+		if charged_up == false:
+			if charging_attack == false:
+				sprite.animation = "charge_attack"
+				charging_attack = true
+			if Input.is_action_just_released("attack"):
+				print("normal attack")
+				if attacking == false:
+					sprite.animation = "attack"
+					$Sword/CollisionShape2D.disabled = false
+					sword_sprite.frame = 0
+					attacking = true
+				yield(sprite, "animation_finished")
+				attacking = false
+				charging_attack = false
+				charged_up = false
+				GameSwitches.state = GameSwitches.NORMAL
+				$Sword/CollisionShape2D.disabled = true
+				
+			yield(sprite, "animation_finished")
+			if charging_attack == true:
+				charged_up = true
+				charging_attack == false
+		elif charged_up == true:
+#			get_input()
+			if Input.is_action_just_released("attack"):
+				if attacking == false:
+					create_swoosh()
+					sprite.animation = "ground_swoosh_attack"
+					charging_attack = false
+					$Sword/CollisionShape2D.disabled = false
+					sword_sprite.frame = 0
+					attacking = true
+				yield(sprite, "animation_finished")
+				charged_up = false
+				attacking = false
+				GameSwitches.state = GameSwitches.NORMAL
+				$Sword/CollisionShape2D.disabled = true
+				
+#		if attacking == false:
+#			if Input.is_action_pressed("ui_down"):
+#				sprite.animation = "ground_swoosh_attack"
+#				create_swoosh()
+#			else:
+#				sprite.animation = "attack"
+#				$Sword/CollisionShape2D.disabled = false
+#			sword_sprite.frame = 0
+#			attacking = true
+#
+#		yield(sprite, "animation_finished")
+#		attacking = false
+#		$Sword/CollisionShape2D.disabled = true
 		
 	# otherwise, do an air attack!
 	elif in_the_air:
