@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # the signal touch_floor is emitted and can be used by other nodes in the tree that have a script
 signal touch_floor
+signal jumped
 signal air_jumped
 signal ded
 
@@ -102,6 +103,7 @@ func _physics_process(delta):
 
 		if Input.is_action_just_pressed("jump"):
 			if is_on_floor():
+				emit_signal("jumped")
 				sprite.animation = "jump_up"
 				$jumpBound.play()
 				has_jumped = true
@@ -110,6 +112,7 @@ func _physics_process(delta):
 			
 
 			elif double_jump == true:
+				emit_signal("jumped")
 				emit_signal("air_jumped")
 				velocity.y = jump_speed
 				$jumpBound2.play()

@@ -8,10 +8,7 @@ func _ready():
 	BackgroundMusic.playing = true
 
 func _on_Assassin_jumped():
-	var dust = dust_resource.instance()
-	dust.position = $Assassin.position
-	dust.get_node("dust").animation = "before_jump"
-	add_child(dust)
+	pass
 
 func _on_assassin_touch_floor():
 	var dust = dust_resource.instance()
@@ -22,3 +19,9 @@ func _on_assassin_touch_floor():
 func _on_Assassin_ded():
 	$CanvasLayer/HUD/Retry.show()
 
+
+func _on_Assassin_air_jumped():
+	var dust = dust_resource.instance()
+	dust.position = $Assassin.position
+	dust.get_node("dust").animation = "before_jump"
+	add_child(dust)
