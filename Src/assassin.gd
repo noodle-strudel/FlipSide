@@ -14,15 +14,16 @@ export (int) var gravity = 3000
 export (Vector2) var velocity = Vector2.ZERO
 
 # keeping track of states
-var in_the_air = true
-var has_jumped = false
-var hurting = false
-var attacking = false
+export var in_the_air = true
+export var has_jumped = false
+export var hurting = false
+export var dead = false
+export var attacking = false
+
 
 # renaming for ease of use
 onready var sprite = $AnimatedSprite 
 onready var sword_sprite = $Sword/AnimatedSprite
-# assignes the variable type by seeing what is assigned to it. ex: var inferred_type := "String"
 
 
 # determines if double-jumping is possible 
@@ -102,6 +103,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			if is_on_floor():
 				sprite.animation = "jump_up"
+				$jumpBound.play()
 				has_jumped = true
 				velocity.y = jump_speed
 				double_jump = true
@@ -109,7 +111,8 @@ func _physics_process(delta):
 
 			elif double_jump == true:
 				emit_signal("air_jumped")
-				velocity.y = jump_speed 
+				velocity.y = jump_speed
+				$jumpBound2.play()
 				double_jump = false
 				has_jumped = true
 		elif Input.is_action_just_pressed("attack"):
@@ -154,7 +157,9 @@ func in_air(delta):
 func push(delta):
 	in_the_air = false
 	sprite.animation = "push"
-
+	
+	yield(sprite, "animation_finished")
+	$pushMove.play()
 func hit():
 	if hurting == false:
 		GameSwitches.health -= 1
@@ -166,6 +171,9 @@ func hit():
 		hurting = true
 
 		$HitPauseTimer.start()
+		
+		# plays sound when hit
+		$hitHurt.play()
 		
 		# literally pauses the game!
 		get_tree().paused = true
@@ -188,6 +196,9 @@ func _on_HitPauseTimer_timeout():
 func ded():
 	velocity = Vector2.ZERO
 	sprite.animation = "ded"
+	if dead == false:
+		$deadDie.play()
+		dead = true
 	yield(sprite, "animation_finished")
 	emit_signal("ded")
 
