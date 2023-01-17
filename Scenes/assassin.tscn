@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_before_or_after_jump_srip_2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_death_anim_strip_8.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_attack_anim_strip_4(new).png" type="Texture" id=11]
-[ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_sword_attack_anim_strip_4.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/sword_effect_strip_4(new).png" type="Texture" id=13]
 [ext_resource path="res://SFX/pushMove.wav" type="AudioStream" id=14]
 [ext_resource path="res://SFX/jumpBound.wav" type="AudioStream" id=15]
@@ -80,6 +79,22 @@ region = Rect2( 16, 0, 16, 16 )
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 7 )
 region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 11 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 11 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 8 )
@@ -206,6 +221,11 @@ animations = [ {
 "name": "double_jump",
 "speed": 8.0
 }, {
+"frames": [ SubResource( 59 ), SubResource( 58 ), SubResource( 58 ), SubResource( 58 ), SubResource( 57 ), SubResource( 56 ) ],
+"loop": false,
+"name": "ground_swoosh_attack",
+"speed": 16.0
+}, {
 "frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
 "loop": false,
 "name": "hit",
@@ -286,7 +306,7 @@ position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -326,18 +346,11 @@ animation = "swoosh"
 frame = 4
 playing = true
 
-[node name="HerocharSwordAttackAnimStrip4" type="Sprite" parent="."]
-visible = false
-position = Vector2( 24, -24 )
-scale = Vector2( 3, 3 )
-texture = ExtResource( 12 )
-hframes = 4
-
 [node name="SwooshRight" type="Position2D" parent="."]
-position = Vector2( 48, -24 )
+position = Vector2( 48, -16 )
 
 [node name="SwooshLeft" type="Position2D" parent="."]
-position = Vector2( -48, -24 )
+position = Vector2( -48, -16 )
 
 [node name="hitHurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )

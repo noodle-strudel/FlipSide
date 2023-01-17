@@ -166,7 +166,10 @@ func push(delta):
 func hit():
 	if hurting == false:
 		GameSwitches.health -= 1
-		velocity.x = prev_x_velocity * -1
+		if direction == "left":
+			velocity.x = 500
+		if direction == "right":
+			velocity.x = -500
 
 		if prev_y_velocity > 0:
 			was_on_enemy_head = true
@@ -210,23 +213,30 @@ func attack():
 	if is_on_floor():
 		in_the_air = false
 		velocity = Vector2.ZERO
-		sprite.animation = "attack"
 		if attacking == false:
 			if Input.is_action_pressed("ui_down"):
+				sprite.animation = "ground_swoosh_attack"
 				create_swoosh()
 			else:
-				sword_sprite.frame = 0
+				sprite.animation = "attack"
 				$Sword/CollisionShape2D.disabled = false
+			sword_sprite.frame = 0
 			attacking = true
 		
 		yield(sprite, "animation_finished")
-		GameSwitches.state = GameSwitches.NORMAL
-		$Sword/CollisionShape2D.disabled = true
 		attacking = false
+		$Sword/CollisionShape2D.disabled = true
+		GameSwitches.state = GameSwitches.NORMAL
 		
 	# otherwise, do an air attack!
 	elif in_the_air:
-		create_swoosh()
+		get_input()
+		if attacking == false:
+			create_swoosh()
+			sprite.animation = "ground_swoosh_attack"
+			attacking = true
+		yield(sprite, "animation_finished")
+		attacking = false
 		GameSwitches.state = GameSwitches.NORMAL
 
 func create_swoosh():
