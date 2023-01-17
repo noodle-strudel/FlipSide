@@ -20,6 +20,7 @@ export var has_jumped = false
 export var hurting = false
 export var dead = false
 export var attacking = false
+export var air_attacking = false
 export var charging_attack = false
 export var charged_up = false
 
@@ -52,6 +53,7 @@ func get_input():
 		velocity.x -= speed
 
 func _physics_process(delta):
+	print(GameSwitches.state)
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -76,6 +78,7 @@ func _physics_process(delta):
 	elif GameSwitches.state == GameSwitches.ATTACK:
 		attack()
 	elif GameSwitches.state == GameSwitches.NORMAL:
+		print("normal state")
 		get_input()
 
 		# going forward
@@ -93,14 +96,6 @@ func _physics_process(delta):
 			$Sword/CollisionShape2D.position.x = -45
 			sword_sprite.position.x = -48
 			direction = "left"
-
-		# animation logic and current state
-		if is_on_floor() and is_on_wall():
-			push(delta);
-		elif is_on_floor():
-			on_floor(delta);
-		else:
-			in_air(delta);
 
 		if Input.is_action_just_pressed("jump"):
 			if is_on_floor():
@@ -121,6 +116,15 @@ func _physics_process(delta):
 				has_jumped = true
 		elif Input.is_action_pressed("attack"):
 			GameSwitches.state = GameSwitches.ATTACK
+		# if just directional keys are beign pressed
+		else:
+			# animation logic and current state
+			if is_on_floor() and is_on_wall():
+				push(delta);
+			elif is_on_floor():
+				on_floor(delta);
+			else:
+				in_air(delta);
 
 func on_floor(delta):
 	# when you touch the floor, you are no longer jumping
@@ -130,7 +134,7 @@ func on_floor(delta):
 		emit_signal("touch_floor")
 		in_the_air = false
 		sprite.animation = "landing"
-
+	
 	if sprite.animation == "landing":
 		# wait for the animation to emit signal "animation_finished" to continue
 		yield(sprite, "animation_finished")
@@ -207,15 +211,17 @@ func ded():
 	emit_signal("ded")
 
 func attack():
+	print("pressing attack")
 	# ground attack when on the ground
-	print(GameSwitches.state)
-	if is_on_floor():
+	if is_on_floor() and air_attacking == false:
 		in_the_air = false
 		velocity = Vector2.ZERO
+		
 		if charged_up == false:
 			if charging_attack == false:
 				sprite.animation = "charge_attack"
 				charging_attack = true
+				
 			if Input.is_action_just_released("attack"):
 				print("normal attack")
 				if attacking == false:
@@ -227,6 +233,7 @@ func attack():
 				attacking = false
 				charging_attack = false
 				charged_up = false
+				print("switched to normal from ground")
 				GameSwitches.state = GameSwitches.NORMAL
 				$Sword/CollisionShape2D.disabled = true
 				
@@ -234,6 +241,8 @@ func attack():
 			if charging_attack == true:
 				charged_up = true
 				charging_attack == false
+				GameSwitches.state = GameSwitches.ATTACK
+
 		elif charged_up == true:
 #			get_input()
 			if Input.is_action_just_released("attack"):
@@ -249,31 +258,27 @@ func attack():
 				attacking = false
 				GameSwitches.state = GameSwitches.NORMAL
 				$Sword/CollisionShape2D.disabled = true
-				
-#		if attacking == false:
-#			if Input.is_action_pressed("ui_down"):
-#				sprite.animation = "ground_swoosh_attack"
-#				create_swoosh()
-#			else:
-#				sprite.animation = "attack"
-#				$Sword/CollisionShape2D.disabled = false
-#			sword_sprite.frame = 0
-#			attacking = true
-#
-#		yield(sprite, "animation_finished")
-#		attacking = false
-#		$Sword/CollisionShape2D.disabled = true
 		
 	# otherwise, do an air attack!
 	elif in_the_air:
 		get_input()
 		if attacking == false:
 			create_swoosh()
-			sprite.animation = "ground_swoosh_attack"
+			sprite.animation = "air_swoosh_attack"
 			attacking = true
-		yield(sprite, "animation_finished")
-		attacking = false
-		GameSwitches.state = GameSwitches.NORMAL
+			air_attacking = true
+		if is_on_floor():
+			emit_signal("touch_floor")
+			in_the_air = false
+			air_attacking = false
+			attacking = false
+			GameSwitches.state = GameSwitches.NORMAL
+		else:
+			yield(sprite, "animation_finished")
+			air_attacking = false
+			attacking = false
+			GameSwitches.state = GameSwitches.NORMAL
+		
 
 func create_swoosh():
 	var air_swoosh = air_swoosh_scene.instance()

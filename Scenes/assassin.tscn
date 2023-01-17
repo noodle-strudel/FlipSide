@@ -20,6 +20,22 @@
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18, 24 )
 
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 11 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 11 )
+region = Rect2( 48, 0, 16, 16 )
+
 [sub_resource type="AtlasTexture" id=47]
 atlas = ExtResource( 11 )
 region = Rect2( 0, 0, 16, 16 )
@@ -36,21 +52,21 @@ region = Rect2( 32, 0, 16, 16 )
 atlas = ExtResource( 11 )
 region = Rect2( 48, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=60]
+[sub_resource type="AtlasTexture" id=63]
 atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 11 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 11 )
 region = Rect2( 32, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=63]
+[sub_resource type="AtlasTexture" id=61]
 atlas = ExtResource( 11 )
-region = Rect2( 48, 0, 16, 16 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 10 )
@@ -95,22 +111,6 @@ region = Rect2( 16, 0, 16, 16 )
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 7 )
 region = Rect2( 32, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 11 )
-region = Rect2( 16, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 11 )
-region = Rect2( 32, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 11 )
-region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 8 )
@@ -222,12 +222,17 @@ region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
+"frames": [ SubResource( 59 ), SubResource( 58 ), SubResource( 58 ), SubResource( 58 ), SubResource( 57 ), SubResource( 56 ) ],
+"loop": true,
+"name": "air_swoosh_attack",
+"speed": 16.0
+}, {
 "frames": [ SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ) ],
 "loop": false,
 "name": "attack",
 "speed": 16.0
 }, {
-"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ) ],
+"frames": [ SubResource( 63 ), SubResource( 62 ), SubResource( 61 ), SubResource( 60 ) ],
 "loop": false,
 "name": "charge_attack",
 "speed": 8.0
@@ -326,8 +331,7 @@ shape = SubResource( 2 )
 position = Vector2( 0, -24 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
-animation = "charge_attack"
-frame = 3
+animation = "air_swoosh_attack"
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
