@@ -250,14 +250,12 @@ func attack():
 					create_swoosh()
 					sprite.animation = "ground_swoosh_attack"
 					charging_attack = false
-					$Sword/CollisionShape2D.disabled = false
 					sword_sprite.frame = 0
 					attacking = true
 				yield(sprite, "animation_finished")
 				charged_up = false
 				attacking = false
 				GameSwitches.state = GameSwitches.NORMAL
-				$Sword/CollisionShape2D.disabled = true
 		
 	# otherwise, do an air attack!
 	elif in_the_air:
