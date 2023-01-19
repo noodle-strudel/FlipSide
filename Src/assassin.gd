@@ -85,16 +85,16 @@ func _physics_process(delta):
 		if velocity.x > 0:
 			sprite.flip_h = false
 			sword_sprite.flip_h = false
-			$Sword/CollisionShape2D.position.x = 45
-			sword_sprite.position.x = 48
+			$Sword/CollisionShape2D.position.x = 56
+			sword_sprite.position.x = 64
 			direction = "right"
 
 		# going backward
 		elif velocity.x < 0:
 			sprite.flip_h = true
 			sword_sprite.flip_h = true
-			$Sword/CollisionShape2D.position.x = -45
-			sword_sprite.position.x = -48
+			$Sword/CollisionShape2D.position.x = -56
+			sword_sprite.position.x = -64
 			direction = "left"
 
 		if Input.is_action_just_pressed("jump"):

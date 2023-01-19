@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_before_or_after_jump_srip_2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_death_anim_strip_8.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_attack_anim_strip_4(new).png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_sword_attack_anim_strip_4.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/sword_effect_strip_4(new).png" type="Texture" id=13]
 [ext_resource path="res://SFX/pushMove.wav" type="AudioStream" id=14]
 [ext_resource path="res://SFX/jumpBound.wav" type="AudioStream" id=15]
@@ -18,7 +19,7 @@
 [ext_resource path="res://SFX/deadDie.wav" type="AudioStream" id=17]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 18, 24 )
+extents = Vector2( 24, 32 )
 
 [sub_resource type="AtlasTexture" id=59]
 atlas = ExtResource( 11 )
@@ -289,8 +290,8 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=46]
-radius = 16.0
-height = 16.0
+radius = 17.0001
+height = 39.9998
 
 [sub_resource type="AtlasTexture" id=51]
 atlas = ExtResource( 13 )
@@ -324,14 +325,15 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -24 )
+position = Vector2( 0, -32 )
 shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -24 )
-scale = Vector2( 3, 3 )
+position = Vector2( 0, -32 )
+scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
-animation = "air_swoosh_attack"
+animation = "idle"
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -353,19 +355,19 @@ __meta__ = {
 }
 
 [node name="Sword" type="Area2D" parent="."]
-position = Vector2( 0, -16 )
+position = Vector2( 0, -24 )
 collision_layer = 16
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
-position = Vector2( 45, 0 )
+position = Vector2( 56, 0 )
 rotation = 1.57079
 shape = SubResource( 46 )
 disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sword"]
-position = Vector2( 48, -8 )
-scale = Vector2( 3, 3 )
+position = Vector2( 64, -8 )
+scale = Vector2( 4, 4 )
 frames = SubResource( 55 )
 animation = "swoosh"
 frame = 4
@@ -398,6 +400,14 @@ pitch_scale = 0.9
 stream = ExtResource( 15 )
 volume_db = -20.0
 pitch_scale = 1.2
+
+[node name="HerocharAttackAnimStrip4(new)" type="Sprite" parent="."]
+visible = false
+position = Vector2( 32, -32 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 12 )
+hframes = 4
+frame = 1
 
 [connection signal="timeout" from="HitPauseTimer" to="." method="_on_HitPauseTimer_timeout"]
 [connection signal="body_entered" from="Sword" to="." method="_on_Sword_body_entered"]
