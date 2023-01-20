@@ -39,8 +39,6 @@ var prev_y_velocity
 # current direction
 var direction = "right"
 
-# if you hit a hostile enemy's head
-var was_on_enemy_head = false
 func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
 	GameSwitches.health = 3
@@ -53,7 +51,6 @@ func get_input():
 		velocity.x -= speed
 
 func _physics_process(delta):
-	print(GameSwitches.state)
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -61,42 +58,26 @@ func _physics_process(delta):
 		prev_x_velocity = velocity.x
 	if velocity.y != 0:
 		prev_y_velocity = velocity.y
-
+	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
 #		print("I collided with ", collision.collider.name)
 		if collision.collider.is_in_group("enemy"):
 			GameSwitches.state = GameSwitches.HIT
-		# it is now touching some sort of ground so it  
-		else:
-			was_on_enemy_head = false
-
+		
 	if GameSwitches.state == GameSwitches.DED:
 		ded()
+		print("dead state")
 	elif GameSwitches.state == GameSwitches.HIT:
 		hit()
+		print("hit state")
 	elif GameSwitches.state == GameSwitches.ATTACK:
 		attack()
 	elif GameSwitches.state == GameSwitches.NORMAL:
 		print("normal state")
 		get_input()
-
-		# going forward
-		if velocity.x > 0:
-			sprite.flip_h = false
-			sword_sprite.flip_h = false
-			$Sword/CollisionShape2D.position.x = 56
-			sword_sprite.position.x = 64
-			direction = "right"
-
-		# going backward
-		elif velocity.x < 0:
-			sprite.flip_h = true
-			sword_sprite.flip_h = true
-			$Sword/CollisionShape2D.position.x = -56
-			sword_sprite.position.x = -64
-			direction = "left"
-
+		determine_direction()
+		
 		if Input.is_action_just_pressed("jump"):
 			if is_on_floor():
 				emit_signal("jumped")
@@ -106,7 +87,6 @@ func _physics_process(delta):
 				velocity.y = jump_speed
 				double_jump = true
 			
-
 			elif double_jump == true:
 				emit_signal("jumped")
 				emit_signal("air_jumped")
@@ -116,15 +96,34 @@ func _physics_process(delta):
 				has_jumped = true
 		elif Input.is_action_pressed("attack"):
 			GameSwitches.state = GameSwitches.ATTACK
-		# if just directional keys are beign pressed
+			
+		# if just directional keys are being pressed
 		else:
 			# animation logic and current state
 			if is_on_floor() and is_on_wall():
 				push(delta);
 			elif is_on_floor():
+				print("brugh")
 				on_floor(delta);
 			else:
 				in_air(delta);
+
+func determine_direction():
+	# going forward
+	if velocity.x > 0 or Input.is_action_pressed("ui_right"):
+		sprite.flip_h = false
+		sword_sprite.flip_h = false
+		$Sword/CollisionShape2D.position.x = 56
+		sword_sprite.position.x = 64
+		direction = "right"
+
+	# going backward
+	elif velocity.x < 0 or Input.is_action_pressed("ui_left"):
+		sprite.flip_h = true
+		sword_sprite.flip_h = true
+		$Sword/CollisionShape2D.position.x = -56
+		sword_sprite.position.x = -64
+		direction = "left"
 
 func on_floor(delta):
 	# when you touch the floor, you are no longer jumping
@@ -139,8 +138,7 @@ func on_floor(delta):
 		# wait for the animation to emit signal "animation_finished" to continue
 		yield(sprite, "animation_finished")
 
-	""""""
-	if in_the_air == false:
+	if in_the_air == false and GameSwitches.state == GameSwitches.NORMAL:
 		if velocity.x == 0:
 			sprite.animation = "idle"
 		else:
@@ -165,6 +163,7 @@ func in_air(delta):
 func push(delta):
 	in_the_air = false
 	sprite.animation = "push"
+	
 func hit():
 	if hurting == false:
 		GameSwitches.health -= 1
@@ -174,8 +173,10 @@ func hit():
 			velocity.x = -500
 
 		if prev_y_velocity > 0:
-			was_on_enemy_head = true
-			velocity.y = -600
+			if GameSwitches.health <= 0:
+				velocity.y = -6000
+			else:
+				velocity.y = -600
 		hurting = true
 
 		$HitPauseTimer.start()
@@ -190,25 +191,34 @@ func hit():
 
 	sprite.animation = "hit"
 	
+	print(GameSwitches.health, " health,")
 	# prevents the character from going back to a normal state if, per se, it hits the side of the enemy right as it
-	if is_on_floor() and was_on_enemy_head == false:
-		if GameSwitches.health <= 0:
-			GameSwitches.state = GameSwitches.DED
-		else:
-			GameSwitches.state = GameSwitches.NORMAL
-			hurting = false
 
 func _on_HitPauseTimer_timeout():
 	get_tree().paused = false
+	$RecoverTimer.start()
+
+func _on_RecoverTimer_timeout():
+	if GameSwitches.health <= 0:
+		GameSwitches.state = GameSwitches.DED
+	else:
+		GameSwitches.state = GameSwitches.NORMAL
+	hurting = false
 
 func ded():
+	print("dead???")
 	velocity = Vector2.ZERO
 	sprite.animation = "ded"
 	if dead == false:
 		$deadDie.play()
 		dead = true
+	
+	
 	yield(sprite, "animation_finished")
-	emit_signal("ded")
+	if sprite.animation == "ded":
+		print("emitted signal ded")
+		emit_signal("ded")
+	
 
 func attack():
 	print("pressing attack")
@@ -233,7 +243,6 @@ func attack():
 				attacking = false
 				charging_attack = false
 				charged_up = false
-				print("switched to normal from ground")
 				GameSwitches.state = GameSwitches.NORMAL
 				$Sword/CollisionShape2D.disabled = true
 				
@@ -244,7 +253,7 @@ func attack():
 				GameSwitches.state = GameSwitches.ATTACK
 
 		elif charged_up == true:
-#			get_input()
+			determine_direction()
 			if Input.is_action_just_released("attack"):
 				if attacking == false:
 					create_swoosh()

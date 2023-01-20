@@ -1,5 +1,6 @@
 extends Control
 
+signal respawn
 
 func _ready():
 	pass # Replace with function body.
@@ -9,4 +10,4 @@ func _process(delta):
 
 
 func _on_Button_pressed():
-	get_tree().reload_current_scene()
+	emit_signal("respawn")
