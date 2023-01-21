@@ -4,8 +4,10 @@ signal hit
 var dust_resource = preload("res://Scenes/dust.tscn")
 
 func _ready():
-	BackgroundMusic.stream = Music.chip_joy
+	BackgroundMusic.stream = Music.chip_joy_loop
 	BackgroundMusic.playing = true
+
+
 
 func _on_Assassin_jumped():
 	pass
