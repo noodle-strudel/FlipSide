@@ -4,5 +4,7 @@ enum {NORMAL, HIT, DED, ATTACK}
 var state
 var health
 var assassin_spawnpoint: Vector2
+var gonna_flip = false
+var flipped = false
 func _ready():
 	pass

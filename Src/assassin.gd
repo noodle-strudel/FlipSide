@@ -20,6 +20,9 @@ export var has_jumped = false
 export var hurting = false
 export var dead = false
 export var attacking = false
+
+# if the last thing you did was an air attack and you touched the ground, it will
+# not start attacking again when you dont press the button.
 export var air_attacking = false
 export var charging_attack = false
 export var charged_up = false
@@ -43,13 +46,7 @@ func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
 	GameSwitches.health = 3
 
-func get_input():
-	velocity.x = 0
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += speed
-	if Input.is_action_pressed("ui_left"):
-		velocity.x -= speed
-
+"""RAN EVERY FRAME"""
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -64,7 +61,8 @@ func _physics_process(delta):
 #		print("I collided with ", collision.collider.name)
 		if collision.collider.is_in_group("enemy"):
 			GameSwitches.state = GameSwitches.HIT
-		
+	
+	# state logic (will replace with a switch eventually)
 	if GameSwitches.state == GameSwitches.DED:
 		ded()
 		print("dead state")
@@ -78,6 +76,7 @@ func _physics_process(delta):
 		get_input()
 		determine_direction()
 		
+		# you can jump when you are in normal state
 		if Input.is_action_just_pressed("jump"):
 			if is_on_floor():
 				emit_signal("jumped")
@@ -94,20 +93,31 @@ func _physics_process(delta):
 				$jumpBound2.play()
 				double_jump = false
 				has_jumped = true
+		
+		# transition to attack state
 		elif Input.is_action_pressed("attack"):
 			GameSwitches.state = GameSwitches.ATTACK
 			
 		# if just directional keys are being pressed
 		else:
-			# animation logic and current state
 			if is_on_floor() and is_on_wall():
 				push(delta);
 			elif is_on_floor():
-				print("brugh")
 				on_floor(delta);
 			else:
 				in_air(delta);
+""""""
 
+"""LEFT & RIGHT INPUT"""
+func get_input():
+	velocity.x = 0
+	if Input.is_action_pressed("ui_right"):
+		velocity.x += speed
+	if Input.is_action_pressed("ui_left"):
+		velocity.x -= speed
+""""""
+
+"""NORMAL STATE FUNCTIONS"""
 func determine_direction():
 	# going forward
 	if velocity.x > 0 or Input.is_action_pressed("ui_right"):
@@ -163,7 +173,9 @@ func in_air(delta):
 func push(delta):
 	in_the_air = false
 	sprite.animation = "push"
-	
+""""""
+
+"""HIT STATE"""
 func hit():
 	if hurting == false:
 		GameSwitches.health -= 1
@@ -195,6 +207,8 @@ func hit():
 	# prevents the character from going back to a normal state if, per se, it hits the side of the enemy right as it
 
 func _on_HitPauseTimer_timeout():
+	if GameSwitches.health <= 0:
+		$Car.show()
 	get_tree().paused = false
 	$RecoverTimer.start()
 
@@ -204,7 +218,9 @@ func _on_RecoverTimer_timeout():
 	else:
 		GameSwitches.state = GameSwitches.NORMAL
 	hurting = false
+""""""
 
+"""DED STATE"""
 func ded():
 	print("dead???")
 	velocity = Vector2.ZERO
@@ -218,10 +234,12 @@ func ded():
 	if sprite.animation == "ded":
 		print("emitted signal ded")
 		emit_signal("ded")
-	
+""""""
 
+"""ATTACK STATE"""
 func attack():
 	print("pressing attack")
+	
 	# ground attack when on the ground
 	if is_on_floor() and air_attacking == false:
 		in_the_air = false
@@ -285,7 +303,6 @@ func attack():
 			air_attacking = false
 			attacking = false
 			GameSwitches.state = GameSwitches.NORMAL
-		
 
 func create_swoosh():
 	var air_swoosh = air_swoosh_scene.instance()
@@ -311,3 +328,4 @@ func _on_Sword_body_entered(body):
 	# we now can make it so the position of the hit_sparkle is at the location where the ray hit something
 	hit_sparkle.position = result.position
 	get_parent().add_child(hit_sparkle)
+""""""

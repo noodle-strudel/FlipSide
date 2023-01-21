@@ -9,6 +9,31 @@ func _ready():
 	BackgroundMusic.stream = Music.chip_joy
 	BackgroundMusic.playing = true
 
+func _physics_process(delta):
+	if Input.is_action_pressed("flip"):
+		GameSwitches.gonna_flip = true
+	
+	if GameSwitches.gonna_flip == true:
+		do_a_flip()
+
+func do_a_flip():
+	if Input.is_action_just_released("flip"):
+		if GameSwitches.flipped == false:
+			$"Level Terrain".collision_mask = 0b0000
+			$"Level Terrain Flip".collision_mask = 0b1101
+			
+			$"Level Terrain".hide()
+			$"Level Terrain Flip".show()
+			GameSwitches.flipped = true
+		else:
+			$"Level Terrain Flip".collision_mask = 0b0000
+			$"Level Terrain".collision_mask = 0b1101
+			
+			$"Level Terrain".show()
+			$"Level Terrain Flip".hide()
+			GameSwitches.flipped = false
+		GameSwitches.gonna_flip = false
+
 func _on_Assassin_jumped():
 	pass
 
