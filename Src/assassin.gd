@@ -245,11 +245,14 @@ func attack():
 		in_the_air = false
 		velocity = Vector2.ZERO
 		
+		# when you hold down attack button
 		if charged_up == false:
 			if charging_attack == false:
+				# start charing animation
 				sprite.animation = "charge_attack"
 				charging_attack = true
-				
+			
+			# if you release the attack button, do a normal attack
 			if Input.is_action_just_released("attack"):
 				print("normal attack")
 				if attacking == false:
@@ -265,11 +268,14 @@ func attack():
 				$Sword/CollisionShape2D.disabled = true
 				
 			yield(sprite, "animation_finished")
+			
+			# if you held dwon the attack button the whole time the whole time
 			if charging_attack == true:
 				charged_up = true
 				charging_attack == false
 				GameSwitches.state = GameSwitches.ATTACK
-
+				
+		# now you have your charge!
 		elif charged_up == true:
 			determine_direction()
 			if Input.is_action_just_released("attack"):

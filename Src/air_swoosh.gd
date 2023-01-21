@@ -28,6 +28,8 @@ func _physics_process(delta):
 			var tile_pos: Vector2
 			
 			# tilemaps have local coordinates and im making the coordinates scene coordinates instead of tilemap coordinates
+			
+			# the ray will shoot into the tile instead of right next to it
 			if $Sprite.flip_h == true:
 				tile_pos = to_global(collision.collider.map_to_world(collision.collider.position)) - collision.collider.cell_size
 			else:

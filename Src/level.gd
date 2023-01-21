@@ -2,6 +2,10 @@ extends Node
 
 var dust_resource = preload("res://Scenes/dust.tscn")
 
+var terrain = preload("res://Assets/Tileset/DeepForestPackNA/Tileset/DeepForestTilesetTerrain.png")
+var flip_original = preload("res://Assets/Tileset/DeepForestPackNA/Tileset/flip_original_world_tileset.png")
+var flip_warp = preload("res://Assets/Tileset/DeepForestPackNA/Tileset/flip_warp_world_tileset.png")
+
 func _ready():
 	GameSwitches.assassin_spawnpoint = Vector2(200, 80)
 	$Assassin.position = GameSwitches.assassin_spawnpoint
@@ -17,19 +21,26 @@ func _physics_process(delta):
 		do_a_flip()
 
 func do_a_flip():
+	if GameSwitches.flipped == false:
+		print($"Level Terrain Flip".tile_set.get_tiles_ids())
+		$"Level Terrain Flip".tile_set.tile_set_texture(0, flip_warp)
+		$"Level Terrain Flip".show()
+	else:
+		$"Level Terrain".tile_set.tile_set_texture(0, flip_original)
+		$"Level Terrain".show()
 	if Input.is_action_just_released("flip"):
 		if GameSwitches.flipped == false:
 			$"Level Terrain".collision_mask = 0b0000
 			$"Level Terrain Flip".collision_mask = 0b1101
-			
+			$"Level Terrain Flip".tile_set.tile_set_texture(0, terrain)
 			$"Level Terrain".hide()
-			$"Level Terrain Flip".show()
+			
 			GameSwitches.flipped = true
 		else:
 			$"Level Terrain Flip".collision_mask = 0b0000
 			$"Level Terrain".collision_mask = 0b1101
+			$"Level Terrain".tile_set.tile_set_texture(0, terrain)
 			
-			$"Level Terrain".show()
 			$"Level Terrain Flip".hide()
 			GameSwitches.flipped = false
 		GameSwitches.gonna_flip = false
