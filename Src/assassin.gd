@@ -11,7 +11,7 @@ onready var hit_sparkle_scene = preload("res://Scenes/hit_sparkle.tscn")
 
 export (int) var speed = 500
 export (int) var jump_speed = -1000
-export (int) var gravity = 3000
+export (int) var gravity = 2300
 export (Vector2) var velocity = Vector2.ZERO
 
 # keeping track of states
@@ -335,3 +335,7 @@ func _on_Sword_body_entered(body):
 	hit_sparkle.position = result.position
 	get_parent().add_child(hit_sparkle)
 """"""
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	GameSwitches.state = GameSwitches.DED
