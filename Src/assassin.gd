@@ -63,6 +63,8 @@ func _physics_process(delta):
 			GameSwitches.state = GameSwitches.HIT
 	
 	# state logic (will replace with a switch eventually)
+	if GameSwitches.state == GameSwitches.RECOVER:
+		revive()
 	if GameSwitches.state == GameSwitches.DED:
 		ded()
 		print("dead state")
@@ -207,8 +209,6 @@ func hit():
 	# prevents the character from going back to a normal state if, per se, it hits the side of the enemy right as it
 
 func _on_HitPauseTimer_timeout():
-	if GameSwitches.health <= 0:
-		$Car.show()
 	get_tree().paused = false
 	$RecoverTimer.start()
 
@@ -336,6 +336,9 @@ func _on_Sword_body_entered(body):
 	get_parent().add_child(hit_sparkle)
 """"""
 
-
+"""REVIVE STATE"""
+func revive():
+	sprite.animation = "recover"
 func _on_VisibilityNotifier2D_screen_exited():
-	GameSwitches.state = GameSwitches.DED
+	if GameSwitches.state != GameSwitches.HIT:
+		GameSwitches.state = GameSwitches.DED

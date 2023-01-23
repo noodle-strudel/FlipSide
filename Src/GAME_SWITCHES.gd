@@ -1,6 +1,6 @@
 extends Node
 
-enum {NORMAL, HIT, DED, ATTACK}
+enum {NORMAL, HIT, DED, ATTACK, REVIVE}
 var state
 var health
 var assassin_spawnpoint: Vector2

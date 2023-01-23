@@ -22,7 +22,6 @@ func _physics_process(delta):
 
 func do_a_flip():
 	if GameSwitches.flipped == false:
-		print($"Level Terrain Flip".tile_set.get_tiles_ids())
 		$"Level Terrain Flip".tile_set.tile_set_texture(0, flip_warp)
 		$"Level Terrain Flip".show()
 	else:
