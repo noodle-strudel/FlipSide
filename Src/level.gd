@@ -11,7 +11,7 @@ func _ready():
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	
 	BackgroundMusic.stream = Music.chip_joy
-	BackgroundMusic.playing = true
+	BackgroundMusic.playing = false
 
 func _physics_process(delta):
 	if Input.is_action_pressed("flip"):

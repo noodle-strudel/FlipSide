@@ -63,7 +63,7 @@ func _physics_process(delta):
 			GameSwitches.state = GameSwitches.HIT
 	
 	# state logic (will replace with a switch eventually)
-	if GameSwitches.state == GameSwitches.RECOVER:
+	if GameSwitches.state == GameSwitches.REVIVE:
 		revive()
 	if GameSwitches.state == GameSwitches.DED:
 		ded()
