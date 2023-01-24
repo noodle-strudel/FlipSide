@@ -11,7 +11,7 @@ func _ready():
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	
 	BackgroundMusic.stream = Music.chip_joy
-	BackgroundMusic.playing = true
+	BackgroundMusic.playing = false
 
 func _physics_process(delta):
 	if Input.is_action_pressed("flip"):
@@ -27,6 +27,7 @@ func do_a_flip():
 	else:
 		$"Level Terrain".tile_set.tile_set_texture(0, flip_original)
 		$"Level Terrain".show()
+
 	if Input.is_action_just_released("flip"):
 		if GameSwitches.flipped == false:
 			$"Level Terrain".collision_mask = 0b0000
@@ -66,7 +67,8 @@ func _on_Assassin_air_jumped():
 
 func _on_HUD_respawn():
 	$Assassin.position = GameSwitches.assassin_spawnpoint
-	GameSwitches.state = GameSwitches.NORMAL
+	GameSwitches.state = GameSwitches.REVIVE
 	GameSwitches.health = 3
 	$Assassin.dead = false
+	$Assassin.reviving = true
 	$CanvasLayer/HUD/Retry.hide()
