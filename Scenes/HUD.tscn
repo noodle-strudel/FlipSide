@@ -34,15 +34,23 @@ bbcode_enabled = true
 bbcode_text = "Retry?"
 text = "Retry?"
 
-[node name="Button" type="Button" parent="Retry"]
-anchor_left = 0.5
+[node name="VBoxContainer" type="VBoxContainer" parent="Retry"]
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -64.0
-margin_top = -10.0
-margin_right = 64.0
-margin_bottom = 10.0
+margin_top = -22.0
+margin_bottom = 22.0
+
+[node name="Retry" type="Button" parent="Retry/VBoxContainer"]
+margin_right = 147.0
+margin_bottom = 20.0
 text = "Retry"
 
-[connection signal="pressed" from="Retry/Button" to="." method="_on_Button_pressed"]
+[node name="Menu" type="Button" parent="Retry/VBoxContainer"]
+margin_top = 24.0
+margin_right = 147.0
+margin_bottom = 44.0
+text = "Main Menu"
+
+[connection signal="pressed" from="Retry/VBoxContainer/Retry" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Retry/VBoxContainer/Menu" to="." method="_on_Menu_pressed"]

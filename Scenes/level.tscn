@@ -129,7 +129,7 @@ collision_layer = 4
 collision_mask = 11
 
 [node name="Assassin" parent="." instance=ExtResource( 1 )]
-position = Vector2( 200, 80 )
+position = Vector2( 58, 67 )
 collision_mask = 6
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

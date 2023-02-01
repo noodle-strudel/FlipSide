@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Select.mp3-bf1e270267d9f0d062f39ec29ce61e78.mp3str"
+
+[deps]
+
+source_file="res://SFX/Select.mp3"
+dest_files=[ "res://.import/Select.mp3-bf1e270267d9f0d062f39ec29ce61e78.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

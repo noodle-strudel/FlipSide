@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/options.gd" type="Script" id=1]
+[ext_resource path="res://SFX/changeSwitch.wav" type="AudioStream" id=2]
+[ext_resource path="res://SFX/clickChoose.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/IdeaOptionBack.png" type="Texture" id=4]
+
+[node name="Options" type="Popup"]
+anchor_left = 0.156
+anchor_top = 0.08
+anchor_right = 0.836
+anchor_bottom = 0.907
+margin_left = 0.255997
+margin_right = -0.0640259
+margin_bottom = -0.200012
+script = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = -0.028
+anchor_right = 1.034
+anchor_bottom = 1.012
+margin_left = 0.488001
+margin_right = 0.335999
+margin_bottom = 0.0479736
+texture = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_top = 0.403
+anchor_right = 0.368
+anchor_bottom = 0.597
+margin_top = 0.111984
+margin_right = -0.128021
+margin_bottom = -0.112
+
+[node name="Video" type="Button" parent="VBoxContainer"]
+margin_right = 256.0
+margin_bottom = 20.0
+text = "Video"
+
+[node name="Audio" type="Button" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 256.0
+margin_bottom = 44.0
+text = "Audio"
+
+[node name="Gameplay" type="Button" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 256.0
+margin_bottom = 68.0
+text = "Gameplay"
+
+[node name="Main Menu" type="Button" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 256.0
+margin_bottom = 92.0
+text = "Main Menu"
+
+[node name="changeSwitch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -10.0
+
+[node name="clickChoose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[connection signal="mouse_entered" from="VBoxContainer/Video" to="." method="_on_Video_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Video" to="." method="_on_Video_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Audio" to="." method="_on_Audio_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Audio" to="." method="_on_Audio_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Gameplay" to="." method="_on_Gameplay_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Gameplay" to="." method="_on_Gameplay_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Main Menu" to="." method="_on_Main_Menu_pressed"]
