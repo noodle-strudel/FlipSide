@@ -206,6 +206,8 @@ func ded():
 	sprite.animation = "ded"
 	if dead == false:
 		$deadDie.play()
+		BackgroundMusic.playing = false
+		$"Oh No, You Died".play()
 		dead = true
 	yield(sprite, "animation_finished")
 	emit_signal("ded")
