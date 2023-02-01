@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="FlipSide"
-run/main_scene="res://Scenes/level.tscn"
+run/main_scene="res://Scenes/menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
