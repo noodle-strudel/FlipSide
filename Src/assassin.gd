@@ -20,6 +20,7 @@ export var has_jumped = false
 export var hurting = false
 export var dead = false
 export var attacking = false
+export var reviving = false
 
 # if the last thing you did was an air attack and you touched the ground, it will
 # not start attacking again when you dont press the button.
@@ -222,7 +223,6 @@ func _on_RecoverTimer_timeout():
 
 """DED STATE"""
 func ded():
-	print("dead???")
 	velocity = Vector2.ZERO
 	sprite.animation = "ded"
 	if dead == false:
@@ -338,7 +338,12 @@ func _on_Sword_body_entered(body):
 
 """REVIVE STATE"""
 func revive():
-	sprite.animation = "recover"
+	$AnimationPlayer.play("recover")
+	GameSwitches.state = GameSwitches.NORMAL
+	yield($AnimationPlayer, "animation_finished")
+	reviving = false
+
 func _on_VisibilityNotifier2D_screen_exited():
-	if GameSwitches.state != GameSwitches.HIT:
+	if GameSwitches.state != GameSwitches.HIT and reviving == false:
 		GameSwitches.state = GameSwitches.DED
+		GameSwitches.health = 0

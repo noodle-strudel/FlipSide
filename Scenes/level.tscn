@@ -6329,10 +6329,6 @@ collision_mask = 11
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
-margin_left = -312.0
-margin_top = -224.0
-margin_right = -312.0
-margin_bottom = -224.0
 
 [node name="Level Terrain" type="TileMap" parent="."]
 position = Vector2( 3, 1 )
