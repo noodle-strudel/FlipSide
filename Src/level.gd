@@ -29,6 +29,7 @@ func do_a_flip():
 		$"Level Terrain".show()
 
 	if Input.is_action_just_released("flip"):
+		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
 			$"Level Terrain".collision_mask = 0b0000
 			$"Level Terrain Flip".collision_mask = 0b1101

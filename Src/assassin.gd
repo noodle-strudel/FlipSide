@@ -61,21 +61,22 @@ func _physics_process(delta):
 		var collision = get_slide_collision(index)
 #		print("I collided with ", collision.collider.name)
 		if collision.collider.is_in_group("enemy"):
-			GameSwitches.state = GameSwitches.HIT
+			if "Spike" in collision.collider.name and GameSwitches.flipped == true:
+				velocity.y = jump_speed
+			else:
+				print(collision.collider.name)
+				GameSwitches.state = GameSwitches.HIT
 	
 	# state logic (will replace with a switch eventually)
 	if GameSwitches.state == GameSwitches.REVIVE:
 		revive()
 	if GameSwitches.state == GameSwitches.DED:
 		ded()
-		print("dead state")
 	elif GameSwitches.state == GameSwitches.HIT:
 		hit()
-		print("hit state")
 	elif GameSwitches.state == GameSwitches.ATTACK:
 		attack()
 	elif GameSwitches.state == GameSwitches.NORMAL:
-		print("normal state")
 		get_input()
 		determine_direction()
 		
