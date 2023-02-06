@@ -200,6 +200,8 @@ func hit():
 		# plays sound when hit
 		$hitHurt.play()
 		
+		sprite.frame = 0
+		
 		# literally pauses the game!
 		get_tree().paused = true
 		
