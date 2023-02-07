@@ -22,12 +22,14 @@ func _physics_process(delta):
 			do_a_flip()
 
 func do_a_flip():
+	# Blank for now until we want something special to happen while we hold down the flip button
 	if GameSwitches.flipped == false:
-		$"Level Terrain Flip".tile_set.tile_set_texture(0, flip_warp)
-		$"Level Terrain Flip".show()
-	else:
-		$"Level Terrain".tile_set.tile_set_texture(0, flip_original)
-		$"Level Terrain".show()
+		pass
+#		$"Level Terrain Flip".tile_set.tile_set_texture(0, flip_warp)
+#	else:
+#		$"Level Terrain".tile_set.tile_set_texture(0, flip_original)
+		
+		
 
 	if Input.is_action_just_released("flip"):
 		get_tree().call_group("enemy", "flip")
@@ -35,6 +37,7 @@ func do_a_flip():
 			$"Level Terrain".collision_mask = 0b0000
 			$"Level Terrain Flip".collision_mask = 0b1101
 			$"Level Terrain Flip".tile_set.tile_set_texture(0, terrain)
+			$"Level Terrain Flip".show()
 			$"Level Terrain".hide()
 			
 			GameSwitches.flipped = true
@@ -42,8 +45,9 @@ func do_a_flip():
 			$"Level Terrain Flip".collision_mask = 0b0000
 			$"Level Terrain".collision_mask = 0b1101
 			$"Level Terrain".tile_set.tile_set_texture(0, terrain)
-			
+			$"Level Terrain".show()
 			$"Level Terrain Flip".hide()
+			
 			GameSwitches.flipped = false
 		GameSwitches.gonna_flip = false
 
