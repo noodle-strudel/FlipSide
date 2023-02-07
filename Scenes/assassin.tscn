@@ -375,14 +375,13 @@ position = Vector2( 0, -32 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "idle"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 limit_left = 0
 limit_bottom = 600
-limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 10.0
 __meta__ = {
