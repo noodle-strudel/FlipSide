@@ -47,7 +47,7 @@ func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
 	GameSwitches.health = 3
 
-"""RAN EVERY FRAME"""
+"""RAN EVERY FRAME ----------------------------------------------------------"""
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -112,7 +112,7 @@ func _physics_process(delta):
 				in_air(delta);
 """"""
 
-"""LEFT & RIGHT INPUT"""
+"""LEFT & RIGHT INPUT -------------------------------------------------------"""
 func get_input():
 	velocity.x = 0
 	if Input.is_action_pressed("ui_right"):
@@ -179,7 +179,7 @@ func push(delta):
 	sprite.animation = "push"
 """"""
 
-"""HIT STATE"""
+"""HIT STATE ----------------------------------------------------------------"""
 func hit():
 	if hurting == false:
 		GameSwitches.health -= 1
@@ -224,7 +224,7 @@ func _on_RecoverTimer_timeout():
 	hurting = false
 """"""
 
-"""DED STATE"""
+"""DED STATE ----------------------------------------------------------------"""
 func ded():
 	velocity = Vector2.ZERO
 	sprite.animation = "ded"
@@ -239,7 +239,8 @@ func ded():
 		emit_signal("ded")
 """"""
 
-"""ATTACK STATE"""
+"""ATTACK STATE -------------------------------------------------------------"""
+# 
 func attack():
 	print("pressing attack")
 	
@@ -258,11 +259,13 @@ func attack():
 			# if you release the attack button, do a normal attack
 			if Input.is_action_just_released("attack"):
 				print("normal attack")
+				# Plays the animation once so it doesnt repeat itself
 				if attacking == false:
 					sprite.animation = "attack"
 					$Sword/CollisionShape2D.disabled = false
 					sword_sprite.frame = 0
 					attacking = true
+				
 				yield(sprite, "animation_finished")
 				attacking = false
 				charging_attack = false
@@ -329,6 +332,7 @@ func _on_Sword_body_entered(body):
 	var space_state = get_world_2d().direct_space_state
 	
 	# create a ray that starts at the sword's global position and goes to the enemy's global position
+	# the array at the end is what it will not intersect - the assassin
 	var result = space_state.intersect_ray($Sword.global_position, body.global_position, [self])
 	# result is now filled with information about where the ray intersected something
 	
@@ -339,7 +343,7 @@ func _on_Sword_body_entered(body):
 	get_parent().add_child(hit_sparkle)
 """"""
 
-"""REVIVE STATE"""
+"""REVIVE STATE -------------------------------------------------------------"""
 func revive():
 	$AnimationPlayer.play("recover")
 	GameSwitches.state = GameSwitches.NORMAL
