@@ -2,12 +2,12 @@ extends Node
 
 var dust_resource = preload("res://Scenes/dust.tscn")
 
-var terrain = preload("res://Assets/Tileset/DeepForestPackNA/Tileset/DeepForestTilesetTerrain.png")
-var flip_original = preload("res://Assets/Tileset/DeepForestPackNA/Tileset/flip_original_world_tileset.png")
-var flip_warp = preload("res://Assets/Tileset/DeepForestPackNA/Tileset/flip_warp_world_tileset.png")
+var flip_original = preload("res://Assets/Tileset/real_tileset.png")
+var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 
 func _ready():
-	GameSwitches.assassin_spawnpoint = Vector2(200, 80)
+	GameSwitches.can_flip = true
+	GameSwitches.assassin_spawnpoint = Vector2(18400, 8)
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	
 	BackgroundMusic.stream = Music.chip_joy
@@ -34,19 +34,24 @@ func do_a_flip():
 	if Input.is_action_just_released("flip"):
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
-			$"Level Terrain".collision_mask = 0b0000
-			$"Level Terrain Flip".collision_mask = 0b1101
-			$"Level Terrain Flip".tile_set.tile_set_texture(0, terrain)
-			$"Level Terrain Flip".show()
-			$"Level Terrain".hide()
+#			$"Level Terrain".collision_mask = 0b0000
+#			$"Level Terrain Flip".collision_mask = 0b1101
+#			for id in $"Level Terrain".tile_set.get_tiles_ids():
+#				$"Level Terrain".tile_set.tile_set_texture(id, flip_warp)
+			$"Terrain".tile_set.tile_set_texture(0, flip_warp)
+#			$"Level Terrain Flip".show()
+#			$"Level Terrain".hide()
 			
 			GameSwitches.flipped = true
 		else:
-			$"Level Terrain Flip".collision_mask = 0b0000
-			$"Level Terrain".collision_mask = 0b1101
-			$"Level Terrain".tile_set.tile_set_texture(0, terrain)
-			$"Level Terrain".show()
-			$"Level Terrain Flip".hide()
+#			$"Level Terrain Flip".collision_mask = 0b0000
+#			$"Level Terrain".collision_mask = 0b1101
+#			$"Level Terrain".tile_set.tile_set_texture(0, terrain)
+#			for id in $"Level Terrain".tile_set.get_tiles_ids():
+#				$"Level Terrain".tile_set.tile_set_texture(id, flip_original)
+			$"Terrain".tile_set.tile_set_texture(0, flip_original)
+#			$"Level Terrain".show()
+#			$"Level Terrain Flip".hide()
 			
 			GameSwitches.flipped = false
 		GameSwitches.gonna_flip = false

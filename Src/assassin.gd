@@ -64,8 +64,7 @@ func _physics_process(delta):
 			if "Spike" in collision.collider.name and GameSwitches.flipped == true:
 				velocity.y = jump_speed
 			else:
-				print(collision.collider.name)
-				GameSwitches.state = GameSwitches.HIT
+				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 	
 	# state logic (will replace with a switch eventually)
 	if GameSwitches.state == GameSwitches.REVIVE:
