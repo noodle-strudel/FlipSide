@@ -121,7 +121,7 @@ func get_input():
 		velocity.x -= speed
 """"""
 
-"""NORMAL STATE FUNCTIONS"""
+"""NORMAL STATE FUNCTIONS ---------------------------------------------------"""
 func determine_direction():
 	# going forward
 	if velocity.x > 0 or Input.is_action_pressed("ui_right"):
@@ -189,10 +189,7 @@ func hit():
 			velocity.x = -500
 
 		if prev_y_velocity > 0:
-			if GameSwitches.health <= 0:
-				velocity.y = -6000
-			else:
-				velocity.y = -600
+			velocity.y = -600
 		hurting = true
 
 		$HitPauseTimer.start()
@@ -209,7 +206,7 @@ func hit():
 
 	sprite.animation = "hit"
 	
-	print(GameSwitches.health, " health,")
+	print(GameSwitches.health, " health")
 	# prevents the character from going back to a normal state if, per se, it hits the side of the enemy right as it
 
 func _on_HitPauseTimer_timeout():
@@ -231,6 +228,7 @@ func ded():
 	if dead == false:
 		$deadDie.play()
 		dead = true
+		gravity = 0
 	
 	
 	yield(sprite, "animation_finished")
@@ -345,6 +343,7 @@ func _on_Sword_body_entered(body):
 
 """REVIVE STATE -------------------------------------------------------------"""
 func revive():
+	gravity = 2300
 	$AnimationPlayer.play("recover")
 	GameSwitches.state = GameSwitches.NORMAL
 	yield($AnimationPlayer, "animation_finished")
