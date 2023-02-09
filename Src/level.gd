@@ -25,33 +25,16 @@ func do_a_flip():
 	# Blank for now until we want something special to happen while we hold down the flip button
 	if GameSwitches.flipped == false:
 		pass
-#		$"Level Terrain Flip".tile_set.tile_set_texture(0, flip_warp)
-#	else:
-#		$"Level Terrain".tile_set.tile_set_texture(0, flip_original)
 		
-		
-
+	# Flips when they release the button
 	if Input.is_action_just_released("flip"):
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
-#			$"Level Terrain".collision_mask = 0b0000
-#			$"Level Terrain Flip".collision_mask = 0b1101
-#			for id in $"Level Terrain".tile_set.get_tiles_ids():
-#				$"Level Terrain".tile_set.tile_set_texture(id, flip_warp)
 			$"Terrain".tile_set.tile_set_texture(0, flip_warp)
-#			$"Level Terrain Flip".show()
-#			$"Level Terrain".hide()
 			
 			GameSwitches.flipped = true
 		else:
-#			$"Level Terrain Flip".collision_mask = 0b0000
-#			$"Level Terrain".collision_mask = 0b1101
-#			$"Level Terrain".tile_set.tile_set_texture(0, terrain)
-#			for id in $"Level Terrain".tile_set.get_tiles_ids():
-#				$"Level Terrain".tile_set.tile_set_texture(id, flip_original)
 			$"Terrain".tile_set.tile_set_texture(0, flip_original)
-#			$"Level Terrain".show()
-#			$"Level Terrain Flip".hide()
 			
 			GameSwitches.flipped = false
 		GameSwitches.gonna_flip = false
