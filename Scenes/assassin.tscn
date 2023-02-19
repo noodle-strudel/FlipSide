@@ -11,11 +11,13 @@
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_before_or_after_jump_srip_2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_death_anim_strip_8.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_attack_anim_strip_4(new).png" type="Texture" id=11]
+[ext_resource path="res://Music/Oh No, You Died.mp3" type="AudioStream" id=12]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/sword_effect_strip_4(new).png" type="Texture" id=13]
 [ext_resource path="res://SFX/pushMove.wav" type="AudioStream" id=14]
 [ext_resource path="res://SFX/jumpBound.wav" type="AudioStream" id=15]
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=16]
 [ext_resource path="res://SFX/deadDie.wav" type="AudioStream" id=17]
+[ext_resource path="res://SFX/killMurder.wav" type="AudioStream" id=18]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24, 28 )
@@ -425,6 +427,10 @@ position = Vector2( 48, -16 )
 [node name="SwooshLeft" type="Position2D" parent="."]
 position = Vector2( -48, -16 )
 
+[node name="Oh No, You Died" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -20.0
+
 [node name="hitHurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 volume_db = -10.0
@@ -454,6 +460,9 @@ scale = Vector2( 2.45, 0.4 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 68 )
 anims/recover = SubResource( 69 )
+
+[node name="killMurder" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
 
 [connection signal="timeout" from="HitPauseTimer" to="." method="_on_HitPauseTimer_timeout"]
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_RecoverTimer_timeout"]

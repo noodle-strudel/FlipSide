@@ -226,6 +226,8 @@ func ded():
 	sprite.animation = "ded"
 	if dead == false:
 		$deadDie.play()
+		BackgroundMusic.playing = false
+		$"Oh No, You Died".play()
 		dead = true
 		gravity = 0
 	
