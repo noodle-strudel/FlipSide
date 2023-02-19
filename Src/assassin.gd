@@ -200,6 +200,8 @@ func hit():
 		
 		# literally pauses the game!
 		get_tree().paused = true
+		if GameSwitches.health <= 0:
+			BackgroundMusic.playing = false
 		
 		# timer is not paused because its property pause_mode is set to Process even when the game is paused
 
@@ -226,15 +228,12 @@ func ded():
 	sprite.animation = "ded"
 	if dead == false:
 		$deadDie.play()
-		BackgroundMusic.playing = false
-		$"Oh No, You Died".play()
 		dead = true
 		gravity = 0
 	
 	
 	yield(sprite, "animation_finished")
 	if sprite.animation == "ded":
-		print("emitted signal ded")
 		emit_signal("ded")
 """"""
 
