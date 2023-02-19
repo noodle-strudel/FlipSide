@@ -1,5 +1,6 @@
 extends Control
 
+signal respawn
 
 func _ready():
 	pass # Replace with function body.
@@ -7,10 +8,8 @@ func _ready():
 func _process(delta):
 	$RichTextLabel.bbcode_text = "Heath: " + str(GameSwitches.health)
 
-
 func _on_Button_pressed():
-	get_tree().reload_current_scene()
-
+	emit_signal("respawn")
 
 func _on_Menu_pressed():
 	get_tree().change_scene("res://Scenes/menu.tscn")

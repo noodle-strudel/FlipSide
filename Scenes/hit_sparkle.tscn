@@ -31,7 +31,7 @@ animations = [ {
 script = ExtResource( 2 )
 
 [node name="Sparkle" type="AnimatedSprite" parent="."]
-scale = Vector2( 3, 3 )
+scale = Vector2( 4, 4 )
 frames = SubResource( 5 )
 animation = "sparkle"
 
