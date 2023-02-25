@@ -2093,7 +2093,6 @@ collision_layer = 32
 position = Vector2( 6080, -344 )
 collision_layer = 32
 
-[connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
