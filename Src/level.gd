@@ -71,8 +71,28 @@ func _on_HUD_respawn():
 func _on_Flipper_body_entered(body):
 	GameSwitches.can_flip = true
 	$Flipper.queue_free()
+	$CanvasLayer/HUD/ToolTip.show()
+	$CanvasLayer/HUD/ToolTip/XMarksTheSpot.show()
+	yield(get_tree().create_timer(7.0), "timeout")
+	$CanvasLayer/HUD/ToolTip.hide()
+	$CanvasLayer/HUD/ToolTip/XMarksTheSpot.hide()
+	$"Nothing to see here".show()
+	
 
 
 func _on_Health_body_entered(body):
 	GameSwitches.health += 1
 	$Health.queue_free()
+	$CanvasLayer/HUD/ToolTip.show()
+	$CanvasLayer/HUD/ToolTip/RealHumanHearts.show()
+	yield(get_tree().create_timer(5.0), "timeout")
+	$CanvasLayer/HUD/ToolTip.hide()
+	$CanvasLayer/HUD/ToolTip/RealHumanHearts.hide()
+
+
+func _on_Checkpoint_body_entered():
+	$CanvasLayer/HUD/ToolTip.show()
+	$CanvasLayer/HUD/ToolTip/CheckThisOut.show()
+	yield(get_tree().create_timer(5.0), "timeout")
+	$CanvasLayer/HUD/ToolTip.hide()
+	$CanvasLayer/HUD/ToolTip/CheckThisOut.hide()

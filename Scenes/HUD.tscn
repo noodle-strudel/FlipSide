@@ -52,5 +52,43 @@ margin_right = 147.0
 margin_bottom = 44.0
 text = "Main Menu"
 
+[node name="ToolTip" type="Popup" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -248.0
+margin_top = -400.0
+margin_right = 248.0
+margin_bottom = -305.0
+
+[node name="XMarksTheSpot" type="RichTextLabel" parent="ToolTip"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.0
+margin_top = -99.5
+margin_right = 48.0
+margin_bottom = -59.5
+text = "Press X to FLIP"
+
+[node name="RealHumanHearts" type="RichTextLabel" parent="ToolTip"]
+visible = false
+margin_left = 128.0
+margin_top = -48.0
+margin_right = 376.0
+margin_bottom = -8.0
+text = "Collect HEARTS to increase your health"
+
+[node name="CheckThisOut" type="RichTextLabel" parent="ToolTip"]
+visible = false
+margin_left = 104.0
+margin_top = -48.0
+margin_right = 392.0
+margin_bottom = -8.0
+text = "If you die you'll respawn at this CHECKPOINT"
+
 [connection signal="pressed" from="Retry/VBoxContainer/Retry" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Retry/VBoxContainer/Menu" to="." method="_on_Menu_pressed"]
