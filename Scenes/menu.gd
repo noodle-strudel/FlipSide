@@ -42,6 +42,13 @@ func _on_Options_pressed():
 	$CanvasLayer/Options.show()
 
 
+func _on_Credits_pressed():
+	$clickChoose.playing = true
+	yield($clickChoose, "finished")
+	BackgroundMusic.playing = false
+	get_tree().change_scene("res://Scenes/Credits.tscn")
+
+
 # Makes a noise when hovered over
 func _on_NewGame_mouse_entered():
 	$changeSwitch.play()
@@ -57,3 +64,5 @@ func _on_Options_mouse_entered():
 
 func _on_Credits_mouse_entered():
 	$changeSwitch.play()
+
+

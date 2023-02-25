@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/menu.gd" type="Script" id=1]
 [ext_resource path="res://SFX/changeSwitch.wav" type="AudioStream" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/IdeaMenuBack3.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/options.tscn" type="PackedScene" id=8]
 [ext_resource path="res://SFX/clickChoose.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Hell yeah.png" type="Texture" id=10]
 
 [sub_resource type="AnimatedTexture" id=1]
 flags = 4
@@ -91,6 +92,19 @@ volume_db = -10.0
 [node name="clickChoose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 
+[node name="Hell yeah" type="TextureRect" parent="."]
+anchor_left = 0.328
+anchor_top = 0.133
+anchor_right = 0.57
+anchor_bottom = 0.347
+margin_left = -23.872
+margin_top = -55.8
+margin_right = 248.32
+margin_bottom = 95.8
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 1
+
 [connection signal="mouse_entered" from="VBoxContainer/NewGame" to="." method="_on_NewGame_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Continue" to="." method="_on_Continue_mouse_entered"]
@@ -98,5 +112,6 @@ stream = ExtResource( 9 )
 [connection signal="mouse_entered" from="VBoxContainer/Options" to="." method="_on_Options_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_Options_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Credits" to="." method="_on_Credits_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Quit" to="." method="_on_Quit_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

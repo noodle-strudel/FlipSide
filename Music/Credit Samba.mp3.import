@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Credit Samba.mp3-37c1587e0d957be49d0675c109d0eefa.mp3str"
+
+[deps]
+
+source_file="res://Music/Credit Samba.mp3"
+dest_files=[ "res://.import/Credit Samba.mp3-37c1587e0d957be49d0675c109d0eefa.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
