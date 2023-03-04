@@ -6,11 +6,11 @@ var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 
 func _ready():
-	GameSwitches.assassin_spawnpoint = Vector2(200, 8)
+	GameSwitches.assassin_spawnpoint = Vector2(21568, 8)
+	#33600
 	$Assassin.position = GameSwitches.assassin_spawnpoint
-	
-	BackgroundMusic.stream = Music.chip_joy
-	BackgroundMusic.playing = true
+
+	Music.change_music(Music.chip_joy_loop)
 
 func _physics_process(delta):
 	if GameSwitches.can_flip:
@@ -48,6 +48,7 @@ func _on_assassin_touch_floor():
 	add_child(dust)
 
 func _on_Assassin_ded():
+	Music.change_music(Music.you_died)
 	$CanvasLayer/HUD/Retry.show()
 
 
@@ -65,11 +66,7 @@ func _on_HUD_respawn():
 	$Assassin.dead = false
 	$Assassin.reviving = true
 	$CanvasLayer/HUD/Retry.hide()
-
-
-func _on_Flipper_body_entered(body):
-	GameSwitches.can_flip = true
-	$Flipper.queue_free()
+	Music.change_music(Music.chip_joy_loop)
 
 
 func _on_Health_body_entered(body):

@@ -46,9 +46,19 @@ var direction = "right"
 func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
 	GameSwitches.health = 3
+	GameSwitches.coins = 0
 
 """RAN EVERY FRAME ----------------------------------------------------------"""
 func _physics_process(delta):
+	
+	if GameSwitches.falling_into_cave and velocity.y == 0:
+		$"Change Camera Zoom".interpolate_property($Camera2D, "zoom",
+			Vector2(1.5, 1.5), Vector2.ONE, 0.25, 
+			Tween.TRANS_LINEAR, Tween.EASE_OUT)
+		$"Change Camera Zoom".start()
+		GameSwitches.falling_into_cave = false
+		gravity = 2300
+		
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -59,10 +69,12 @@ func _physics_process(delta):
 	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-#		print("I collided with ", collision.collider.name)
-		if collision.collider.is_in_group("enemy"):
+		print("I collided with ", collision.collider.name)
+		if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
 			if "Spike" in collision.collider.name and GameSwitches.flipped == true:
 				velocity.y = jump_speed
+			elif "Anti Coin" in collision.collider.name:
+				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 			else:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 	
@@ -200,6 +212,9 @@ func hit():
 		
 		# literally pauses the game!
 		get_tree().paused = true
+
+		if GameSwitches.health <= 0:
+			BackgroundMusic.playing = false
 		
 		# timer is not paused because its property pause_mode is set to Process even when the game is paused
 
@@ -226,15 +241,12 @@ func ded():
 	sprite.animation = "ded"
 	if dead == false:
 		$deadDie.play()
-		BackgroundMusic.playing = false
-		$"Oh No, You Died".play()
 		dead = true
 		gravity = 0
 	
 	
 	yield(sprite, "animation_finished")
 	if sprite.animation == "ded":
-		print("emitted signal ded")
 		emit_signal("ded")
 """"""
 
@@ -350,7 +362,19 @@ func revive():
 	yield($AnimationPlayer, "animation_finished")
 	reviving = false
 
-func _on_VisibilityNotifier2D_screen_exited():
-	if GameSwitches.state != GameSwitches.HIT and reviving == false:
-		GameSwitches.state = GameSwitches.DED
-		GameSwitches.health = 0
+
+func _on_Bottomless_Pit_body_entered(body):
+	GameSwitches.health = 0
+	BackgroundMusic.playing = false
+	GameSwitches.state = GameSwitches.DED
+
+
+func _on_Cave_Entrance_body_entered(body):
+	GameSwitches.falling_into_cave = true
+	$Camera2D.limit_bottom = 4288
+	$"Change Camera Zoom".interpolate_property($Camera2D, "zoom",
+		Vector2.ONE, Vector2(1.5, 1.5), 0.5, 
+		Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$"Change Camera Zoom".start()
+	gravity = 500
+	velocity.y = 1000
