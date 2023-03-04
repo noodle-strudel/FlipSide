@@ -19,5 +19,7 @@ func _ready():
 func _on_Checkpoint_body_entered(body):
 	GameSwitches.assassin_spawnpoint = global_position
 	$AnimatedSprite.play("saving")
+	$Save.playing = true
+	yield($Save, "finished")
 	yield($AnimatedSprite, "animation_finished")
 	$AnimatedSprite.play("idle")

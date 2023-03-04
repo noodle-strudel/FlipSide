@@ -428,7 +428,7 @@ position = Vector2( -48, -16 )
 
 [node name="hitHurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-volume_db = -10.0
+volume_db = -20.0
 
 [node name="deadDie" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 17 )
@@ -440,12 +440,12 @@ volume_db = -10.0
 
 [node name="jumpBound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
-volume_db = -20.0
+volume_db = -30.0
 pitch_scale = 0.9
 
 [node name="jumpBound2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
-volume_db = -20.0
+volume_db = -28.0
 pitch_scale = 1.2
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
