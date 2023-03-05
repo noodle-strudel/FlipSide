@@ -69,6 +69,5 @@ func _on_HUD_respawn():
 	Music.change_music(Music.chip_joy_loop)
 
 
-func _on_Health_body_entered(body):
-	GameSwitches.health += 1
-	$Health.queue_free()
+func _on_BoundPadLanding_body_entered(body):
+	GameSwitches.state = GameSwitches.NORMAL

@@ -376,6 +376,7 @@ position = Vector2( 0, -32 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "idle"
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -400,6 +401,10 @@ __meta__ = {
 
 [node name="RecoverTimer" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
+
+[node name="BounceDelay" type="Timer" parent="."]
+wait_time = 0.25
 one_shot = true
 
 [node name="Sword" type="Area2D" parent="."]
@@ -464,4 +469,5 @@ anims/recover = SubResource( 69 )
 
 [connection signal="timeout" from="HitPauseTimer" to="." method="_on_HitPauseTimer_timeout"]
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_RecoverTimer_timeout"]
+[connection signal="timeout" from="BounceDelay" to="." method="_on_BounceDelay_timeout"]
 [connection signal="body_entered" from="Sword" to="." method="_on_Sword_body_entered"]

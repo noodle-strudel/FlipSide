@@ -22,6 +22,16 @@ export var dead = false
 export var attacking = false
 export var reviving = false
 
+var can_jump = true
+
+var gonna_jump_on_bounce_pad = false
+var set_position_x
+
+# keeping track of what the assassin collided with
+var collided_with_bouncepad = false
+
+var collided_with_big_bouncepad = false
+
 # if the last thing you did was an air attack and you touched the ground, it will
 # not start attacking again when you dont press the button.
 export var air_attacking = false
@@ -48,7 +58,11 @@ func _ready():
 	GameSwitches.health = 3
 	GameSwitches.coins = 0
 
-"""RAN EVERY FRAME ----------------------------------------------------------"""
+"""
+----------------------------------------------------------------------
+							RAN EVERY FRAME 
+----------------------------------------------------------------------
+"""
 func _physics_process(delta):
 	
 	if GameSwitches.falling_into_cave and velocity.y == 0:
@@ -69,14 +83,27 @@ func _physics_process(delta):
 	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-		print("I collided with ", collision.collider.name)
+#		print("I collided with ", collision.collider.name)
+		
+		collided_with_bouncepad = false
 		if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
 			if "Spike" in collision.collider.name and GameSwitches.flipped == true:
-				velocity.y = jump_speed
+					initiate_bounce_pad(collision)
 			elif "Anti Coin" in collision.collider.name:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 			else:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
+		elif "BigBouncepad" in collision.collider.name:
+			collided_with_big_bouncepad = true
+			if gonna_jump_on_bounce_pad == false and is_on_floor():
+				set_position_x = position.x
+				gonna_jump_on_bounce_pad = true
+				$BounceDelay.start()
+				collision.collider.get_node("AnimationPlayer").play("bounce")
+	
+	if gonna_jump_on_bounce_pad == true and collided_with_big_bouncepad == false:
+		can_jump = false
+		position.x = set_position_x
 	
 	# state logic (will replace with a switch eventually)
 	if GameSwitches.state == GameSwitches.REVIVE:
@@ -91,23 +118,25 @@ func _physics_process(delta):
 		get_input()
 		determine_direction()
 		
+		
 		# you can jump when you are in normal state
 		if Input.is_action_just_pressed("jump"):
-			if is_on_floor():
-				emit_signal("jumped")
-				sprite.animation = "jump_up"
-				$jumpBound.play()
-				has_jumped = true
-				velocity.y = jump_speed
-				double_jump = true
+			if can_jump:
+				if is_on_floor():
+					emit_signal("jumped")
+					sprite.animation = "jump_up"
+					$jumpBound.play()
+					has_jumped = true
+					velocity.y = jump_speed
+					double_jump = true
 			
-			elif double_jump == true:
-				emit_signal("jumped")
-				emit_signal("air_jumped")
-				velocity.y = jump_speed
-				$jumpBound2.play()
-				double_jump = false
-				has_jumped = true
+				elif double_jump == true:
+					emit_signal("jumped")
+					emit_signal("air_jumped")
+					velocity.y = jump_speed
+					$jumpBound2.play()
+					double_jump = false
+					has_jumped = true
 		
 		# transition to attack state
 		elif Input.is_action_pressed("attack"):
@@ -120,8 +149,15 @@ func _physics_process(delta):
 			elif is_on_floor():
 				on_floor(delta);
 			else:
-				in_air(delta);
+				in_air();
 """"""
+
+func initiate_bounce_pad(collision) -> void:
+	if gonna_jump_on_bounce_pad == false and is_on_floor():
+		set_position_x = position.x
+		gonna_jump_on_bounce_pad = true
+		$BounceDelay.start()
+		collision.collider.get_node("AnimationPlayer").play("bounce")
 
 """LEFT & RIGHT INPUT -------------------------------------------------------"""
 func get_input():
@@ -154,8 +190,9 @@ func on_floor(delta):
 	# when you touch the floor, you are no longer jumping
 	has_jumped = false
 	double_jump = false
-	if in_the_air == true:
+	if in_the_air == true and gonna_jump_on_bounce_pad == false:
 		emit_signal("touch_floor")
+	if in_the_air == true:
 		in_the_air = false
 		sprite.animation = "landing"
 	
@@ -169,7 +206,7 @@ func on_floor(delta):
 		else:
 			sprite.animation = "run"
 
-func in_air(delta):
+func in_air():
 	in_the_air = true
 
 	# gives the oppurtunity to jump once when you walk off a ledge w/o jumping
@@ -251,7 +288,7 @@ func ded():
 """"""
 
 """ATTACK STATE -------------------------------------------------------------"""
-# 
+
 func attack():
 	print("pressing attack")
 	
@@ -378,3 +415,16 @@ func _on_Cave_Entrance_body_entered(body):
 	$"Change Camera Zoom".start()
 	gravity = 500
 	velocity.y = 1000
+
+
+func _on_BounceDelay_timeout():
+	if collided_with_big_bouncepad == true:
+		collided_with_big_bouncepad = false
+		velocity.y = -2000
+		velocity.x = 1250
+		in_air()
+		GameSwitches.state = GameSwitches.INACTIVE
+	else:
+		velocity.y = jump_speed
+		can_jump = true
+	gonna_jump_on_bounce_pad = false

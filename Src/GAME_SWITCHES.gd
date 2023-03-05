@@ -1,6 +1,6 @@
 extends Node
 
-enum {NORMAL, HIT, DED, ATTACK, REVIVE}
+enum {NORMAL, HIT, DED, ATTACK, REVIVE, INACTIVE}
 var state
 var health: int
 var coins: int
