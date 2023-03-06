@@ -33,7 +33,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ "spike" ]
+"values": [ "bounce_pad" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("CollisionShape2D:position")
@@ -163,6 +163,7 @@ position = Vector2( -2, -20 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 1 )
 animation = "boucing"
+frame = 6
 speed_scale = 0.5
 playing = true
 

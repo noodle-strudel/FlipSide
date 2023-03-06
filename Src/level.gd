@@ -6,7 +6,8 @@ var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 
 func _ready():
-	GameSwitches.assassin_spawnpoint = Vector2(21568, 8)
+	GameSwitches.save_data()
+	GameSwitches.assassin_spawnpoint = Vector2(200, 8)
 	#33600
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 
@@ -62,9 +63,11 @@ func _on_Assassin_air_jumped():
 func _on_HUD_respawn():
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	GameSwitches.state = GameSwitches.REVIVE
-	GameSwitches.health = 3
+	GameSwitches.load_data()
+	
 	$Assassin.dead = false
 	$Assassin.reviving = true
+	
 	$CanvasLayer/HUD/Retry.hide()
 	Music.change_music(Music.chip_joy_loop)
 

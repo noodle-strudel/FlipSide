@@ -229,13 +229,15 @@ func push(delta):
 
 """HIT STATE ----------------------------------------------------------------"""
 func hit():
+	get_input()
+	determine_direction()
 	if hurting == false:
 		GameSwitches.health -= 1
-		if direction == "left":
-			velocity.x = 500
-		if direction == "right":
-			velocity.x = -500
-
+#		if direction == "left":
+#			velocity.x = 500
+#		if direction == "right":
+#			velocity.x = -500
+#
 		if prev_y_velocity > 0:
 			velocity.y = -600
 		hurting = true
