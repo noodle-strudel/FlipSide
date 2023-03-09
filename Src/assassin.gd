@@ -57,6 +57,7 @@ func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
 	GameSwitches.health = 3
 	GameSwitches.coins = 0
+	print($Camera2D.get_path())
 
 """
 ----------------------------------------------------------------------
@@ -153,11 +154,11 @@ func _physics_process(delta):
 """"""
 
 func initiate_bounce_pad(collision) -> void:
+	collision.collider.get_node("AnimationPlayer").play("bounce")
 	if gonna_jump_on_bounce_pad == false and is_on_floor():
 		set_position_x = position.x
 		gonna_jump_on_bounce_pad = true
 		$BounceDelay.start()
-		collision.collider.get_node("AnimationPlayer").play("bounce")
 
 """LEFT & RIGHT INPUT -------------------------------------------------------"""
 func get_input():
