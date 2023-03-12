@@ -260,6 +260,9 @@ func attack():
 				# Plays the animation once so it doesnt repeat itself
 				if attacking == false:
 					sprite.animation = "attack"
+					$swingSwipe.pitch_scale = rand_range(0.8, 1.2)
+					$swingSwipe.volume_db = rand_range(-7, -5)
+					$swingSwipe.play()
 					$Sword/CollisionShape2D.disabled = false
 					sword_sprite.frame = 0
 					attacking = true
@@ -281,11 +284,14 @@ func attack():
 				
 		# now you have your charge!
 		elif charged_up == true:
+			if attacking == false:
+				sprite.animation = "charged"
 			determine_direction()
 			if Input.is_action_just_released("attack"):
 				if attacking == false:
 					create_swoosh()
 					sprite.animation = "ground_swoosh_attack"
+					$swingSwipe2.play()
 					charging_attack = false
 					sword_sprite.frame = 0
 					attacking = true
