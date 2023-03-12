@@ -1777,7 +1777,7 @@ extents = Vector2( 736.5, 8 )
 extents = Vector2( 348, 10 )
 
 [sub_resource type="RectangleShape2D" id=181]
-extents = Vector2( 12, 324 )
+extents = Vector2( 4, 324 )
 
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
@@ -2180,7 +2180,7 @@ shape = SubResource( 180 )
 [node name="CameraTogglers" type="Node2D" parent="."]
 
 [node name="ToggleCameraLeftHealth" parent="CameraTogglers" instance=ExtResource( 9 )]
-position = Vector2( 1480, -1464 )
+position = Vector2( 5000, -584 )
 collision_layer = 0
 
 [node name="ToggleCameraRightHealth" type="Area2D" parent="CameraTogglers"]
@@ -2188,7 +2188,7 @@ position = Vector2( 7112, 112 )
 script = ExtResource( 15 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTogglers/ToggleCameraRightHealth"]
-position = Vector2( -4, -124 )
+position = Vector2( 0, -120 )
 shape = SubResource( 181 )
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
