@@ -12,7 +12,8 @@ margin_right = 192.0
 margin_bottom = 48.0
 bbcode_enabled = true
 bbcode_text = "Health: 9999999999"
-text = "Health: 9999999999"
+text = "Health: 9999999999
+Coins: yes"
 
 [node name="Retry" type="Popup" parent="."]
 anchor_left = 0.428

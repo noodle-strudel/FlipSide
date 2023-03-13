@@ -6,9 +6,10 @@ var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 
 func _ready():
-	GameSwitches.assassin_spawnpoint = Vector2(200, 8)
+	GameSwitches.assassin_spawnpoint = Vector2(21568, 8)
+	#33600
 	$Assassin.position = GameSwitches.assassin_spawnpoint
-	
+
 	Music.change_music(Music.chip_joy_loop)
 
 func _physics_process(delta):
