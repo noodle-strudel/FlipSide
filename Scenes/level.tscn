@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=2]
+[gd_scene load_steps=95 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -14,7 +14,8 @@
 [ext_resource path="res://Scenes/Flipper.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Health.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=14]
-[ext_resource path="res://ToggleCameraRightHealth.gd" type="Script" id=15]
+[ext_resource path="res://Src/ToggleCameraRightHealth.gd" type="Script" id=15]
+[ext_resource path="res://Src/ToggleCamera.gd" type="Script" id=16]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 16, 16 )
@@ -1779,6 +1780,9 @@ extents = Vector2( 348, 10 )
 [sub_resource type="RectangleShape2D" id=181]
 extents = Vector2( 4, 324 )
 
+[sub_resource type="RectangleShape2D" id=182]
+extents = Vector2( 32, 129 )
+
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
 __meta__ = {
@@ -2190,6 +2194,14 @@ script = ExtResource( 15 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTogglers/ToggleCameraRightHealth"]
 position = Vector2( 0, -120 )
 shape = SubResource( 181 )
+
+[node name="ToggleCamera" type="Area2D" parent="CameraTogglers"]
+position = Vector2( 15488, 0 )
+script = ExtResource( 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTogglers/ToggleCamera"]
+position = Vector2( 32, 119 )
+shape = SubResource( 182 )
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
