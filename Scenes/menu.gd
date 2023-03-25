@@ -9,6 +9,7 @@ func select_option():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$VBoxContainer/NewGame.grab_focus()
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 	BackgroundMusic.stream = Music.here_go
 	BackgroundMusic.playing = true
 
@@ -38,7 +39,7 @@ func _on_Quit_pressed():
 func _on_Options_pressed():
 	$clickChoose.playing = true
 	yield($clickChoose, "finished")
-	BackgroundMusic.volume_db -= 10
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -5)
 	$CanvasLayer/Options.show()
 
 

@@ -391,6 +391,7 @@ position = Vector2( 0, -32 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -445,38 +446,46 @@ position = Vector2( -48, -16 )
 [node name="hitHurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 volume_db = -20.0
+bus = "SFX"
 
 [node name="deadDie" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 17 )
+bus = "SFX"
 
 [node name="pushMove" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 14 )
 volume_db = -10.0
+bus = "SFX"
 
 [node name="jumpBound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
 volume_db = -30.0
 pitch_scale = 0.9
+bus = "SFX"
 
 [node name="jumpBound2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
 volume_db = -28.0
 pitch_scale = 1.2
+bus = "SFX"
 
 [node name="swingSwipe" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 volume_db = -5.0
 pitch_scale = 0.85
+bus = "SFX"
 
 [node name="swingSwipe2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 20 )
 volume_db = -15.0
 pitch_scale = 1.11
+bus = "SFX"
 
 [node name="killMurder" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
 volume_db = -10.0
+bus = "SFX"
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 position = Vector2( -0.500001, -60 )

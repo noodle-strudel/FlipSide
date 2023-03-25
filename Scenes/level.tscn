@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=2]
+[gd_scene load_steps=89 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -2164,11 +2164,10 @@ collision_layer = 32
 
 [node name="Nothing to see here" type="Sprite" parent="."]
 visible = false
-position = Vector2( 40, 336 )
+position = Vector2( 40, 296 )
 scale = Vector2( 0.0494209, 0.049459 )
 texture = ExtResource( 7 )
 
-[connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]
 [node name="Bottomless Pit2" type="Area2D" parent="."]
 position = Vector2( 1856, 704 )
 collision_layer = 64
@@ -2186,13 +2185,17 @@ position = Vector2( 735.5, 8 )
 shape = SubResource( 179 )
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
+[connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
 [connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]
+[connection signal="body_entered" from="Flipper" to="." method="_on_Flipper_body_entered"]
+[connection signal="body_entered" from="Health" to="." method="_on_Health_body_entered"]
 [connection signal="body_entered" from="Bottomless Pit2" to="Assassin" method="_on_Bottomless_Pit_body_entered"]
 [connection signal="body_entered" from="Cave Entrance" to="Assassin" method="_on_Cave_Entrance_body_entered"]
 
+[editable path="CanvasLayer/HUD"]
 [editable path="Coins/Coin"]
 [editable path="Coins/Coin2"]
 [editable path="Coins/Coin3"]

@@ -15,9 +15,9 @@ func load_data():
 			"fullscreen": false,
 			"retro": false,
 			"brightness": 1,
-			"master_vol": -10,
-			"music_vol": -10,
-			"sfx_vol": -10,
+			"master_vol": 0,
+			"music_vol": 0,
+			"sfx_vol": 0,
 		}
 		save_data()
 	file.open(SAVEFILE, File.READ)

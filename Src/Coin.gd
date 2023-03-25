@@ -24,4 +24,7 @@ func flip():
 
 func _on_Real_Coin_body_entered(body):
 	GameSwitches.coins += 1
+	$coinGet.play()
+	hide()
+	yield($coinGet, "finished")
 	queue_free()

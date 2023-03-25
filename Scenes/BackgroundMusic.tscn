@@ -4,3 +4,4 @@
 pause_mode = 2
 volume_db = -20.0
 autoplay = true
+bus = "Music"

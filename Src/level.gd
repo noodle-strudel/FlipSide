@@ -6,9 +6,10 @@ var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 
 func _ready():
-	GameSwitches.assassin_spawnpoint = Vector2(21568, 8)
+	GameSwitches.assassin_spawnpoint = Vector2(200, 8)
 	#33600
 	$Assassin.position = GameSwitches.assassin_spawnpoint
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 
 	Music.change_music(Music.chip_joy_loop)
 
@@ -48,6 +49,7 @@ func _on_assassin_touch_floor():
 	add_child(dust)
 
 func _on_Assassin_ded():
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -10)
 	Music.change_music(Music.you_died)
 	$CanvasLayer/HUD/Retry.show()
 
@@ -60,6 +62,7 @@ func _on_Assassin_air_jumped():
 
 
 func _on_HUD_respawn():
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	GameSwitches.state = GameSwitches.REVIVE
 	GameSwitches.health = 3
@@ -70,8 +73,6 @@ func _on_HUD_respawn():
 
 
 func _on_Flipper_body_entered(body):
-	GameSwitches.can_flip = true
-	$Flipper.queue_free()
 	$CanvasLayer/HUD/ToolTip.show()
 	$CanvasLayer/HUD/ToolTip/XMarksTheSpot.show()
 	yield(get_tree().create_timer(7.0), "timeout")
@@ -82,8 +83,6 @@ func _on_Flipper_body_entered(body):
 
 
 func _on_Health_body_entered(body):
-	GameSwitches.health += 1
-	$Health.queue_free()
 	$CanvasLayer/HUD/ToolTip.show()
 	$CanvasLayer/HUD/ToolTip/RealHumanHearts.show()
 	yield(get_tree().create_timer(5.0), "timeout")

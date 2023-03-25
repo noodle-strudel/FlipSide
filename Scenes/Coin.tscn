@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Sprites/coins/coin.png" type="Texture" id=1]
 [ext_resource path="res://Src/Coin.gd" type="Script" id=2]
+[ext_resource path="res://SFX/coinGet.mp3" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 29.0
@@ -11,6 +12,10 @@ radius = 29.0172
 
 [node name="Coin" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="coinGet" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 4, 4 )
