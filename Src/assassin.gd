@@ -249,9 +249,6 @@ func hit():
 		$hitHurt.play()
 		
 		sprite.frame = 0
-		
-		# literally pauses the game!
-		get_tree().paused = true
 
 		if GameSwitches.health <= 0:
 			BackgroundMusic.playing = false

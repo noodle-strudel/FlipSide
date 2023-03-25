@@ -15,7 +15,7 @@
 [ext_resource path="res://Scenes/Health.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Src/ToggleCameraRightHealth.gd" type="Script" id=15]
-[ext_resource path="res://Src/ToggleCamera.gd" type="Script" id=16]
+[ext_resource path="res://Src/ToggleCameraLeftSpikes.gd" type="Script" id=16]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 16, 16 )
@@ -1781,7 +1781,7 @@ extents = Vector2( 348, 10 )
 extents = Vector2( 4, 324 )
 
 [sub_resource type="RectangleShape2D" id=182]
-extents = Vector2( 32, 129 )
+extents = Vector2( 4, 448 )
 
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
@@ -2189,18 +2189,20 @@ collision_layer = 0
 
 [node name="ToggleCameraRightHealth" type="Area2D" parent="CameraTogglers"]
 position = Vector2( 7112, 112 )
+collision_layer = 0
 script = ExtResource( 15 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTogglers/ToggleCameraRightHealth"]
 position = Vector2( 0, -120 )
 shape = SubResource( 181 )
 
-[node name="ToggleCamera" type="Area2D" parent="CameraTogglers"]
+[node name="ToggleCameraLeftSpikes" type="Area2D" parent="CameraTogglers"]
 position = Vector2( 15488, 0 )
+collision_layer = 0
 script = ExtResource( 16 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTogglers/ToggleCamera"]
-position = Vector2( 32, 119 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTogglers/ToggleCameraLeftSpikes"]
+position = Vector2( 0, -192 )
 shape = SubResource( 182 )
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
@@ -2212,3 +2214,4 @@ shape = SubResource( 182 )
 [connection signal="body_entered" from="Cave Entrance" to="Assassin" method="_on_Cave_Entrance_body_entered"]
 [connection signal="body_entered" from="BoundPadLanding" to="." method="_on_BoundPadLanding_body_entered"]
 [connection signal="body_entered" from="CameraTogglers/ToggleCameraRightHealth" to="CameraTogglers/ToggleCameraRightHealth" method="_on_ToggleCameraRightHealth_body_entered"]
+[connection signal="body_entered" from="CameraTogglers/ToggleCameraLeftSpikes" to="CameraTogglers/ToggleCameraLeftSpikes" method="_on_ToggleCameraLeftSpikes_body_entered"]
