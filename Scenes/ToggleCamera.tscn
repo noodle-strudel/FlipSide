@@ -3,7 +3,7 @@
 [ext_resource path="res://Src/ToggleCamera.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 1100 )
+extents = Vector2( 1058, 834 )
 
 [node name="ToggleCamera" type="Area2D"]
 script = ExtResource( 1 )

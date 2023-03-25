@@ -7,7 +7,7 @@ var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 
 func _ready():
 	GameSwitches.save_data()
-	GameSwitches.assassin_spawnpoint = Vector2(15104, 8)
+	GameSwitches.assassin_spawnpoint = Vector2(4800, 8)
 	#33600
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 
