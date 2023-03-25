@@ -2366,7 +2366,6 @@ shape = SubResource( 184 )
 [connection signal="body_entered" from="CameraTogglers/ToggleCameraFlipper" to="CameraTogglers/ToggleCameraFlipper" method="_on_ToggleCameraFlipper_body_entered"]
 [connection signal="body_exited" from="CameraTogglers/ToggleCameraFlipper" to="CameraTogglers/ToggleCameraFlipper" method="_on_ToggleCameraFlipper_body_exited"]
 
-[editable path="CameraTogglers/ToggleCameraHealth"]
 [editable path="Coins/Coin14"]
 [editable path="Coins/Coin"]
 [editable path="Coins/Coin15"]
@@ -2383,3 +2382,4 @@ shape = SubResource( 184 )
 [editable path="Coins/Coin9"]
 [editable path="Coins/Coin8"]
 [editable path="Coins/Coin3"]
+[editable path="CameraTogglers/ToggleCameraHealth"]
