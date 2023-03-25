@@ -326,7 +326,7 @@ func attack():
 			# if you held dwon the attack button the whole time the whole time
 			if charging_attack == true:
 				charged_up = true
-				charging_attack == false
+				charging_attack = false
 				GameSwitches.state = GameSwitches.ATTACK
 				
 		# now you have your charge!
