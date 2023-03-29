@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/menu.gd" type="Script" id=1]
 [ext_resource path="res://SFX/changeSwitch.wav" type="AudioStream" id=2]
+[ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/IdeaMenuBack.png" type="Texture" id=4]
 [ext_resource path="res://Assets/IdeaMenuBack2.png" type="Texture" id=5]
 [ext_resource path="res://Assets/IdeaMenuBack4.png" type="Texture" id=6]
@@ -109,6 +110,11 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 1
 
+[node name="Lighting" parent="." instance=ExtResource( 3 )]
+
+[node name="Light2D" parent="Lighting" index="0"]
+mode = 2
+
 [connection signal="mouse_entered" from="VBoxContainer/NewGame" to="." method="_on_NewGame_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Continue" to="." method="_on_Continue_mouse_entered"]
@@ -119,3 +125,5 @@ stretch_mode = 1
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Quit" to="." method="_on_Quit_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+
+[editable path="Lighting"]

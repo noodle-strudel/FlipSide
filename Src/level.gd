@@ -12,6 +12,11 @@ func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 
 	Music.change_music(Music.chip_joy_loop)
+	
+
+func _get_pause(delta):
+	if Input.is_action_pressed("ui_pause"):
+		$CanvasLayer/HUD/Options.hide()
 
 func _physics_process(delta):
 	if GameSwitches.can_flip:

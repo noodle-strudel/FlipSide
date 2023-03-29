@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Resource/Font.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/credits.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Fonts/shine-on-font/Shineon-n8X1.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://Resource/Font2.tres" type="Theme" id=9]
 [ext_resource path="res://Assets/Sprites/Disco Lights.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -131,7 +132,6 @@ texture_pressed = ExtResource( 6 )
 texture_hover = ExtResource( 7 )
 
 [node name="DiscoMode" type="Popup" parent="."]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -504.0
@@ -211,6 +211,8 @@ margin_right = 421.0
 margin_bottom = 137.0
 theme = ExtResource( 9 )
 text = "CREDITS"
+
+[node name="Lighting" parent="." instance=ExtResource( 11 )]
 
 [connection signal="mouse_entered" from="Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
 [connection signal="pressed" from="Main Menu" to="." method="_on_Main_Menu_pressed"]
