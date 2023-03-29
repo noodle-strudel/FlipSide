@@ -88,11 +88,12 @@ func _physics_process(delta):
 		
 		collided_with_bouncepad = false
 		if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
-			if "Spike" in collision.collider.name and GameSwitches.flipped == true:
+			if "Spike" in collision.collider.name and collision.collider.is_bounce_pad == true:
 					initiate_bounce_pad(collision)
 			elif "Anti Coin" in collision.collider.name:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 			else:
+				print("triggered")
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 		elif "BigBouncepad" in collision.collider.name:
 			collided_with_big_bouncepad = true
@@ -256,8 +257,6 @@ func hit():
 		# timer is not paused because its property pause_mode is set to Process even when the game is paused
 
 	sprite.animation = "hit"
-	
-	print(GameSwitches.health, " health")
 	# prevents the character from going back to a normal state if, per se, it hits the side of the enemy right as it
 
 func _on_HitPauseTimer_timeout():
