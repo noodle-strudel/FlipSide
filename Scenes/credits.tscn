@@ -70,6 +70,7 @@ margin_left = 184.0
 margin_top = 120.0
 margin_right = -40.0
 margin_bottom = -64.0
+rect_clip_content = false
 theme = ExtResource( 1 )
 text = "FROM THE MINDS OF:
 Yollaine Brooks
@@ -80,6 +81,7 @@ Game Mechanics - Yollaine Brooks
 Level Design - Adeline Moseley
 Menus - Wesley Carlisle
 Music - EggSamdwich (Wesley Carlisle)
+SFX - Wesley Carlisle
 Halibut - Wikipedia
 Secret Hider - Wesley Carlisle
 Knowing How Godot Works - Yollaine Brooks

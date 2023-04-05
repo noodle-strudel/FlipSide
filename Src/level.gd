@@ -54,7 +54,7 @@ func _on_assassin_touch_floor():
 	add_child(dust)
 
 func _on_Assassin_ded():
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -10)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -5)
 	Music.change_music(Music.you_died)
 	$CanvasLayer/HUD/Retry.show()
 

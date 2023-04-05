@@ -71,6 +71,8 @@ func _on_Reset_pressed():
 		$TabContainer/Audio/VBoxContainer/HBoxContainer/MasterVolSlider.value = 0
 		$TabContainer/Audio/VBoxContainer/HBoxContainer2/MusicVolSlider.value = 0
 		$TabContainer/Audio/VBoxContainer/HBoxContainer3/SFXVolSlider.value = 0
+	elif $TabContainer.current_tab == 0:
+		$TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer/BrightnessSlider.value = 0
 
 
 

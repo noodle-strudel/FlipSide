@@ -14,7 +14,7 @@ func load_data():
 		game_data = {
 			"fullscreen": false,
 			"retro": false,
-			"brightness": 1,
+			"brightness": 0,
 			"master_vol": 0,
 			"music_vol": 0,
 			"sfx_vol": 0,
