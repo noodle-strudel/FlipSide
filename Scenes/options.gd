@@ -4,9 +4,9 @@ extends Control
 func _ready():
 	pass
 
-func _get_pause(delta):
+func _process(delta):
 	if Input.is_action_pressed("ui_pause"):
-		$CanvasLayer/HUD/Options.hide()
+		hide()
 
 # Video Settings
 func _on_DisplayModeButton_item_selected(index):

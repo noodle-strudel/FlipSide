@@ -14,9 +14,14 @@ func _ready():
 	Music.change_music(Music.chip_joy_loop)
 	
 
-func _get_pause(delta):
+func _process(delta):
 	if Input.is_action_pressed("ui_pause"):
-		$CanvasLayer/HUD/Options.hide()
+		if $CanvasLayer/HUD/Options.visible == true:
+			$CanvasLayer/HUD/Options.visible = false
+		else:
+			print("AHHHHHHH!! I AM ACTIVELY DYING")
+			$CanvasLayer/HUD/Options.visible = true
+		
 
 func _physics_process(delta):
 	if GameSwitches.can_flip:
