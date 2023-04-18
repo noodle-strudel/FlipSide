@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=2]
+[gd_scene load_steps=106 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Src/ToggleCameraBigTree.gd" type="Script" id=15]
 [ext_resource path="res://Src/ToggleCameraLeftSpikes.gd" type="Script" id=16]
 [ext_resource path="res://Src/ToggleCameraFlipper.gd" type="Script" id=17]
+[ext_resource path="res://Scenes/crumbly_block.tscn" type="PackedScene" id=18]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 16, 16 )
@@ -2684,6 +2685,11 @@ script = ExtResource( 17 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTogglers/ToggleCameraFlipper"]
 position = Vector2( 48, -464 )
 shape = SubResource( 184 )
+
+[node name="Crumbly Blocks" type="Node2D" parent="."]
+
+[node name="Crumbly Block" parent="Crumbly Blocks" instance=ExtResource( 18 )]
+position = Vector2( 560, 216 )
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
