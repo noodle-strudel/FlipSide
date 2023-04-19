@@ -87,8 +87,11 @@ func _physics_process(delta):
 #		print("I collided with ", collision.collider.name)
 		
 		collided_with_bouncepad = false
+		
+		# handles logic when colliding with special objects
+		#
 		if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
-			if "Spike" in collision.collider.name and GameSwitches.flipped == true:
+			if "Spike" in collision.collider.name and collision.collider.is_bounce_pad == true:
 					initiate_bounce_pad(collision)
 			elif "Anti Coin" in collision.collider.name:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
@@ -211,7 +214,7 @@ func in_air():
 	in_the_air = true
 
 	# gives the oppurtunity to jump once when you walk off a ledge w/o jumping
-	if !has_jumped:
+	if has_jumped == false:
 		double_jump = true
 	
 	# will use double jump animation once your oppurtunity to double jump has been used
@@ -234,11 +237,7 @@ func hit():
 	determine_direction()
 	if hurting == false:
 		GameSwitches.health -= 1
-#		if direction == "left":
-#			velocity.x = 500
-#		if direction == "right":
-#			velocity.x = -500
-#
+		
 		if prev_y_velocity > 0:
 			velocity.y = -600
 		hurting = true
@@ -252,13 +251,8 @@ func hit():
 
 		if GameSwitches.health <= 0:
 			BackgroundMusic.playing = false
-		
-		# timer is not paused because its property pause_mode is set to Process even when the game is paused
 
 	sprite.animation = "hit"
-	
-	print(GameSwitches.health, " health")
-	# prevents the character from going back to a normal state if, per se, it hits the side of the enemy right as it
 
 func _on_HitPauseTimer_timeout():
 	get_tree().paused = false
@@ -323,7 +317,7 @@ func attack():
 				
 			yield(sprite, "animation_finished")
 			
-			# if you held dwon the attack button the whole time the whole time
+			# if you held dwon the attack button the whole time
 			if charging_attack == true:
 				charged_up = true
 				charging_attack = false
@@ -347,6 +341,7 @@ func attack():
 	# otherwise, do an air attack!
 	elif in_the_air:
 		get_input()
+		# makes swoosh once
 		if attacking == false:
 			create_swoosh()
 			sprite.animation = "air_swoosh_attack"

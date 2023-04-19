@@ -6,7 +6,6 @@ onready var camera = get_node("/root/Level/Assassin/Camera2D")
 onready var tween = get_node("/root/Level/Assassin/Change Camera Zoom")
 
 func zoom_camera(zoom: Vector2, time: float):
-	print("triggered")
 	tween.interpolate_property(camera, "zoom", camera.zoom, zoom, time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	tween.start()
 
