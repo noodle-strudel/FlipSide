@@ -10,7 +10,6 @@ var checkpoint_save = {}
 var can_flip = false
 var gonna_flip = false
 var flipped = false
-var falling_into_cave = false
 
 func save_data():
 	checkpoint_save = {

@@ -65,15 +65,6 @@ func _ready():
 ----------------------------------------------------------------------
 """
 func _physics_process(delta):
-	
-	if GameSwitches.falling_into_cave and velocity.y == 0:
-		$"Change Camera Zoom".interpolate_property($Camera2D, "zoom",
-			Vector2(1.5, 1.5), Vector2.ONE, 0.25, 
-			Tween.TRANS_LINEAR, Tween.EASE_OUT)
-		$"Change Camera Zoom".start()
-		GameSwitches.falling_into_cave = false
-		gravity = 2300
-		
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -400,17 +391,13 @@ func _on_Bottomless_Pit_body_entered(body):
 	BackgroundMusic.playing = false
 	GameSwitches.state = GameSwitches.DED
 
-
-func _on_Cave_Entrance_body_entered(body):
-	GameSwitches.falling_into_cave = true
-	$Camera2D.limit_bottom = 4288
-	$"Change Camera Zoom".interpolate_property($Camera2D, "zoom",
-		Vector2.ONE, Vector2(1.5, 1.5), 0.5, 
-		Tween.TRANS_LINEAR, Tween.EASE_IN)
-	$"Change Camera Zoom".start()
-	gravity = 500
-	velocity.y = 1000
-
+func fall_into_cave(part):
+	if part == "falling":
+		$Camera2D.limit_bottom = 4288
+		gravity = 500
+		velocity.y = 1000
+	elif part == "landing":
+		gravity = 2300
 
 func _on_BounceDelay_timeout():
 	if collided_with_big_bouncepad == true:
