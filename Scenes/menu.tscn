@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://menu.gd" type="Script" id=1]
+[ext_resource path="res://Src/menu.gd" type="Script" id=1]
 [ext_resource path="res://SFX/changeSwitch.wav" type="AudioStream" id=2]
 [ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/IdeaMenuBack.png" type="Texture" id=4]
