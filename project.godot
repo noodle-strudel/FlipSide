@@ -35,6 +35,7 @@ BackgroundMusic="*res://Scenes/BackgroundMusic.tscn"
 Music="*res://Src/music.gd"
 GlobalSettings="*res://Src/global_settings.gd"
 Lighting="*res://Scenes/lighting.tscn"
+Save="*res://Src/save.gd"
 
 [display]
 

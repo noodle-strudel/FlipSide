@@ -13,6 +13,10 @@ func _ready():
 	BackgroundMusic.stream = Music.here_go
 	BackgroundMusic.playing = true
 
+func _process(delta):
+	if Input.is_action_just_pressed("ui_pause"):
+		$CanvasLayer/Options.hide()
+
 func _on_NewGame_pressed():
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false

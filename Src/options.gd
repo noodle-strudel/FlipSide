@@ -1,12 +1,22 @@
 extends Control
 
+onready var display_mode_button = $TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeButton
+onready var brightness_slide = $TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer/BrightnessSlider
+
+onready var master_slide = $TabContainer/Audio/VBoxContainer/HBoxContainer/MasterVolSlider
+onready var music_slide = $TabContainer/Audio/VBoxContainer/HBoxContainer2/MusicVolSlider
+onready var SFX_slide = $TabContainer/Audio/VBoxContainer/HBoxContainer3/SFXVolSlider
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-
-func _process(delta):
-	if Input.is_action_pressed("ui_pause"):
-		hide()
+	GlobalSettings.toggle_fullscreen(true if Save.game_data.fullscreen == true else false)
+	
+	brightness_slide.value = Save.game_data.brightness
+	
+	master_slide.value = Save.game_data.master_vol
+	music_slide.value = Save.game_data.music_vol
+	SFX_slide.value = Save.game_data.sfx_vol
+	
 
 # Video Settings
 func _on_DisplayModeButton_item_selected(index):
@@ -36,7 +46,10 @@ func _on_Main_Menu_pressed():
 	$clickChoose.playing = true
 	yield($clickChoose, "finished")
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-	visible = false
+	if get_tree().get_root().name == "Menu":
+		visible = false
+	else:
+		get_tree().change_scene("res://Scenes/menu.tscn")
 	
 func _on_Video_tab_clicked():
 	$clickChoose.playing = true
