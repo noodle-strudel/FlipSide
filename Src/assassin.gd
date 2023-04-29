@@ -266,6 +266,8 @@ func ded():
 		dead = true
 		gravity = 0
 	
+	collision_mask = GameSwitches.no_collision
+	collision_layer = GameSwitches.no_collision
 	
 	yield(sprite, "animation_finished")
 	if sprite.animation == "ded":
@@ -275,8 +277,6 @@ func ded():
 """ATTACK STATE -------------------------------------------------------------"""
 
 func attack():
-	print("pressing attack")
-	
 	# ground attack when on the ground
 	if is_on_floor() and air_attacking == false:
 		in_the_air = false
@@ -375,6 +375,9 @@ func _on_Sword_body_entered(body):
 	# we now can make it so the position of the hit_sparkle is at the location where the ray hit something
 	hit_sparkle.position = result.position
 	get_parent().add_child(hit_sparkle)
+	
+	if body.get_parent() is PathFollow2D:
+		body.deplete_health(1)
 """"""
 
 """REVIVE STATE -------------------------------------------------------------"""
@@ -393,7 +396,7 @@ func _on_Bottomless_Pit_body_entered(body):
 
 func fall_into_cave(part):
 	if part == "falling":
-		$Camera2D.limit_bottom = 4288
+		$Camera2D.limit_bottom = 5000
 		gravity = 500
 		velocity.y = 1000
 	elif part == "landing":
