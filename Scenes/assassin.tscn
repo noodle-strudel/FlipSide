@@ -225,7 +225,7 @@ region = Rect2( 80, 0, 16, 16 )
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [ SubResource( 59 ), SubResource( 58 ), SubResource( 58 ), SubResource( 58 ), SubResource( 57 ), SubResource( 56 ) ],
-"loop": false,
+"loop": true,
 "name": "air_swoosh_attack",
 "speed": 16.0
 }, {
@@ -376,7 +376,7 @@ position = Vector2( 0, -32 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "idle"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

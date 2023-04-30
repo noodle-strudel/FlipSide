@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=2]
+[gd_scene load_steps=120 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -20,8 +20,8 @@
 [ext_resource path="res://Scenes/crumbly_block.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Src/ToggleCameraFall.gd" type="Script" id=19]
 [ext_resource path="res://Src/EnemyPathFollower.gd" type="Script" id=20]
-[ext_resource path="res://Assets/Sprites/enemy/walk2.png" type="Texture" id=21]
-[ext_resource path="res://Assets/Sprites/enemy/walk1.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Sprites/enemy/bat2.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Sprites/enemy/bat1.png" type="Texture" id=22]
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=23]
 [ext_resource path="res://Src/TrueEnemy.gd" type="Script" id=24]
 
@@ -2117,12 +2117,13 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id=199]
+extents = Vector2( 32, 32 )
 
 [sub_resource type="SpriteFrames" id=196]
 animations = [ {
 "frames": [ ExtResource( 22 ), ExtResource( 21 ) ],
 "loop": true,
-"name": "default",
+"name": "noflip",
 "speed": 5.0
 } ]
 
@@ -2136,6 +2137,14 @@ extents = Vector2( 33, 28.5 )
 
 [sub_resource type="RectangleShape2D" id=195]
 extents = Vector2( 32, 28 )
+
+[sub_resource type="SpriteFrames" id=200]
+animations = [ {
+"frames": [ ExtResource( 22 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "noflip",
+"speed": 5.0
+} ]
 
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
@@ -2749,8 +2758,9 @@ script = ExtResource( 24 )
 shape = SubResource( 199 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Flying Enemy Path/PathFollow2D/StaticBody2D"]
-position = Vector2( 0, 8 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 196 )
+animation = "noflip"
 playing = true
 flip_h = true
 
@@ -2790,7 +2800,8 @@ shape = SubResource( 195 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy Path/PathFollow2D/TrueEnemy"]
 position = Vector2( 0, 8 )
-frames = SubResource( 196 )
+frames = SubResource( 200 )
+animation = "noflip"
 frame = 1
 playing = true
 flip_h = true
