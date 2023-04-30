@@ -1,14 +1,23 @@
 extends StaticBody2D
 
-
 onready var path_follow = get_parent()
 
-var speed = 100
+export var _speed = 100
 
-# Called when the node enters the scene tree for the first time.
+export var hit_point = 3
+
 func _ready():
-	pass # Replace with function body.
-
-
+	pass
+	
 func _physics_process(delta):
-	path_follow.offset += speed
+	path_follow.offset += _speed * delta
+	
+	if hit_point <= 0:
+		yield($hitHurt, "finished")
+		queue_free()
+
+
+func deplete_health(health):
+	$hitHurt.play()
+	hit_point -= health
+
