@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bat2.png-24d4c29d2ddf43a1949ec439075f8fee.stex"
+path="res://.import/bouncebug standing.png-224e5e56b48f1b906b172ab7a6dcfa59.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/enemy/bat2.png"
-dest_files=[ "res://.import/bat2.png-24d4c29d2ddf43a1949ec439075f8fee.stex" ]
+source_file="res://Assets/Sprites/ground enemy/bouncebug standing.png"
+dest_files=[ "res://.import/bouncebug standing.png-224e5e56b48f1b906b172ab7a6dcfa59.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/batflip1.png-8f9abc13466d63a390aa04752c22d5e6.stex"
+path="res://.import/greenbat2.png-d1170f8daa921981da24571e3a0470f7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/enemy/batflip1.png"
-dest_files=[ "res://.import/batflip1.png-8f9abc13466d63a390aa04752c22d5e6.stex" ]
+source_file="res://Assets/Sprites/flying enemy/greenbat2.png"
+dest_files=[ "res://.import/greenbat2.png-d1170f8daa921981da24571e3a0470f7.stex" ]
 
 [params]
 

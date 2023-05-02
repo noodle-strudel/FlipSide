@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/walk2.png-0f9e9b4462d29355a6731e14982ff0b1.stex"
+path="res://.import/bugbounce frame5.png-c8d6e4d3ba9a0cc279e7d81505d98823.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/enemy/walk2.png"
-dest_files=[ "res://.import/walk2.png-0f9e9b4462d29355a6731e14982ff0b1.stex" ]
+source_file="res://Assets/Sprites/ground enemy/bugbounce frame5.png"
+dest_files=[ "res://.import/bugbounce frame5.png-c8d6e4d3ba9a0cc279e7d81505d98823.stex" ]
 
 [params]
 
