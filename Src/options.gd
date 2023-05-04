@@ -9,6 +9,7 @@ onready var SFX_slide = $TabContainer/Audio/VBoxContainer/HBoxContainer3/SFXVolS
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	display_mode_button.select(1 if Save.game_data.fullscreen == true else 0)
 	GlobalSettings.toggle_fullscreen(true if Save.game_data.fullscreen == true else false)
 	
 	brightness_slide.value = Save.game_data.brightness
@@ -46,7 +47,7 @@ func _on_Main_Menu_pressed():
 	$clickChoose.playing = true
 	yield($clickChoose, "finished")
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-	if get_tree().get_root().name == "Menu":
+	if get_tree().get_current_scene().get_name() != "Level":
 		visible = false
 	else:
 		get_tree().change_scene("res://Scenes/menu.tscn")

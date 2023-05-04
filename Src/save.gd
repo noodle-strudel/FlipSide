@@ -12,8 +12,8 @@ func load_data():
 	var file = File.new()
 	if not file.file_exists(SAVEFILE):
 		game_data = {
-			"fullscreen": true,
-			#"retro": false,
+			"fullscreen": false,
+			"retro": false,
 			"brightness": 0,
 			"master_vol": 0,
 			"music_vol": 0,
