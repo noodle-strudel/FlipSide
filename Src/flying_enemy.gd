@@ -11,19 +11,24 @@ func _ready():
 	
 func _physics_process(delta):
 	path_follow.offset += _speed * delta
-	if path_follow.unit_offset > 0.5:
-		$AnimatedSprite.flip_h = false
-	else:
-		$AnimatedSprite.flip_h = true
 	
 	if hit_point <= 0:
 		yield($hitHurt, "finished")
 		queue_free()
 
 
-func _on_TrueEnemyArea_body_entered(body):
-	GameSwitches.state = GameSwitches.HIT
-
 func deplete_health(health):
 	$hitHurt.play()
 	hit_point -= health
+
+func flip():
+	if $AnimatedSprite.animation == "noflip":
+		$CollisionShape2D.shape.extents = Vector2(40, 26)
+		$CollisionShape2D.position = Vector2(0, 14)
+		$AnimatedSprite.play("flip")
+	else:
+		$CollisionShape2D.shape.extents = Vector2(40, 44)
+		$CollisionShape2D.position = Vector2(0, -4)
+		$AnimatedSprite.play("noflip")
+
+

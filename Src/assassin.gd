@@ -42,6 +42,8 @@ export var charged_up = false
 onready var sprite = $AnimatedSprite 
 onready var sword_sprite = $Sword/AnimatedSprite
 
+# snap logic for move_and_slide_with_snap
+var snap = Vector2.DOWN * 16 if is_on_floor() else Vector2.ZERO
 
 # determines if double-jumping is possible 
 var double_jump = true
@@ -66,7 +68,7 @@ func _ready():
 """
 func _physics_process(delta):
 	velocity.y += gravity * delta
-	velocity = move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
 	
 	if velocity.x != 0:
 		prev_x_velocity = velocity.x
@@ -82,10 +84,13 @@ func _physics_process(delta):
 		# handles logic when colliding with special objects
 		#
 		if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
-			if "Spike" in collision.collider.name and collision.collider.is_bounce_pad == true:
+			if ("Spike" in collision.collider.name and collision.collider.is_bounce_pad == true) || (collision.collider.name == "Ground Enemy" and GameSwitches.flipped == true):
 					initiate_bounce_pad(collision)
 			elif "Anti Coin" in collision.collider.name:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
+			elif "Flying Enemy" in collision.collider.name and GameSwitches.flipped == true:
+				# flat headed bat
+				pass
 			else:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 		elif "BigBouncepad" in collision.collider.name:
@@ -110,6 +115,7 @@ func _physics_process(delta):
 	elif GameSwitches.state == GameSwitches.ATTACK:
 		attack()
 	elif GameSwitches.state == GameSwitches.NORMAL:
+		snap = Vector2.DOWN * 16 if is_on_floor() else Vector2.ZERO
 		get_input()
 		determine_direction()
 		
@@ -230,7 +236,8 @@ func hit():
 		GameSwitches.health -= 1
 		
 		if prev_y_velocity > 0:
-			velocity.y = -600
+			snap = Vector2.ZERO
+			velocity.y = -800
 		hurting = true
 
 		$HitPauseTimer.start()
@@ -255,6 +262,7 @@ func _on_RecoverTimer_timeout():
 	else:
 		GameSwitches.state = GameSwitches.NORMAL
 	hurting = false
+	
 """"""
 
 """DED STATE ----------------------------------------------------------------"""
