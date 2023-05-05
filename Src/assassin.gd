@@ -77,7 +77,7 @@ func _physics_process(delta):
 	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-#		print("I collided with ", collision.collider.name)
+		print("I collided with ", collision.collider.name)
 		
 		collided_with_bouncepad = false
 		
@@ -404,7 +404,7 @@ func _on_Bottomless_Pit_body_entered(body):
 
 func fall_into_cave(part):
 	if part == "falling":
-		$Camera2D.limit_bottom = 5000
+		$Camera2D.limit_bottom = 10000
 		gravity = 500
 		velocity.y = 1000
 	elif part == "landing":
