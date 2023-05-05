@@ -19,6 +19,8 @@
 [ext_resource path="res://Src/ToggleCameraFlipper.gd" type="Script" id=17]
 [ext_resource path="res://Scenes/crumbly_block.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Src/ToggleCameraFall.gd" type="Script" id=19]
+[ext_resource path="res://Scenes/Flying Enemy.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Scenes/Ground Enemy.tscn" type="PackedScene" id=21]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 16, 16 )
@@ -4147,6 +4149,16 @@ extents = Vector2( 1312, 728 )
 [sub_resource type="RectangleShape2D" id=193]
 extents = Vector2( 1088, 1368 )
 
+[sub_resource type="Curve2D" id=198]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 896, 192, 0, 0, 0, 0, 896, 0, 0, 0, 0, 0, 896, 192 )
+}
+
+[sub_resource type="Curve2D" id=194]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 768, 288, 0, 0, 0, 0, 1152, 288, 0, 0, 0, 0, 768, 288 )
+}
+
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
 __meta__ = {
@@ -4200,6 +4212,7 @@ collision_layer = 32
 [node name="Assassin" parent="." instance=ExtResource( 1 )]
 position = Vector2( 58, 67 )
 collision_mask = 6
+motion/sync_to_physics = false
 
 [node name="No Flip Level Terrain" type="TileMap" parent="."]
 position = Vector2( 0, -64 )
@@ -5060,6 +5073,27 @@ shape = SubResource( 193 )
 
 [node name="Crumbly Block" parent="Crumbly Blocks" instance=ExtResource( 18 )]
 position = Vector2( 560, 216 )
+
+[node name="Flying Enemy Path" type="Path2D" parent="."]
+position = Vector2( 448, -48 )
+curve = SubResource( 198 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Flying Enemy Path"]
+position = Vector2( 896, 192 )
+rotation = -1.5708
+rotate = false
+
+[node name="Flying Enemy" parent="Flying Enemy Path/PathFollow2D" instance=ExtResource( 20 )]
+
+[node name="Ground Enemy Path" type="Path2D" parent="."]
+position = Vector2( -32, 8 )
+curve = SubResource( 194 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Ground Enemy Path"]
+position = Vector2( 768, 288 )
+rotate = false
+
+[node name="Ground Enemy" parent="Ground Enemy Path/PathFollow2D" instance=ExtResource( 21 )]
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]

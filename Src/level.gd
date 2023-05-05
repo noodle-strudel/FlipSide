@@ -8,8 +8,7 @@ var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 func _ready():
 	GameSwitches.can_flip = true
 	GameSwitches.save_data()
-	GameSwitches.assassin_spawnpoint = Vector2(33600, 8)
-	#33600
+	GameSwitches.assassin_spawnpoint = Vector2(200, 8)
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 
 	Music.change_music(Music.chip_joy_loop)
@@ -31,11 +30,11 @@ func do_a_flip():
 	if Input.is_action_just_released("flip"):
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
-			$"Terrain".tile_set.tile_set_texture(0, flip_warp)
+			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
 			
 			GameSwitches.flipped = true
 		else:
-			$"Terrain".tile_set.tile_set_texture(0, flip_original)
+			$"Details Foreground".tile_set.tile_set_texture(0, flip_original)
 			
 			GameSwitches.flipped = false
 		GameSwitches.gonna_flip = false
@@ -68,6 +67,12 @@ func _on_HUD_respawn():
 	
 	$Assassin.dead = false
 	$Assassin.reviving = true
+	
+	# enables collision again for the assassin
+	$Assassin.collision_layer = GameSwitches.player_layer
+	
+	# "|" adds binary numbers together
+	$Assassin.collision_mask = GameSwitches.terrain_layer | GameSwitches.coin_layer
 	
 	$CanvasLayer/HUD/Retry.hide()
 	Music.change_music(Music.chip_joy_loop)

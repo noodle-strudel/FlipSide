@@ -13,8 +13,6 @@ func _ready():
 
 
 func flip():
-	if self.name == "Spike72":
-		print($AnimationPlayer.current_animation)
 	if $AnimatedSprite.animation == "spike":
 		$AnimatedSprite.animation = "bounce_pad"
 		is_bounce_pad = true

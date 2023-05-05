@@ -225,7 +225,7 @@ region = Rect2( 80, 0, 16, 16 )
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [ SubResource( 59 ), SubResource( 58 ), SubResource( 58 ), SubResource( 58 ), SubResource( 57 ), SubResource( 56 ) ],
-"loop": false,
+"loop": true,
 "name": "air_swoosh_attack",
 "speed": 16.0
 }, {
@@ -362,6 +362,7 @@ tracks/0/keys = {
 
 [node name="Assassin" type="KinematicBody2D"]
 collision_mask = 66
+motion/sync_to_physics = true
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": "main character, ready for anything!"
