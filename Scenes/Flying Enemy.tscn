@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
+[ext_resource path="res://Src/flying_enemy.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Sprites/flying enemy/bat2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/flying enemy/bat1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/flying enemy/batflip1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/flying enemy/greenbat2.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=197]
+extents = Vector2( 40, 44 )
+
+[sub_resource type="SpriteFrames" id=196]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "noflip",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=198]
+resource_name = "flip"
+
+[node name="Flying Enemy" type="StaticBody2D" groups=["enemy"]]
+rotation = 1.5708
+collision_layer = 4
+collision_mask = 25
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.12884e-06, -4 )
+shape = SubResource( 197 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 3, 3 )
+frames = SubResource( 196 )
+animation = "noflip"
+frame = 1
+playing = true
+flip_h = true
+
+[node name="hitHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -10.0
+pitch_scale = 1.2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/flip = SubResource( 198 )
