@@ -5,6 +5,7 @@ signal touch_floor
 signal jumped
 signal air_jumped
 signal ded
+signal on_friendly_bat
 
 onready var air_swoosh_scene = preload("res://Scenes/air_swoosh.tscn")
 onready var hit_sparkle_scene = preload("res://Scenes/hit_sparkle.tscn")
@@ -23,6 +24,7 @@ export var attacking = false
 export var reviving = false
 
 var can_jump = true
+var on_friendly_bat = false
 
 var gonna_jump_on_bounce_pad = false
 var set_position_x
@@ -77,7 +79,7 @@ func _physics_process(delta):
 	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-		print("I collided with ", collision.collider.name)
+#		print("I collided with ", collision.collider.name)
 		
 		collided_with_bouncepad = false
 		
@@ -89,8 +91,7 @@ func _physics_process(delta):
 			elif "Anti Coin" in collision.collider.name:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 			elif "Flying Enemy" in collision.collider.name and GameSwitches.flipped == true:
-				# flat headed bat
-				pass
+				emit_signal("on_friendly_bat")
 			else:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 		elif "BigBouncepad" in collision.collider.name:
@@ -106,51 +107,52 @@ func _physics_process(delta):
 		position.x = set_position_x
 	
 	# state logic (will replace with a switch eventually)
-	if GameSwitches.state == GameSwitches.REVIVE:
-		revive()
-	if GameSwitches.state == GameSwitches.DED:
-		ded()
-	elif GameSwitches.state == GameSwitches.HIT:
-		hit()
-	elif GameSwitches.state == GameSwitches.ATTACK:
-		attack()
-	elif GameSwitches.state == GameSwitches.NORMAL:
-		snap = Vector2.DOWN * 16 if is_on_floor() else Vector2.ZERO
-		get_input()
-		determine_direction()
+	match GameSwitches.state:
+		GameSwitches.REVIVE:
+			revive()
+		GameSwitches.DED:
+			ded()
+		GameSwitches.HIT:
+			hit()
+		GameSwitches.ATTACK:
+			attack()
+		GameSwitches.NORMAL:
+			snap = Vector2.DOWN * 16 if is_on_floor() else Vector2.ZERO
+			get_input()
+			determine_direction()
 		
 		
 		# you can jump when you are in normal state
-		if Input.is_action_just_pressed("jump"):
-			if can_jump:
-				if is_on_floor():
-					emit_signal("jumped")
-					sprite.animation = "jump_up"
-					$jumpBound.play()
-					has_jumped = true
-					velocity.y = jump_speed
-					double_jump = true
+			if Input.is_action_just_pressed("jump"):
+				if can_jump:
+					if is_on_floor():
+						emit_signal("jumped")
+						sprite.animation = "jump_up"
+						$jumpBound.play()
+						has_jumped = true
+						velocity.y = jump_speed
+						double_jump = true
+				
+					elif double_jump == true:
+						emit_signal("jumped")
+						emit_signal("air_jumped")
+						velocity.y = jump_speed
+						$jumpBound2.play()
+						double_jump = false
+						has_jumped = true
 			
-				elif double_jump == true:
-					emit_signal("jumped")
-					emit_signal("air_jumped")
-					velocity.y = jump_speed
-					$jumpBound2.play()
-					double_jump = false
-					has_jumped = true
-		
-		# transition to attack state
-		elif Input.is_action_pressed("attack"):
-			GameSwitches.state = GameSwitches.ATTACK
-			
-		# if just directional keys are being pressed
-		else:
-			if is_on_floor() and is_on_wall():
-				push(delta);
-			elif is_on_floor():
-				on_floor(delta);
+			# transition to attack state
+			elif Input.is_action_pressed("attack"):
+				GameSwitches.state = GameSwitches.ATTACK
+				
+			# if just directional keys are being pressed
 			else:
-				in_air();
+				if is_on_floor() and is_on_wall():
+					push(delta);
+				elif is_on_floor():
+					on_floor(delta);
+				else:
+					in_air();
 """"""
 
 func initiate_bounce_pad(collision) -> void:
@@ -384,6 +386,7 @@ func _on_Sword_body_entered(body):
 	hit_sparkle.position = result.position
 	get_parent().add_child(hit_sparkle)
 	
+	# hurt the enemy by 1 point
 	if body.get_parent() is PathFollow2D:
 		body.deplete_health(1)
 """"""

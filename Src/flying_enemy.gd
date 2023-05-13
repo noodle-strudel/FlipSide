@@ -7,7 +7,12 @@ export var _speed = 100
 export var hit_point = 3
 
 func _ready():
-	pass
+	if get_tree().root.get_child(3).name == "Castle":
+		_speed = 200
+	if GameSwitches.flipped == true:
+		$AnimatedSprite.play("flip")  
+	else: 
+		$AnimatedSprite.play("noflip")
 	
 func _physics_process(delta):
 	path_follow.offset += _speed * delta
