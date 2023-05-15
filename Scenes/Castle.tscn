@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -35,6 +35,9 @@ animations = [ {
 
 [sub_resource type="Animation" id=2]
 resource_name = "flip"
+
+[sub_resource type="RectangleShape2D" id=198]
+extents = Vector2( 16, 352 )
 
 [node name="Castle" type="Node2D"]
 script = ExtResource( 5 )
@@ -109,6 +112,7 @@ shape = SubResource( 197 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 196 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
@@ -124,9 +128,18 @@ anims/flip = SubResource( 2 )
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
 
+[node name="TriggerKing" type="Area2D" parent="."]
+position = Vector2( 5728, -384 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerKing"]
+position = Vector2( 48, 352 )
+shape = SubResource( 198 )
+
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
 [connection signal="on_friendly_bat" from="Assassin" to="." method="_on_Assassin_on_friendly_bat"]
 [connection signal="touch_floor" from="Assassin" to="." method="_on_Assassin_touch_floor"]
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
+[connection signal="body_entered" from="TriggerKing" to="." method="_on_TriggerKing_body_entered"]
