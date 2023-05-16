@@ -114,3 +114,15 @@ func _on_Checkpoint_body_entered(body):
 
 func _on_BoundPadLanding_body_entered(body):
 	GameSwitches.state = GameSwitches.NORMAL
+
+
+func _on_To_Castle_body_entered(body):
+	$Assassin.velocity = Vector2.ZERO
+	GameSwitches.state = GameSwitches.INACTIVE
+	$Assassin/AnimatedSprite.play("idle")
+	$"Assassin/Change Camera Zoom".interpolate_property(
+		$Assassin/Camera2D, "global_position", 
+		$Assassin/Camera2D.global_position, Vector2($Assassin/Camera2D.global_position.x + 100, $Assassin/Camera2D.global_position.y), 
+		1.0, Tween.TRANS_SINE)
+	yield(get_tree().create_timer(1.0), "timeout")
+	$"Assassin/Change Camera Zoom".start()
