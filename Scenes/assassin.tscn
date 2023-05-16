@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=84 format=2]
 
 [ext_resource path="res://Src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
@@ -11,12 +11,16 @@
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_before_or_after_jump_srip_2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_death_anim_strip_8.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_attack_anim_strip_4(new).png" type="Texture" id=11]
+[ext_resource path="res://SFX/swingSwipe.wav" type="AudioStream" id=12]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/sword_effect_strip_4(new).png" type="Texture" id=13]
 [ext_resource path="res://SFX/pushMove.wav" type="AudioStream" id=14]
 [ext_resource path="res://SFX/jumpBound.wav" type="AudioStream" id=15]
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=16]
 [ext_resource path="res://SFX/deadDie.wav" type="AudioStream" id=17]
 [ext_resource path="res://SFX/killMurder.wav" type="AudioStream" id=18]
+[ext_resource path="res://Assets/Sprites/herochar sprites(new)/charged_hero.png" type="Texture" id=19]
+[ext_resource path="res://SFX/swingSwipe2.mp3" type="AudioStream" id=20]
+[ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=21]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24, 28 )
@@ -68,6 +72,14 @@ region = Rect2( 16, 0, 16, 16 )
 [sub_resource type="AtlasTexture" id=60]
 atlas = ExtResource( 11 )
 region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=70]
+atlas = ExtResource( 19 )
+region = Rect2( 18, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=71]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 0, 18, 18 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 10 )
@@ -237,6 +249,11 @@ animations = [ {
 "loop": false,
 "name": "charge_attack",
 "speed": 8.0
+}, {
+"frames": [ SubResource( 70 ), SubResource( 71 ) ],
+"loop": true,
+"name": "charged",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), null ],
 "loop": false,
@@ -413,7 +430,7 @@ collision_layer = 16
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
-position = Vector2( 56, 0 )
+position = Vector2( 64, 0 )
 rotation = 1.57079
 shape = SubResource( 46 )
 disabled = true
@@ -434,34 +451,59 @@ position = Vector2( -48, -16 )
 
 [node name="hitHurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-volume_db = -10.0
+volume_db = -20.0
+bus = "SFX"
 
 [node name="deadDie" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 17 )
+bus = "SFX"
 
 [node name="pushMove" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 14 )
 volume_db = -10.0
+bus = "SFX"
 
 [node name="jumpBound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
-volume_db = -20.0
+volume_db = -30.0
 pitch_scale = 0.9
+bus = "SFX"
 
 [node name="jumpBound2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
-volume_db = -20.0
+volume_db = -28.0
 pitch_scale = 1.2
+bus = "SFX"
+
+[node name="swingSwipe" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -5.0
+pitch_scale = 0.85
+bus = "SFX"
+
+[node name="swingSwipe2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+volume_db = -15.0
+pitch_scale = 1.11
+bus = "SFX"
 
 [node name="killMurder" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
+volume_db = -10.0
+bus = "SFX"
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -0.500001, -60 )
+scale = Vector2( 2.45, 0.4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 68 )
 anims/recover = SubResource( 69 )
 
 [node name="Change Camera Zoom" type="Tween" parent="."]
+
+[node name="Lighting" parent="." instance=ExtResource( 21 )]
 
 [connection signal="timeout" from="HitPauseTimer" to="." method="_on_HitPauseTimer_timeout"]
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_RecoverTimer_timeout"]

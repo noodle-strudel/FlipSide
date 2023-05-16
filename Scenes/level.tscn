@@ -21,6 +21,7 @@
 [ext_resource path="res://Src/ToggleCameraFall.gd" type="Script" id=19]
 [ext_resource path="res://Scenes/Flying Enemy.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/Ground Enemy.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 16, 16 )
@@ -5912,6 +5913,8 @@ __meta__ = {
 "_editor_description_": "level holder"
 }
 
+[node name="Lighting" parent="." instance=ExtResource( 22 )]
+
 [node name="yoyo" type="StaticBody2D" parent="." groups=["enemy"]]
 position = Vector2( 24, 192 )
 collision_layer = 4
@@ -7366,10 +7369,14 @@ rotate = false
 
 [node name="Ground Enemy" parent="Ground Enemy Path/PathFollow2D" instance=ExtResource( 21 )]
 
+[connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
+[connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
 [connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]
+[connection signal="body_entered" from="Flipper" to="." method="_on_Flipper_body_entered"]
+[connection signal="body_entered" from="Health" to="." method="_on_Health_body_entered"]
 [connection signal="body_entered" from="Bottomless Pit2" to="Assassin" method="_on_Bottomless_Pit_body_entered"]
 [connection signal="body_entered" from="BoundPadLanding" to="." method="_on_BoundPadLanding_body_entered"]
 [connection signal="body_entered" from="CameraTogglers/ToggleCameraHealth" to="CameraTogglers/ToggleCameraHealth" method="_on_ToggleCameraLeftHealth_body_entered"]
@@ -7384,6 +7391,8 @@ rotate = false
 [connection signal="body_exited" from="CameraTogglers/ToggleCameraFall" to="CameraTogglers/ToggleCameraFall" method="_on_ToggleCameraFall_body_exited"]
 [connection signal="fall_scene" from="CameraTogglers/ToggleCameraFall" to="Assassin" method="fall_into_cave"]
 
+[editable path="Lighting"]
+[editable path="CanvasLayer/HUD"]
 [editable path="Spikes/Spike68"]
 [editable path="Spikes/Spike72"]
 [editable path="Spikes/Spike89"]

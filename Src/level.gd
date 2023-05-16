@@ -10,8 +10,18 @@ func _ready():
 	GameSwitches.assassin_spawnpoint = Vector2(200, 8)
 	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
 	$Assassin.position = GameSwitches.assassin_spawnpoint
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
   
 	Music.change_music(Music.chip_joy_loop)
+	
+
+func _process(delta):
+	if Input.is_action_just_pressed("ui_pause"):
+		if $CanvasLayer/HUD/Options.visible == true:
+			$CanvasLayer/HUD/Options.visible = false
+		else:
+			$CanvasLayer/HUD/Options.visible = true
+		
 
 func _physics_process(delta):
 	if GameSwitches.can_flip:
@@ -49,6 +59,7 @@ func _on_assassin_touch_floor():
 	add_child(dust)
 
 func _on_Assassin_ded():
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -5)
 	Music.change_music(Music.you_died)
 	$CanvasLayer/HUD/Retry.show()
 
@@ -61,6 +72,7 @@ func _on_Assassin_air_jumped():
 
 
 func _on_HUD_respawn():
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	GameSwitches.state = GameSwitches.REVIVE
 	GameSwitches.load_data()
@@ -77,6 +89,29 @@ func _on_HUD_respawn():
 	$CanvasLayer/HUD/Retry.hide()
 	Music.change_music(Music.chip_joy_loop)
 
+
+func _on_Flipper_body_entered(body):
+	$CanvasLayer/HUD/ToolTip.show()
+	$CanvasLayer/HUD/ToolTip/XMarksTheSpot.show()
+	yield(get_tree().create_timer(7.0), "timeout")
+	$CanvasLayer/HUD/ToolTip.hide()
+	$CanvasLayer/HUD/ToolTip/XMarksTheSpot.hide()
+	
+
+func _on_Health_body_entered(body):
+	$CanvasLayer/HUD/ToolTip.show()
+	$CanvasLayer/HUD/ToolTip/RealHumanHearts.show()
+	yield(get_tree().create_timer(5.0), "timeout")
+	$CanvasLayer/HUD/ToolTip.hide()
+	$CanvasLayer/HUD/ToolTip/RealHumanHearts.hide()
+
+
+func _on_Checkpoint_body_entered():
+	$CanvasLayer/HUD/ToolTip.show()
+	$CanvasLayer/HUD/ToolTip/CheckThisOut.show()
+	yield(get_tree().create_timer(5.0), "timeout")
+	$CanvasLayer/HUD/ToolTip.hide()
+	$CanvasLayer/HUD/ToolTip/CheckThisOut.hide()
 
 func _on_BoundPadLanding_body_entered(body):
 	GameSwitches.state = GameSwitches.NORMAL

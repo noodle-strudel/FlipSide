@@ -1,9 +1,28 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Scenes/options.gd" type="Script" id=1]
+[ext_resource path="res://Src/options.gd" type="Script" id=1]
 [ext_resource path="res://SFX/changeSwitch.wav" type="AudioStream" id=2]
 [ext_resource path="res://SFX/clickChoose.wav" type="AudioStream" id=3]
 [ext_resource path="res://Assets/IdeaOptionBack.png" type="Texture" id=4]
+[ext_resource path="res://Resource/Font.tres" type="Theme" id=5]
+[ext_resource path="res://Fonts/open-sans/OpenSans-Light.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 25
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 25
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 25
+font_data = ExtResource( 6 )
 
 [node name="Options" type="Popup"]
 anchor_left = 0.156
@@ -15,13 +34,16 @@ margin_right = -0.0640259
 margin_bottom = -0.200012
 script = ExtResource( 1 )
 
+[node name="Lighting" parent="." instance=ExtResource( 7 )]
+position = Vector2( -24, 0 )
+
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_left = -0.028
 anchor_right = 1.034
 anchor_bottom = 1.012
 margin_left = -4.512
 margin_right = 8.336
-margin_bottom = 0.0480042
+margin_bottom = 10.048
 texture = ExtResource( 4 )
 expand = true
 
@@ -42,79 +64,240 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Video"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Video"]
 anchor_left = 0.017
-anchor_top = 0.018
+anchor_top = 0.037
 anchor_right = 0.983
-anchor_bottom = 0.972
+anchor_bottom = 0.954
 margin_left = 0.167999
-margin_top = 0.151999
+margin_top = -0.132
 margin_right = -0.16803
-margin_bottom = 0.207977
+margin_bottom = 0.0559692
 
-[node name="Main Menu" type="Button" parent="TabContainer/Video/VBoxContainer"]
-margin_right = 672.0
-margin_bottom = 20.0
-text = "Main Menu"
+[node name="VBoxContainer" type="GridContainer" parent="TabContainer/Video/MarginContainer"]
+margin_right = 671.0
+margin_bottom = 399.0
+theme = ExtResource( 5 )
+columns = 2
+
+[node name="DisplayModeLabel" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+margin_top = 3.0
+margin_right = 227.0
+margin_bottom = 53.0
+text = "Display Mode"
+
+[node name="DisplayModeButton" type="OptionButton" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+margin_left = 465.0
+margin_right = 671.0
+margin_bottom = 56.0
+size_flags_horizontal = 10
+text = "Windowed"
+expand_icon = true
+items = [ "Windowed", null, false, 0, null, "Fullscreen", null, false, 1, null, "The Secret Display", null, true, 2, null ]
+selected = 0
+
+[node name="RetroLabel" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+visible = false
+margin_top = 60.0
+margin_right = 418.0
+margin_bottom = 110.0
+text = "Retro"
+
+[node name="RetroCheckBox" type="CheckButton" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+visible = false
+margin_left = 595.0
+margin_top = 60.0
+margin_right = 671.0
+margin_bottom = 118.0
+size_flags_horizontal = 10
+
+[node name="BrightnessLabel" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+margin_top = 60.0
+margin_right = 227.0
+margin_bottom = 110.0
+text = "Brightness"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+margin_left = 253.0
+margin_top = 67.0
+margin_right = 671.0
+margin_bottom = 102.0
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="BrightnessValue" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 14.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+
+[node name="BrightnessSlider" type="HSlider" parent="TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 18.0
+margin_top = 9.0
+margin_right = 418.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 10
+size_flags_vertical = 4
+min_value = -10.0
+max_value = 10.0
 
 [node name="Audio" type="Tabs" parent="TabContainer"]
 visible = false
-margin_top = 24.0
-margin_right = 255.0
-margin_bottom = 44.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio"]
+[node name="VBoxContainer" type="GridContainer" parent="TabContainer/Audio"]
 anchor_left = 0.017
-anchor_top = 0.018
+anchor_top = 0.037
 anchor_right = 0.983
-anchor_bottom = 0.972
+anchor_bottom = 0.954
 margin_left = 0.167999
-margin_top = 0.151999
+margin_top = -0.132
 margin_right = -0.16803
-margin_bottom = 0.207977
+margin_bottom = 0.0559692
+theme = ExtResource( 5 )
+columns = 2
 
-[node name="Main Menu" type="Button" parent="TabContainer/Audio/VBoxContainer"]
-margin_right = 672.0
-margin_bottom = 20.0
+[node name="MasterVolLabel" type="Label" parent="TabContainer/Audio/VBoxContainer"]
+margin_right = 253.0
+margin_bottom = 50.0
+text = "Master Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+margin_left = 289.0
+margin_top = 7.0
+margin_right = 671.0
+margin_bottom = 42.0
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="MasVolValue" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
+margin_right = 28.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 1 )
+text = "40"
+
+[node name="MasterVolSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
+margin_left = 32.0
+margin_top = 9.0
+margin_right = 382.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 350, 0 )
+size_flags_horizontal = 10
+size_flags_vertical = 4
+min_value = -40.0
+max_value = 20.0
+
+[node name="MusicVolLabel" type="Label" parent="TabContainer/Audio/VBoxContainer"]
+margin_top = 54.0
+margin_right = 253.0
+margin_bottom = 104.0
+text = "Music Volume"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+margin_left = 289.0
+margin_top = 54.0
+margin_right = 671.0
+margin_bottom = 104.0
+size_flags_horizontal = 10
+
+[node name="MusicVolValue" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer2"]
+margin_top = 7.0
+margin_right = 28.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 2 )
+text = "40"
+
+[node name="MusicVolSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer2"]
+margin_left = 32.0
+margin_top = 17.0
+margin_right = 382.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 350, 0 )
+size_flags_horizontal = 10
+size_flags_vertical = 4
+min_value = -40.0
+max_value = 20.0
+
+[node name="SFXVolLabel" type="Label" parent="TabContainer/Audio/VBoxContainer"]
+margin_top = 108.0
+margin_right = 253.0
+margin_bottom = 158.0
+text = "SFX Volume"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+margin_left = 289.0
+margin_top = 108.0
+margin_right = 671.0
+margin_bottom = 158.0
+size_flags_horizontal = 10
+
+[node name="SFXVolValue" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer3"]
+margin_top = 7.0
+margin_right = 28.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 3 )
+text = "40"
+
+[node name="SFXVolSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer3"]
+margin_left = 32.0
+margin_top = 17.0
+margin_right = 382.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 350, 0 )
+size_flags_horizontal = 10
+size_flags_vertical = 4
+min_value = -40.0
+max_value = 20.0
+
+[node name="Reset" type="Button" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 616.0
+margin_top = -64.0
+margin_right = 691.0
+margin_bottom = -23.0
+size_flags_vertical = 9
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 4 )
+text = "Reset"
+align = 0
+
+[node name="Main Menu" type="Button" parent="."]
+margin_left = 16.0
+margin_top = 400.0
+margin_right = 218.0
+margin_bottom = 472.0
+size_flags_vertical = 10
+theme = ExtResource( 5 )
 text = "Main Menu"
-
-[node name="Gameplay" type="Tabs" parent="TabContainer"]
-visible = false
-margin_top = 24.0
-margin_right = 255.0
-margin_bottom = 68.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Gameplay"]
-anchor_left = 0.017
-anchor_top = 0.018
-anchor_right = 0.983
-anchor_bottom = 0.972
-margin_left = 0.167999
-margin_top = 0.151999
-margin_right = -0.16803
-margin_bottom = 0.207977
-
-[node name="Main Menu" type="Button" parent="TabContainer/Gameplay/VBoxContainer"]
-margin_right = 672.0
-margin_bottom = 20.0
-text = "Main Menu"
+align = 0
 
 [node name="changeSwitch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 volume_db = -10.0
+bus = "SFX"
 
 [node name="clickChoose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "SFX"
 
 [connection signal="tab_clicked" from="TabContainer/Video" to="." method="_on_Video_tab_clicked"]
 [connection signal="tab_hover" from="TabContainer/Video" to="." method="_on_Video_tab_hover"]
-[connection signal="mouse_entered" from="TabContainer/Video/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
-[connection signal="pressed" from="TabContainer/Video/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_pressed"]
+[connection signal="item_selected" from="TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeButton" to="." method="_on_DisplayModeButton_item_selected"]
+[connection signal="value_changed" from="TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer/BrightnessSlider" to="." method="_on_BrightnessSlider_value_changed"]
 [connection signal="tab_clicked" from="TabContainer/Audio" to="." method="_on_Audio_tab_clicked"]
 [connection signal="tab_hover" from="TabContainer/Audio" to="." method="_on_Audio_tab_hover"]
-[connection signal="mouse_entered" from="TabContainer/Audio/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
-[connection signal="pressed" from="TabContainer/Audio/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_pressed"]
-[connection signal="tab_clicked" from="TabContainer/Gameplay" to="." method="_on_Gameplay_tab_clicked"]
-[connection signal="tab_hover" from="TabContainer/Gameplay" to="." method="_on_Gameplay_tab_hover"]
-[connection signal="mouse_entered" from="TabContainer/Gameplay/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
-[connection signal="pressed" from="TabContainer/Gameplay/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_pressed"]
+[connection signal="value_changed" from="TabContainer/Audio/VBoxContainer/HBoxContainer/MasterVolSlider" to="." method="_on_MasterVolSlider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/VBoxContainer/HBoxContainer2/MusicVolSlider" to="." method="_on_MusicVolSlider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/VBoxContainer/HBoxContainer3/SFXVolSlider" to="." method="_on_SFXVolSlider_value_changed"]
+[connection signal="pressed" from="Reset" to="." method="_on_Reset_pressed"]
+[connection signal="mouse_entered" from="Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
+[connection signal="pressed" from="Main Menu" to="." method="_on_Main_Menu_pressed"]
+
+[editable path="Lighting"]
