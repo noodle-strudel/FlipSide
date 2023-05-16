@@ -5967,7 +5967,6 @@ collision_layer = 32
 [node name="Assassin" parent="." instance=ExtResource( 1 )]
 position = Vector2( 58, 67 )
 collision_mask = 6
-motion/sync_to_physics = false
 
 [node name="No Flip Level Terrain" type="TileMap" parent="."]
 position = Vector2( 0, -64 )

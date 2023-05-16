@@ -7,7 +7,10 @@ export var _speed = 100
 export var hit_point = 3
 
 func _ready():
-	pass
+	if GameSwitches.flipped == true:
+		$AnimatedSprite.play("flip")  
+	else: 
+		$AnimatedSprite.play("noflip")
 	
 func _physics_process(delta):
 	if $AnimationPlayer.current_animation == "bounce":

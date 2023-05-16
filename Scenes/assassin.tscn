@@ -362,7 +362,6 @@ tracks/0/keys = {
 
 [node name="Assassin" type="KinematicBody2D"]
 collision_mask = 66
-motion/sync_to_physics = true
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": "main character, ready for anything!"
@@ -377,6 +376,7 @@ position = Vector2( 0, -32 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
