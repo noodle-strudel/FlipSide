@@ -1,13 +1,22 @@
-[gd_resource type="Theme" load_steps=5 format=2]
+[gd_resource type="Theme" load_steps=9 format=2]
 
 [ext_resource path="res://Fonts/dogica/OTF/dogica.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/dogica/TTF/dogicapixel.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Fonts/dogica/TTF/dogicabold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Main Menu Button.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=6]
 font_data = ExtResource( 1 )
 
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 150, 30 )
+
 [sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 3 )
 
 [resource]
 Button/colors/font_color = Color( 0.827451, 0.827451, 0.827451, 1 )
@@ -20,7 +29,7 @@ Button/fonts/font = SubResource( 6 )
 Button/styles/disabled = null
 Button/styles/focus = null
 Button/styles/hover = null
-Button/styles/normal = null
+Button/styles/normal = SubResource( 9 )
 Button/styles/pressed = null
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
@@ -31,3 +40,4 @@ Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/fonts/font = SubResource( 7 )
 Label/styles/normal = null
+TabContainer/fonts/font = SubResource( 8 )
