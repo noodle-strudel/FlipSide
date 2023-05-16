@@ -252,6 +252,7 @@ func hit():
 		if GameSwitches.health <= 0:
 			BackgroundMusic.playing = false
 
+
 	sprite.animation = "hit"
 
 func _on_HitPauseTimer_timeout():

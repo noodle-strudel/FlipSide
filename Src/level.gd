@@ -6,12 +6,11 @@ var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 
 func _ready():
-	GameSwitches.can_flip = true
 	GameSwitches.save_data()
 	GameSwitches.assassin_spawnpoint = Vector2(200, 8)
 	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
 	$Assassin.position = GameSwitches.assassin_spawnpoint
-
+  
 	Music.change_music(Music.chip_joy_loop)
 
 func _physics_process(delta):

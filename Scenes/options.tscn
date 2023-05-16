@@ -19,40 +19,84 @@ script = ExtResource( 1 )
 anchor_left = -0.028
 anchor_right = 1.034
 anchor_bottom = 1.012
-margin_left = 0.488001
-margin_right = 0.335999
-margin_bottom = 0.0479736
+margin_left = -4.512
+margin_right = 8.336
+margin_bottom = 0.0480042
 texture = ExtResource( 4 )
+expand = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_top = 0.403
-anchor_right = 0.368
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_top = 0.032
+anchor_right = 1.011
 anchor_bottom = 0.597
-margin_top = 0.111984
-margin_right = -0.128021
-margin_bottom = -0.112
+margin_top = 0.127999
+margin_right = 0.343994
+margin_bottom = 191.888
+tab_align = 0
 
-[node name="Video" type="Button" parent="VBoxContainer"]
-margin_right = 256.0
+[node name="Video" type="Tabs" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Video"]
+anchor_left = 0.017
+anchor_top = 0.018
+anchor_right = 0.983
+anchor_bottom = 0.972
+margin_left = 0.167999
+margin_top = 0.151999
+margin_right = -0.16803
+margin_bottom = 0.207977
+
+[node name="Main Menu" type="Button" parent="TabContainer/Video/VBoxContainer"]
+margin_right = 672.0
 margin_bottom = 20.0
-text = "Video"
+text = "Main Menu"
 
-[node name="Audio" type="Button" parent="VBoxContainer"]
+[node name="Audio" type="Tabs" parent="TabContainer"]
+visible = false
 margin_top = 24.0
-margin_right = 256.0
+margin_right = 255.0
 margin_bottom = 44.0
-text = "Audio"
 
-[node name="Gameplay" type="Button" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 256.0
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio"]
+anchor_left = 0.017
+anchor_top = 0.018
+anchor_right = 0.983
+anchor_bottom = 0.972
+margin_left = 0.167999
+margin_top = 0.151999
+margin_right = -0.16803
+margin_bottom = 0.207977
+
+[node name="Main Menu" type="Button" parent="TabContainer/Audio/VBoxContainer"]
+margin_right = 672.0
+margin_bottom = 20.0
+text = "Main Menu"
+
+[node name="Gameplay" type="Tabs" parent="TabContainer"]
+visible = false
+margin_top = 24.0
+margin_right = 255.0
 margin_bottom = 68.0
-text = "Gameplay"
 
-[node name="Main Menu" type="Button" parent="VBoxContainer"]
-margin_top = 72.0
-margin_right = 256.0
-margin_bottom = 92.0
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Gameplay"]
+anchor_left = 0.017
+anchor_top = 0.018
+anchor_right = 0.983
+anchor_bottom = 0.972
+margin_left = 0.167999
+margin_top = 0.151999
+margin_right = -0.16803
+margin_bottom = 0.207977
+
+[node name="Main Menu" type="Button" parent="TabContainer/Gameplay/VBoxContainer"]
+margin_right = 672.0
+margin_bottom = 20.0
 text = "Main Menu"
 
 [node name="changeSwitch" type="AudioStreamPlayer" parent="."]
@@ -62,11 +106,15 @@ volume_db = -10.0
 [node name="clickChoose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 
-[connection signal="mouse_entered" from="VBoxContainer/Video" to="." method="_on_Video_mouse_entered"]
-[connection signal="pressed" from="VBoxContainer/Video" to="." method="_on_Video_pressed"]
-[connection signal="mouse_entered" from="VBoxContainer/Audio" to="." method="_on_Audio_mouse_entered"]
-[connection signal="pressed" from="VBoxContainer/Audio" to="." method="_on_Audio_pressed"]
-[connection signal="mouse_entered" from="VBoxContainer/Gameplay" to="." method="_on_Gameplay_mouse_entered"]
-[connection signal="pressed" from="VBoxContainer/Gameplay" to="." method="_on_Gameplay_pressed"]
-[connection signal="mouse_entered" from="VBoxContainer/Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
-[connection signal="pressed" from="VBoxContainer/Main Menu" to="." method="_on_Main_Menu_pressed"]
+[connection signal="tab_clicked" from="TabContainer/Video" to="." method="_on_Video_tab_clicked"]
+[connection signal="tab_hover" from="TabContainer/Video" to="." method="_on_Video_tab_hover"]
+[connection signal="mouse_entered" from="TabContainer/Video/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
+[connection signal="pressed" from="TabContainer/Video/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_pressed"]
+[connection signal="tab_clicked" from="TabContainer/Audio" to="." method="_on_Audio_tab_clicked"]
+[connection signal="tab_hover" from="TabContainer/Audio" to="." method="_on_Audio_tab_hover"]
+[connection signal="mouse_entered" from="TabContainer/Audio/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
+[connection signal="pressed" from="TabContainer/Audio/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_pressed"]
+[connection signal="tab_clicked" from="TabContainer/Gameplay" to="." method="_on_Gameplay_tab_clicked"]
+[connection signal="tab_hover" from="TabContainer/Gameplay" to="." method="_on_Gameplay_tab_hover"]
+[connection signal="mouse_entered" from="TabContainer/Gameplay/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
+[connection signal="pressed" from="TabContainer/Gameplay/VBoxContainer/Main Menu" to="." method="_on_Main_Menu_pressed"]

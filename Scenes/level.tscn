@@ -7366,7 +7366,6 @@ rotate = false
 
 [node name="Ground Enemy" parent="Ground Enemy Path/PathFollow2D" instance=ExtResource( 21 )]
 
-[connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
