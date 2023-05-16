@@ -59,9 +59,8 @@ var direction = "right"
 
 func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
-	GameSwitches.health = 3000000
+	GameSwitches.health = 3
 	GameSwitches.coins = 0
-	print($Camera2D.get_path())
 
 """
 ----------------------------------------------------------------------
@@ -403,10 +402,14 @@ func revive():
 	$AnimationPlayer.play("recover")
 	GameSwitches.state = GameSwitches.NORMAL
 	yield($AnimationPlayer, "animation_finished")
+	
+	# enables collision again for the assassin
+	collision_layer = GameSwitches.player_layer
 	reviving = false
 
 
 func _on_Bottomless_Pit_body_entered(body):
+	print("touched")
 	GameSwitches.health = 0
 	BackgroundMusic.playing = false
 	GameSwitches.state = GameSwitches.DED

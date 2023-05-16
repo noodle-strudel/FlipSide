@@ -27,4 +27,8 @@ func _on_Area2D_body_exited(body):
 
 
 func _on_CrumbleTimer_timeout():
+	$AnimationPlayer.play("break")
+	collision_layer = 0
+	collision_mask = 0
+	yield(get_tree().create_timer(1), "timeout")
 	queue_free()

@@ -80,8 +80,7 @@ func _on_HUD_respawn():
 	$Assassin.dead = false
 	$Assassin.reviving = true
 	
-	# enables collision again for the assassin
-	$Assassin.collision_layer = GameSwitches.player_layer
+	# collision layer for the assassin comes back after they are revived
 	
 	# "|" adds binary numbers together
 	$Assassin.collision_mask = GameSwitches.terrain_layer | GameSwitches.coin_layer
@@ -106,7 +105,7 @@ func _on_Health_body_entered(body):
 	$CanvasLayer/HUD/ToolTip/RealHumanHearts.hide()
 
 
-func _on_Checkpoint_body_entered():
+func _on_Checkpoint_body_entered(body):
 	$CanvasLayer/HUD/ToolTip.show()
 	$CanvasLayer/HUD/ToolTip/CheckThisOut.show()
 	yield(get_tree().create_timer(5.0), "timeout")
