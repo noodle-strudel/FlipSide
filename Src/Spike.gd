@@ -1,5 +1,6 @@
 extends StaticBody2D
 
+var is_bounce_pad: bool
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -8,11 +9,14 @@ extends StaticBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	is_bounce_pad = true if $AnimatedSprite.animation == "bounce_pad" else false
 
 
 func flip():
-	if GameSwitches.flipped == true:
-		$AnimationPlayer.play("to_bounce_pad")
+	if $AnimatedSprite.animation == "spike":
+		$AnimatedSprite.animation = "bounce_pad"
+		is_bounce_pad = true
 	else:
-		$AnimationPlayer.play("to_spike")
+		$AnimatedSprite.animation = "spike"
+		is_bounce_pad = false
+		

@@ -22,6 +22,7 @@ func _physics_process(delta):
 		var object_pos: Vector2
 		
 		var collision = get_slide_collision(i)
+
 		var space_state = get_world_2d().direct_space_state
 		
 		if collision.collider is TileMap:
@@ -37,7 +38,7 @@ func _physics_process(delta):
 
 			object_pos = tile_pos
 		else:
-			object_pos = collision.collider.position
+			object_pos = collision.collider.global_position
 
 		# if it's facing left
 		if $Sprite.flip_h == true:
@@ -49,6 +50,10 @@ func _physics_process(delta):
 			var hit_sparkle = hit_sparkle_scene.instance()
 			hit_sparkle.position = result.position
 			get_parent().add_child(hit_sparkle)
+			
+			if collision.collider.get_parent() is PathFollow2D:
+				collision.collider.deplete_health(1)
+			
 			queue_free()
 
 # if it doesnt hit anything by the time the timer runs out, it despawns

@@ -1,0 +1,148 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
+[ext_resource path="res://Src/ground_enemy.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Sprites/ground enemy/spikebug walk2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/ground enemy/spikebug walk1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/ground enemy/spikebug standing.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/ground enemy/bouncebug walk1.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sprites/ground enemy/bugbounce frame3.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sprites/ground enemy/bouncebug walk2.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Sprites/ground enemy/bugbounce frame2.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/ground enemy/bouncebug standing.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sprites/ground enemy/bugbounce frame5.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/ground enemy/bugbounce frame4.png" type="Texture" id=12]
+
+[sub_resource type="RectangleShape2D" id=197]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="RectangleShape2D" id=195]
+extents = Vector2( 24, 24 )
+
+[sub_resource type="SpriteFrames" id=200]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 12 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 11 ), ExtResource( 11 ), ExtResource( 11 ) ],
+"loop": false,
+"name": "flipbounce",
+"speed": 16.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "noflip",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=202]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "flip" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimatedSprite:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=203]
+resource_name = "bounce"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "flipbounce" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimatedSprite:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="Ground Enemy" type="StaticBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 25
+script = ExtResource( 2 )
+
+[node name="hitHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -10.0
+pitch_scale = 1.2
+
+[node name="TrueEnemyArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrueEnemyArea"]
+shape = SubResource( 197 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 195 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 3, 3 )
+frames = SubResource( 200 )
+animation = "noflip"
+playing = true
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 202 )
+anims/bounce = SubResource( 203 )
+
+[connection signal="body_entered" from="TrueEnemyArea" to="." method="_on_TrueEnemyArea_body_entered"]
