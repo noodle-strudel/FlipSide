@@ -7085,7 +7085,7 @@ position = Vector2( 5000, -584 )
 collision_layer = 0
 
 [node name="CollisionShape2D" parent="CameraTogglers/ToggleCameraHealth" index="0"]
-position = Vector2( 1054, 266 )
+position = Vector2( 1080, 270 )
 
 [node name="ToggleCameraSpikes" type="Area2D" parent="CameraTogglers"]
 position = Vector2( 15488, 0 )

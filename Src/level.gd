@@ -2,6 +2,9 @@ extends Node
 
 var dust_resource = preload("res://Scenes/dust.tscn")
 
+var first_heart = true
+var first_checkpoint = true
+
 var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 var going_out_of_cave = false
@@ -100,19 +103,23 @@ func _on_Flipper_body_entered(body):
 	
 
 func _on_Health_body_entered(body):
-	$CanvasLayer/HUD/ToolTip.show()
-	$CanvasLayer/HUD/ToolTip/RealHumanHearts.show()
-	yield(get_tree().create_timer(5.0), "timeout")
-	$CanvasLayer/HUD/ToolTip.hide()
-	$CanvasLayer/HUD/ToolTip/RealHumanHearts.hide()
+	if (first_heart == true):
+		$CanvasLayer/HUD/ToolTip.show()
+		$CanvasLayer/HUD/ToolTip/RealHumanHearts.show()
+		yield(get_tree().create_timer(5.0), "timeout")
+		$CanvasLayer/HUD/ToolTip.hide()
+		$CanvasLayer/HUD/ToolTip/RealHumanHearts.hide()
+		first_heart = false
 
 
 func _on_Checkpoint_body_entered(body):
-	$CanvasLayer/HUD/ToolTip.show()
-	$CanvasLayer/HUD/ToolTip/CheckThisOut.show()
-	yield(get_tree().create_timer(5.0), "timeout")
-	$CanvasLayer/HUD/ToolTip.hide()
-	$CanvasLayer/HUD/ToolTip/CheckThisOut.hide()
+	if (first_checkpoint == true):
+		$CanvasLayer/HUD/ToolTip.show()
+		$CanvasLayer/HUD/ToolTip/CheckThisOut.show()
+		yield(get_tree().create_timer(5.0), "timeout")
+		$CanvasLayer/HUD/ToolTip.hide()
+		$CanvasLayer/HUD/ToolTip/CheckThisOut.hide()
+		first_checkpoint = false
 
 func _on_BoundPadLanding_body_entered(body):
 	GameSwitches.state = GameSwitches.NORMAL
