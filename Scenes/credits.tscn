@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Resource/Font.tres" type="Theme" id=1]
 [ext_resource path="res://Src/credits.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Resource/Font2.tres" type="Theme" id=9]
 [ext_resource path="res://Assets/Sprites/Disco Lights.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -222,6 +223,8 @@ theme = ExtResource( 9 )
 text = "CREDITS"
 
 [node name="Lighting" parent="." instance=ExtResource( 11 )]
+
+[node name="SceneTransitionRect" parent="." instance=ExtResource( 12 )]
 
 [connection signal="mouse_entered" from="Main Menu" to="." method="_on_Main_Menu_mouse_entered"]
 [connection signal="pressed" from="Main Menu" to="." method="_on_Main_Menu_pressed"]

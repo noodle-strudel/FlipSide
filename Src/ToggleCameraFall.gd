@@ -8,4 +8,4 @@ func _on_ToggleCameraFall_body_entered(body):
 
 func _on_ToggleCameraFall_body_exited(body):
 	emit_signal("fall_scene", "landing")
-	zoom_camera(Vector2(1.25, 1.25), 1)
+	zoom_camera(Vector2(1.5, 1.5), 1)

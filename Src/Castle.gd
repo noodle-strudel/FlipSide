@@ -8,15 +8,14 @@ var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 var got_a_ride = false
 
 func _ready():
-	GameSwitches.state = GameSwitches.INACTIVE
 	GameSwitches.flipped = true
 	get_tree().call_group("enemy", "flip")
 	$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
 	GameSwitches.save_data()
-	Music.change_music(Music.chip_joy_loop)
 
 func _physics_process(delta):
 	if got_a_ride == false:
+		GameSwitches.state = GameSwitches.INACTIVE
 		if $"Flying Enemy Path/PathFollow2D".unit_offset == 1:
 			GameSwitches.state = GameSwitches.NORMAL
 			got_a_ride = true
@@ -106,9 +105,9 @@ func _on_TriggerKing_body_entered(body):
 	$Assassin.velocity = Vector2.ZERO
 	GameSwitches.state = GameSwitches.INACTIVE
 	$Assassin/AnimatedSprite.play("idle")
+	yield(get_tree().create_timer(1.0), "timeout")
 	$"Assassin/Change Camera Zoom".interpolate_property(
 		$Assassin/Camera2D, "global_position", 
 		$Assassin/Camera2D.global_position, Vector2(6336, $Assassin/Camera2D.global_position.y), 
 		1.0, Tween.TRANS_SINE)
-	yield(get_tree().create_timer(1.0), "timeout")
 	$"Assassin/Change Camera Zoom".start()

@@ -2,25 +2,35 @@ extends StaticBody2D
 
 onready var path_follow = get_parent()
 
-export var _speed = 100
+export var _speed = 300
 
-export var hit_point = 3
+var flying_down = false
+var flying_up = false
+
+signal spawn_crystal
 
 func _ready():
-	if get_tree().root.get_child(6).name == "Castle":
-		_speed = 200
+	pass
 	
 func _physics_process(delta):
-	path_follow.offset += _speed * delta
-	
-	if hit_point <= 0:
-		yield($hitHurt, "finished")
-		queue_free()
+	if flying_down == true:
+		fly_down(delta)
+	elif flying_up == true:
+		fly_up(delta)
 
 
 func deplete_health(health):
-	$hitHurt.play()
-	hit_point -= health
+	pass
+
+func fly_down(delta):
+	path_follow.offset += _speed * delta
+	if path_follow.unit_offset == 1:
+		flying_down = false
+		
+func fly_up(delta):
+	path_follow.offset -= _speed * delta
+	if path_follow.unit_offset == 0:
+		flying_down = false
 
 func flip():
 	if $AnimatedSprite.animation == "noflip":
@@ -31,5 +41,4 @@ func flip():
 		$CollisionShape2D.shape.extents = Vector2(40, 44)
 		$CollisionShape2D.position = Vector2(0, -4)
 		$AnimatedSprite.play("noflip")
-
-
+	
