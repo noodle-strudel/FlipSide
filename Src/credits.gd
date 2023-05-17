@@ -19,7 +19,7 @@ func _on_Main_Menu_pressed():
 	$clickChoose.playing = true
 	yield($clickChoose, "finished")
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-	get_tree().change_scene("res://Scenes/menu.tscn")
+	$SceneTransitionRect.transition_to("res://Scenes/menu.tscn")
 
 
 func _on_Main_Menu_mouse_entered():

@@ -1,10 +1,5 @@
 extends Control
 
-# Function that doesn't work :(
-func select_option():
-	BackgroundMusic.playing = false
-	$Select.playing = true
-	yield($Select, "finished")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,7 +17,7 @@ func _on_NewGame_pressed():
 	BackgroundMusic.playing = false
 	$Select.playing = true
 	yield($Select, "finished")
-	get_tree().change_scene("res://Scenes/level.tscn")
+	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
 
 
 func _on_Continue_pressed():
@@ -30,7 +25,7 @@ func _on_Continue_pressed():
 	BackgroundMusic.playing = false
 	$Select.playing = true
 	yield($Select, "finished")
-	get_tree().change_scene("res://Scenes/level.tscn")
+	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
 
 
 func _on_Quit_pressed():
@@ -51,7 +46,7 @@ func _on_Credits_pressed():
 	$clickChoose.playing = true
 	yield($clickChoose, "finished")
 	BackgroundMusic.playing = false
-	get_tree().change_scene("res://Scenes/Credits.tscn")
+	$SceneTransitionRect.transition_to("res://Scenes/Credits.tscn")
 
 
 # Makes a noise when hovered over

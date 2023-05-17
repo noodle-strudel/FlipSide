@@ -1,7 +1,8 @@
-[gd_scene load_steps=213 format=2]
+[gd_scene load_steps=224 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
+[ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=5]
 [ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=6]
@@ -21,6 +22,12 @@
 [ext_resource path="res://Scenes/Flying Enemy.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/Ground Enemy.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Assets/Sprites/flying enemy/bat2.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Sprites/flying enemy/bat1.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Sprites/flying enemy/greenbat2.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Sprites/flying enemy/batflip1.png" type="Texture" id=26]
+[ext_resource path="res://Src/Up Bat.gd" type="Script" id=27]
+[ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=28]
 
 [sub_resource type="ConvexPolygonShape2D" id=107]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
@@ -5909,6 +5916,30 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 768, 288, 0, 0, 0, 0, 1128, 288, 0, 0, 0, 0, 768, 288 )
 }
 
+[sub_resource type="Curve2D" id=298]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 896, 192, 0, 0, 0, 0, 896, 192, 794.391, -67.5779, -794.391, 67.5779, 162, 925 )
+}
+
+[sub_resource type="RectangleShape2D" id=299]
+extents = Vector2( 40, 44 )
+
+[sub_resource type="SpriteFrames" id=300]
+animations = [ {
+"frames": [ ExtResource( 26 ), ExtResource( 25 ) ],
+"loop": true,
+"name": "flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "noflip",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=301]
+resource_name = "flip"
+
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
 __meta__ = {
@@ -5929,6 +5960,8 @@ tile_data = PoolIntArray( -3210555, 536870912, 327680, -3210554, 536870912, 3276
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
+
+[node name="SceneTransitionRect" parent="CanvasLayer" instance=ExtResource( 28 )]
 
 [node name="Details Foreground" type="TileMap" parent="."]
 position = Vector2( 0, -62 )
@@ -7038,6 +7071,13 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="To Castle"]
 shape = SubResource( 297 )
 
+[node name="Flipper" parent="To Castle" instance=ExtResource( 12 )]
+visible = false
+position = Vector2( 32, 680 )
+rotation = 0.261799
+collision_layer = 0
+collision_mask = 0
+
 [node name="CameraTogglers" type="Node2D" parent="."]
 
 [node name="ToggleCameraHealth" parent="CameraTogglers" instance=ExtResource( 9 )]
@@ -7370,11 +7410,76 @@ rotate = false
 
 [node name="Ground Enemy" parent="Enemies/Ground Enemy Path/PathFollow2D" instance=ExtResource( 21 )]
 
+[node name="Up Bat" type="Path2D" parent="Enemies"]
+position = Vector2( 54128, 4640 )
+curve = SubResource( 298 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Up Bat"]
+position = Vector2( 896, 192 )
+rotation = -1.5708
+rotate = false
+loop = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Enemies/Up Bat/PathFollow2D"]
+position = Vector2( 24, 0.00012207 )
+rotation = 1.5708
+
+[node name="Flying Enemy" type="StaticBody2D" parent="Enemies/Up Bat/PathFollow2D" groups=["enemy"]]
+rotation = 1.5708
+scale = Vector2( 2, 2 )
+collision_layer = 4
+collision_mask = 25
+script = ExtResource( 27 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Up Bat/PathFollow2D/Flying Enemy"]
+position = Vector2( -1.12884e-06, -4 )
+shape = SubResource( 299 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Enemies/Up Bat/PathFollow2D/Flying Enemy"]
+scale = Vector2( 3, 3 )
+frames = SubResource( 300 )
+animation = "noflip"
+playing = true
+flip_h = true
+
+[node name="hitHurt" type="AudioStreamPlayer" parent="Enemies/Up Bat/PathFollow2D/Flying Enemy"]
+stream = ExtResource( 3 )
+volume_db = -10.0
+pitch_scale = 1.2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemies/Up Bat/PathFollow2D/Flying Enemy"]
+anims/flip = SubResource( 301 )
+
+[node name="TransitionCameraPos" type="Position2D" parent="."]
+position = Vector2( 54064, 5504 )
+
+[node name="CameraPanTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ShowFlipperTimer" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
+
+[node name="FlipEnemyTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="HideFlipperTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HopOnBatTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TransitionToCastleTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
+[connection signal="on_friendly_bat" from="Assassin" to="." method="_on_Assassin_on_friendly_bat"]
 [connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]
 [connection signal="body_entered" from="Flipper" to="." method="_on_Flipper_body_entered"]
 [connection signal="body_entered" from="Health" to="." method="_on_Health_body_entered"]
@@ -7393,6 +7498,10 @@ rotate = false
 [connection signal="body_entered" from="CameraTogglers/ToggleCameraFall" to="CameraTogglers/ToggleCameraFall" method="_on_ToggleCameraFall_body_entered"]
 [connection signal="body_exited" from="CameraTogglers/ToggleCameraFall" to="CameraTogglers/ToggleCameraFall" method="_on_ToggleCameraFall_body_exited"]
 [connection signal="fall_scene" from="CameraTogglers/ToggleCameraFall" to="Assassin" method="fall_into_cave"]
+[connection signal="timeout" from="CameraPanTimer" to="." method="_on_CameraPanTimer_timeout"]
+[connection signal="timeout" from="ShowFlipperTimer" to="." method="_on_ShowFlipperTimer_timeout"]
+[connection signal="timeout" from="FlipEnemyTimer" to="." method="_on_FlipEnemyTimer_timeout"]
+[connection signal="timeout" from="HideFlipperTimer" to="." method="_on_HideFlipperTimer_timeout"]
 
 [editable path="Lighting"]
 [editable path="CanvasLayer/HUD"]

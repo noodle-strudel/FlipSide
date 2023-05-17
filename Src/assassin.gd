@@ -24,7 +24,7 @@ export var attacking = false
 export var reviving = false
 
 var can_jump = true
-var on_friendly_bat = false
+var going_out_of_cave = false
 
 var gonna_jump_on_bounce_pad = false
 var set_position_x
@@ -68,6 +68,7 @@ func _ready():
 ----------------------------------------------------------------------
 """
 func _physics_process(delta):
+	print(global_position)
 	velocity.y += gravity * delta
 	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
 	
@@ -433,3 +434,10 @@ func _on_BounceDelay_timeout():
 		velocity.y = jump_speed
 		can_jump = true
 	gonna_jump_on_bounce_pad = false
+
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	if $Camera2D.current == false and GameSwitches.state != GameSwitches.INACTIVE:
+		global_position = Vector2(53566.839844, 5569.997559)
+	GameSwitches.state = GameSwitches.REVIVE

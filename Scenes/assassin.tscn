@@ -392,7 +392,7 @@ position = Vector2( 0, -32 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -509,3 +509,4 @@ anims/recover = SubResource( 69 )
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_RecoverTimer_timeout"]
 [connection signal="timeout" from="BounceDelay" to="." method="_on_BounceDelay_timeout"]
 [connection signal="body_entered" from="Sword" to="." method="_on_Sword_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
