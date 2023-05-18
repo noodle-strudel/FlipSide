@@ -1,25 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Src/options.gd" type="Script" id=1]
 [ext_resource path="res://SFX/changeSwitch.wav" type="AudioStream" id=2]
 [ext_resource path="res://SFX/clickChoose.wav" type="AudioStream" id=3]
 [ext_resource path="res://Assets/IdeaOptionBack.png" type="Texture" id=4]
-[ext_resource path="res://Resource/Font.tres" type="Theme" id=5]
-[ext_resource path="res://Fonts/open-sans/OpenSans-Light.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Resource/small_but_good.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Resource/Option Theme.tres" type="Theme" id=8]
-
-[sub_resource type="DynamicFont" id=1]
-size = 25
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 25
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 25
-font_data = ExtResource( 6 )
 
 [node name="Options" type="Popup"]
 anchor_left = 0.156
@@ -80,9 +67,10 @@ margin_right = 246.0
 margin_bottom = 49.0
 size_flags_vertical = 1
 text = "Display Mode"
+valign = 1
 
 [node name="DisplayModeButton" type="OptionButton" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
-margin_left = 483.0
+margin_left = 468.0
 margin_right = 679.0
 margin_bottom = 49.0
 size_flags_horizontal = 10
@@ -112,26 +100,26 @@ margin_top = 53.0
 margin_right = 246.0
 margin_bottom = 102.0
 text = "Brightness"
+valign = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
-margin_left = 261.0
-margin_top = 60.0
+margin_left = 257.0
+margin_top = 69.0
 margin_right = 679.0
-margin_bottom = 95.0
+margin_bottom = 85.0
 size_flags_horizontal = 10
 size_flags_vertical = 4
 
 [node name="BrightnessValue" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 14.0
-margin_bottom = 35.0
-custom_fonts/font = SubResource( 1 )
+margin_right = 18.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 5 )
 text = "0"
 
 [node name="BrightnessSlider" type="HSlider" parent="TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 18.0
-margin_top = 9.0
-margin_right = 418.0
-margin_bottom = 25.0
+margin_left = 22.0
+margin_right = 422.0
+margin_bottom = 16.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 10
 size_flags_vertical = 4
@@ -156,33 +144,31 @@ margin_left = 0.167999
 margin_top = -0.132
 margin_right = -0.16803
 margin_bottom = 0.0559692
-theme = ExtResource( 5 )
 columns = 2
 
 [node name="MasterVolLabel" type="Label" parent="TabContainer/Audio/VBoxContainer"]
-margin_right = 253.0
-margin_bottom = 50.0
+margin_right = 274.0
+margin_bottom = 49.0
 text = "Master Volume"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
-margin_left = 289.0
-margin_top = 7.0
+margin_left = 281.0
+margin_top = 16.0
 margin_right = 671.0
-margin_bottom = 42.0
+margin_bottom = 32.0
 size_flags_horizontal = 10
 size_flags_vertical = 4
 
 [node name="MasVolValue" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
-margin_right = 28.0
-margin_bottom = 35.0
-custom_fonts/font = SubResource( 1 )
+margin_right = 36.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 5 )
 text = "40"
 
 [node name="MasterVolSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
-margin_left = 32.0
-margin_top = 9.0
-margin_right = 382.0
-margin_bottom = 25.0
+margin_left = 40.0
+margin_right = 390.0
+margin_bottom = 16.0
 rect_min_size = Vector2( 350, 0 )
 size_flags_horizontal = 10
 size_flags_vertical = 4
@@ -190,30 +176,30 @@ min_value = -40.0
 max_value = 20.0
 
 [node name="MusicVolLabel" type="Label" parent="TabContainer/Audio/VBoxContainer"]
-margin_top = 54.0
-margin_right = 253.0
-margin_bottom = 104.0
+margin_top = 53.0
+margin_right = 274.0
+margin_bottom = 102.0
 text = "Music Volume"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
-margin_left = 289.0
-margin_top = 54.0
+margin_left = 281.0
+margin_top = 53.0
 margin_right = 671.0
-margin_bottom = 104.0
+margin_bottom = 102.0
 size_flags_horizontal = 10
 
 [node name="MusicVolValue" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer2"]
-margin_top = 7.0
-margin_right = 28.0
-margin_bottom = 42.0
-custom_fonts/font = SubResource( 2 )
+margin_top = 16.0
+margin_right = 36.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 5 )
 text = "40"
 
 [node name="MusicVolSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer2"]
-margin_left = 32.0
-margin_top = 17.0
-margin_right = 382.0
-margin_bottom = 33.0
+margin_left = 40.0
+margin_top = 16.0
+margin_right = 390.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 350, 0 )
 size_flags_horizontal = 10
 size_flags_vertical = 4
@@ -221,30 +207,30 @@ min_value = -40.0
 max_value = 20.0
 
 [node name="SFXVolLabel" type="Label" parent="TabContainer/Audio/VBoxContainer"]
-margin_top = 108.0
-margin_right = 253.0
-margin_bottom = 158.0
+margin_top = 106.0
+margin_right = 274.0
+margin_bottom = 155.0
 text = "SFX Volume"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
-margin_left = 289.0
-margin_top = 108.0
+margin_left = 281.0
+margin_top = 106.0
 margin_right = 671.0
-margin_bottom = 158.0
+margin_bottom = 155.0
 size_flags_horizontal = 10
 
 [node name="SFXVolValue" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer3"]
-margin_top = 7.0
-margin_right = 28.0
-margin_bottom = 42.0
-custom_fonts/font = SubResource( 3 )
+margin_top = 16.0
+margin_right = 36.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 5 )
 text = "40"
 
 [node name="SFXVolSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer3"]
-margin_left = 32.0
-margin_top = 17.0
-margin_right = 382.0
-margin_bottom = 33.0
+margin_left = 40.0
+margin_top = 16.0
+margin_right = 390.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 350, 0 )
 size_flags_horizontal = 10
 size_flags_vertical = 4

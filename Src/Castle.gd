@@ -15,6 +15,8 @@ func _ready():
 	get_tree().call_group("enemy", "flip")
 	$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
 	GameSwitches.save_data()
+	
+	Music.change_music(Music.higher_level)
 
 func _physics_process(delta):
 	

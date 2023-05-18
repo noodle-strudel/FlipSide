@@ -15,19 +15,21 @@ func _process(delta):
 func _on_NewGame_pressed():
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
+	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
 	$Select.playing = true
 	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($Select, "finished")
-	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
+	
 
 
 func _on_Continue_pressed():
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
+	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
 	$Select.playing = true
 	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($Select, "finished")
-	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
+	
 
 
 func _on_Quit_pressed():

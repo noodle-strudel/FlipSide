@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Walking On Broken Glass.mp3-38d496ddc0b9ea4ff5b03b99dca794a1.mp3str"
+
+[deps]
+
+source_file="res://Music/Walking On Broken Glass.mp3"
+dest_files=[ "res://.import/Walking On Broken Glass.mp3-38d496ddc0b9ea4ff5b03b99dca794a1.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
