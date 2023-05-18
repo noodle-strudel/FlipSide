@@ -22,7 +22,6 @@ size = 25
 font_data = ExtResource( 6 )
 
 [node name="Options" type="Popup"]
-visible = true
 anchor_left = 0.156
 anchor_top = 0.08
 anchor_right = 0.836

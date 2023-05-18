@@ -15,19 +15,16 @@ func _ready():
 		$AnimatedSprite.play("noflip")
 	
 func _physics_process(delta):
-	if $AnimationPlayer.current_animation == "bounce":
-		revert()
-	else:
-		if hit == false:
-			path_follow.offset += _speed * delta
-			if path_follow.unit_offset > 0.5:
-				$AnimatedSprite.flip_h = false
-			else:
-				$AnimatedSprite.flip_h = true
-		
-			if hit_point <= 0:
-				yield($hitHurt, "finished")
-				queue_free()
+	if hit == false:
+		path_follow.offset += _speed * delta
+		if path_follow.unit_offset > 0.5:
+			$AnimatedSprite.flip_h = false
+		else:
+			$AnimatedSprite.flip_h = true
+	
+		if hit_point <= 0:
+			yield($hitHurt, "finished")
+			queue_free()
 
 
 func _on_TrueEnemyArea_body_entered(body):
@@ -49,14 +46,7 @@ func _on_HitTimer_timeout():
 func flip():
 	if $AnimatedSprite.animation == "noflip":
 		$AnimatedSprite.play("flip")
-		$TrueEnemyArea.monitoring = false
+		$TrueEnemyArea.monitoring = true
 	else:
 		$AnimatedSprite.play("noflip")
-		$TrueEnemyArea.monitoring = true
-
-func revert():
-	yield($AnimationPlayer, "animation_finished")
-	$AnimatedSprite.play("flip")
-
-
-
+		$TrueEnemyArea.monitoring = false

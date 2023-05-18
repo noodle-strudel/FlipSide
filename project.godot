@@ -28,7 +28,7 @@ _global_script_class_icons={
 
 config/name="FlipSide"
 run/main_scene="res://Scenes/menu.tscn"
-config/icon="res://icon.png"
+config/icon="res://Assets/Sprites/items/ominous_crystal.png"
 
 [audio]
 
@@ -125,6 +125,7 @@ ui_pause={
 2d_physics/layer_5="sword"
 2d_physics/layer_6="item"
 2d_physics/layer_7="coin"
+2d_physics/layer_8="pass through"
 
 [physics]
 

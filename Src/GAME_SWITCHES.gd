@@ -13,8 +13,10 @@ var flipped = false
 
 
 var player_layer = 0b0001
+var enemy_layer = 0b0011
 var terrain_layer = 0b0010
 var coin_layer = 0b0111
+var pass_through_layer = 0b1000
 var no_collision = 0b0000
 
 

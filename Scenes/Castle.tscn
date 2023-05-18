@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -12,8 +12,15 @@
 [ext_resource path="res://Assets/Sprites/flying enemy/batflip1.png" type="Texture" id=10]
 [ext_resource path="res://Src/flying_enemy.gd" type="Script" id=11]
 [ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Assets/Sprites/king/resting face.png" type="Texture" id=13]
-[ext_resource path="res://Assets/Sprites/king/king sitting.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Sprites/king/torso inbetween.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sprites/king/legs.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Sprites/king/torso arms up.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Sprites/king/laugh2.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Sprites/king/laugh 1.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Sprites/king/resting face.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Sprites/king/throne.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Sprites/king/open mouth wide.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Sprites/king/torso resting.png" type="Texture" id=21]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -41,6 +48,37 @@ resource_name = "flip"
 
 [sub_resource type="RectangleShape2D" id=198]
 extents = Vector2( 16, 352 )
+
+[sub_resource type="SpriteFrames" id=199]
+animations = [ {
+"frames": [ ExtResource( 21 ), ExtResource( 13 ), ExtResource( 15 ) ],
+"loop": false,
+"name": "king arms move",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ) ],
+"loop": true,
+"name": "king sitting",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=200]
+animations = [ {
+"frames": [ ExtResource( 17 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "laugh",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "resting face",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "talk",
+"speed": 2.0
+} ]
 
 [node name="Castle" type="Node2D"]
 script = ExtResource( 5 )
@@ -143,17 +181,31 @@ shape = SubResource( 198 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="KingThrone" type="Sprite" parent="."]
+[node name="King" type="Node2D" parent="."]
+
+[node name="Throne" type="Sprite" parent="King"]
+position = Vector2( 6808, 128 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 19 )
+
+[node name="Sprite" type="Sprite" parent="King"]
 position = Vector2( 6808, 128 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 14 )
 
-[node name="KingFace" type="Sprite" parent="."]
+[node name="KingThrone" type="AnimatedSprite" parent="King"]
+position = Vector2( 6808, 128 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 199 )
+animation = "king sitting"
+playing = true
 
-[node name="RestingFace" type="Sprite" parent="KingFace"]
+[node name="RestingFace" type="AnimatedSprite" parent="King"]
 position = Vector2( 6830, 82 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 13 )
+frames = SubResource( 200 )
+animation = "resting face"
+playing = true
 
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]

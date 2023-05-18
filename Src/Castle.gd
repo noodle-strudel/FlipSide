@@ -8,6 +8,7 @@ var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 var got_a_ride = false
 
 func _ready():
+	GameSwitches.can_flip = false
 	GameSwitches.flipped = true
 	get_tree().call_group("enemy", "flip")
 	$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
@@ -18,6 +19,7 @@ func _physics_process(delta):
 		GameSwitches.state = GameSwitches.INACTIVE
 		if $"Flying Enemy Path/PathFollow2D".unit_offset == 1:
 			GameSwitches.state = GameSwitches.NORMAL
+			GameSwitches.can_flip = true
 			got_a_ride = true
 	
 	if GameSwitches.can_flip:
