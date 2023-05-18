@@ -7,6 +7,7 @@ var here_go = preload("res://Music/Here We Go.mp3")
 var you_died = preload("res://Music/Oh No, You Died.mp3")
 var credit_samba = preload("res://Music/Credit Samba.mp3")
 var disco_mode = preload("res://Music/Disco Mode!.mp3")
+var higher_level = preload("res://Music/Higher Level.mp3")
 
 func change_music(music):
 	BackgroundMusic.stream = music
