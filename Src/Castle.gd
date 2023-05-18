@@ -4,8 +4,8 @@ var dust_resource = preload("res://Scenes/dust.tscn")
 
 var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
-
 var got_a_ride = false
+var throw_knife = false
 
 var dialog = Dialogic.start("king_dialog")
 
@@ -17,13 +17,18 @@ func _ready():
 	GameSwitches.save_data()
 
 func _physics_process(delta):
+	
+	
 	if got_a_ride == false:
 		GameSwitches.state = GameSwitches.INACTIVE
 		if $"Flying Enemy Path/PathFollow2D".unit_offset == 1:
 			GameSwitches.state = GameSwitches.NORMAL
 			GameSwitches.can_flip = true
 			got_a_ride = true
-	
+		
+	if throw_knife == true:
+		$KnifePath/PathFollow2D.unit_offset += 2 * delta
+		
 	if GameSwitches.can_flip:
 		if Input.is_action_pressed("flip"):
 			GameSwitches.gonna_flip = true
@@ -133,3 +138,17 @@ func king_movements(movement):
 			$King/Torso.play("king arms move up")
 		"arms_down":
 			$King/Torso.play("king arms move down")
+		"assassinate":
+			$Assassin.velocity.y -= 1000
+			yield(get_tree().create_timer(0.5), "timeout")
+			$KnifePath.show()
+			throw_knife = true
+			yield(get_tree().create_timer(0.25), "timeout")
+			$King/Face.play("open")
+		"poof":
+			$KnifePath.hide()
+			$King/Legs.hide()
+			$King/Torso.hide()
+			$King/Face.hide()
+			
+		

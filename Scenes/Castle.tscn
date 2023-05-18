@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Assets/Sprites/king/throne.png" type="Texture" id=19]
 [ext_resource path="res://Assets/Sprites/king/open mouth wide.png" type="Texture" id=20]
 [ext_resource path="res://Assets/Sprites/king/torso resting.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Sprites/knife/knife.png" type="Texture" id=22]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -48,6 +49,11 @@ resource_name = "flip"
 
 [sub_resource type="RectangleShape2D" id=198]
 extents = Vector2( 16, 352 )
+
+[sub_resource type="Curve2D" id=201]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 5776, -64, -292.33, -2.66968, 292.33, 2.66968, 6272, -128, 0, 0, 0, 0, 6784, -64 )
+}
 
 [sub_resource type="SpriteFrames" id=199]
 animations = [ {
@@ -190,6 +196,21 @@ position = Vector2( 48, 352 )
 shape = SubResource( 198 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="KnifePath" type="Path2D" parent="."]
+visible = false
+position = Vector2( 0, 136 )
+curve = SubResource( 201 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="KnifePath"]
+position = Vector2( 5776, -64 )
+rotation = -0.304041
+loop = false
+
+[node name="Knife" type="Sprite" parent="KnifePath/PathFollow2D"]
+rotation = 0.785397
+scale = Vector2( 4, 4 )
+texture = ExtResource( 22 )
 
 [node name="King" type="Node2D" parent="."]
 

@@ -89,7 +89,6 @@ text = "Quit "
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Options" parent="CanvasLayer" instance=ExtResource( 8 )]
-visible = false
 
 [node name="Select" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 2 )

@@ -123,6 +123,15 @@
 		{
 			"emit_signal": "assassinate",
 			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_023",
+			"hide_dialogbox": true,
+			"wait_seconds": 1
+		},
+		{
+			"emit_signal": "poof",
+			"event_id": "dialogic_040"
 		}
 	],
 	"metadata": {
