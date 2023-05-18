@@ -16,6 +16,4 @@ func _on_Button_pressed():
 func _on_Menu_pressed():
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
-	$Select.playing = true
-	yield($Select, "finished")
 	get_tree().change_scene("res://Scenes/menu.tscn")

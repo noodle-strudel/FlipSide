@@ -351,6 +351,9 @@ func attack():
 		# makes swoosh once
 		if attacking == false:
 			create_swoosh()
+			$swingSwipe.pitch_scale = rand_range(0.8, 1.2)
+			$swingSwipe.volume_db = rand_range(-7, -5)
+			$swingSwipe.play()
 			sprite.animation = "air_swoosh_attack"
 			attacking = true
 			air_attacking = true
