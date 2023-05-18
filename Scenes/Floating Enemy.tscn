@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Src/Floating Enemy.gd" type="Script" id=1]
+[ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Sprites/cloud bug/cloudguy hurt.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/cloud bug/spikeguy2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/cloud bug/spikeguy.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/cloud bug/cloudguy.png" type="Texture" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 63.0079
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "noflip",
+"speed": 5.0
+} ]
+
+[node name="Floating Enemy" type="StaticBody2D"]
+rotation = 1.57079
+collision_layer = 128
+collision_mask = 24
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 4.00001, -3.99999 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 4, 4 )
+frames = SubResource( 2 )
+animation = "noflip"
+playing = true
+
+[node name="hitHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -10.0
+pitch_scale = 1.2
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

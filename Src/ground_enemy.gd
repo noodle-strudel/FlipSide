@@ -25,9 +25,9 @@ func _physics_process(delta):
 			else:
 				$AnimatedSprite.flip_h = true
 		
-	if hit_point <= 0:
-		yield($hitHurt, "finished")
-		queue_free()
+			if hit_point <= 0:
+				yield($hitHurt, "finished")
+				queue_free()
 
 
 func _on_TrueEnemyArea_body_entered(body):
@@ -38,9 +38,13 @@ func deplete_health(health):
 	hit_point -= health
 	hit = true
 	$AnimatedSprite.playing = false
-	yield(get_tree().create_timer(0.5), "timeout")
+	$HitTimer.start()
+	
+
+func _on_HitTimer_timeout():
 	hit = false
 	$AnimatedSprite.playing = true
+
 
 func flip():
 	if $AnimatedSprite.animation == "noflip":
@@ -53,3 +57,6 @@ func flip():
 func revert():
 	yield($AnimationPlayer, "animation_finished")
 	$AnimatedSprite.play("flip")
+
+
+

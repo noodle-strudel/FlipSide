@@ -1,9 +1,7 @@
 extends Control
 
 signal respawn
-
-func _ready():
-	pass # Replace with function body.
+signal to_main_menu
 	
 func _process(delta):
 	$RichTextLabel.bbcode_text = "Heath: " + str(GameSwitches.health) + "\n" + "Coins: " + str(GameSwitches.coins)
@@ -17,5 +15,6 @@ func _on_Menu_pressed():
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
 	$Select.playing = true
+	$Retry/VBoxContainer/Retry.disabled = true
 	yield($Select, "finished")
-	get_tree().change_scene("res://Scenes/menu.tscn")
+	emit_signal("to_main_menu")

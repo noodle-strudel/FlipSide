@@ -1,4 +1,4 @@
-[gd_scene load_steps=225 format=2]
+[gd_scene load_steps=234 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -28,6 +28,45 @@
 [ext_resource path="res://Assets/Sprites/flying enemy/batflip1.png" type="Texture" id=26]
 [ext_resource path="res://Src/Up Bat.gd" type="Script" id=27]
 [ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Scenes/Floating Enemy.tscn" type="PackedScene" id=29]
+[ext_resource path="res://Assets/Sprites/backgrounds/background.png" type="Texture" id=30]
+[ext_resource path="res://Assets/Sprites/backgrounds/flipped background.png" type="Texture" id=31]
+[ext_resource path="res://Assets/Sprites/backgrounds/cave bg flipped.png" type="Texture" id=32]
+[ext_resource path="res://Assets/Sprites/backgrounds/cave bg.png" type="Texture" id=33]
+
+[sub_resource type="Gradient" id=303]
+offsets = PoolRealArray( 0, 0.352941, 0.75817, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture2D" id=304]
+gradient = SubResource( 303 )
+fill_to = Vector2( 0, 1 )
+
+[sub_resource type="SpriteFrames" id=302]
+animations = [ {
+"frames": [ ExtResource( 31 ) ],
+"loop": true,
+"name": "forestflip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 30 ) ],
+"loop": true,
+"name": "forestnoflip",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=305]
+animations = [ {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "caveflip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "cavenoflip",
+"speed": 5.0
+} ]
 
 [sub_resource type="ConvexPolygonShape2D" id=107]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
@@ -5886,9 +5925,14 @@ extents = Vector2( 1312, 728 )
 [sub_resource type="RectangleShape2D" id=193]
 extents = Vector2( 1088, 1368 )
 
+[sub_resource type="Curve2D" id=306]
+_data = {
+"points": PoolVector2Array( -0.2285, 34.8719, 0.2285, -34.8719, 1066.12, -62.0648, 0, 0, 0, 0, 1064, -287.05, 0.45327, -47.8589, -0.45327, 47.8589, 1066.12, -62.0648 )
+}
+
 [sub_resource type="Curve2D" id=248]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1064, -287.05, 0, 0, 0, 0, 1064, 248.259, 0, 0, 0, 0, 1064, -287.05 )
+"points": PoolVector2Array( -30.2285, 4.08196, 30.2285, -4.08196, 1066.12, -62.0648, -1.60348, 22.9638, 1.60348, -22.9638, 1101.65, -93.0972, 1.74275, 29.9121, -1.74275, -29.9121, 1030.58, -131.888, -1.66581, 26.1836, 1.66581, -26.1836, 1101.65, -162.92, 1.11054, 22.3045, -1.11054, -22.3045, 1030.58, -193.953, -0.555269, 28.1231, 0.555269, -28.1231, 1101.65, -224.985, 1.11054, 18.9104, -1.11054, -18.9104, 1030.58, -256.017, 0, 0, 0, 0, 1064, -287.05, 0, -23.9745, 0, 23.9745, 1101.65, -256.017, 0.831963, -25.7908, -0.831963, 25.7908, 1030.58, -224.985, -0.415981, -19.9788, 0.415981, 19.9788, 1101.65, -193.953, 1.24794, -20.7053, -1.24794, 20.7053, 1030.58, -162.92, 1.09401, -25.2564, -1.09401, 25.2564, 1101.65, -131.888, -1.26445, -20.8076, 1.26445, 20.8076, 1030.58, -93.0972, -25.2424, -1.90491, 25.2424, 1.90491, 1066.12, -62.0648 )
 }
 
 [sub_resource type="Curve2D" id=247]
@@ -5951,6 +5995,11 @@ __meta__ = {
 "_editor_description_": "level holder"
 }
 
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 36616.5, 1719.25 )
+scale = Vector2( 37.3281, 43.6797 )
+texture = SubResource( 304 )
+
 [node name="Details Background" type="TileMap" parent="."]
 position = Vector2( 0, -62 )
 tile_set = ExtResource( 5 )
@@ -5971,6 +6020,28 @@ visible = false
 [node name="SceneTransitionRect" parent="CanvasLayer" instance=ExtResource( 28 )]
 visible = false
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Forest" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 2176, 0 )
+
+[node name="ForestBackground" type="AnimatedSprite" parent="ParallaxBackground/Forest"]
+position = Vector2( 1088, -152 )
+scale = Vector2( 9.06667, 16.6 )
+frames = SubResource( 302 )
+animation = "forestnoflip"
+
+[node name="Cave" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 36960, 3968 )
+motion_mirroring = Vector2( 2176, 2654 )
+
+[node name="CaveBackground" type="AnimatedSprite" parent="ParallaxBackground/Cave"]
+position = Vector2( 2176, -151.5 )
+scale = Vector2( 18.1333, 16.5938 )
+frames = SubResource( 305 )
+animation = "cavenoflip"
+
 [node name="Details Foreground" type="TileMap" parent="."]
 position = Vector2( 0, -62 )
 tile_set = ExtResource( 5 )
@@ -5984,7 +6055,7 @@ position = Vector2( 43488, 2632 )
 collision_layer = 32
 
 [node name="Checkpoint2" parent="." instance=ExtResource( 14 )]
-position = Vector2( 35992, 320 )
+position = Vector2( 35992, 322 )
 collision_layer = 32
 
 [node name="Checkpoint" parent="." instance=ExtResource( 14 )]
@@ -7275,15 +7346,39 @@ position = Vector2( 47392, 2080 )
 [node name="Flying Enemy Path4" type="Path2D" parent="Enemies"]
 position = Vector2( 41984, 3200 )
 scale = Vector2( 1, 1.03118 )
-curve = SubResource( 248 )
+curve = SubResource( 306 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Flying Enemy Path4"]
-position = Vector2( 1064, -287.05 )
+position = Vector2( 1066.12, -62.0648 )
 rotation = -1.5708
 rotate = false
 
 [node name="Flying Enemy" parent="Enemies/Flying Enemy Path4/PathFollow2D" instance=ExtResource( 20 )]
-position = Vector2( 0.9375, 0.496094 )
+position = Vector2( -0.015625, -0.582031 )
+
+[node name="Floating Enemy Path" type="Path2D" parent="Enemies"]
+position = Vector2( 6864, 336 )
+curve = SubResource( 248 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Floating Enemy Path"]
+position = Vector2( 1066.12, -62.0648 )
+rotation = -1.5708
+rotate = false
+
+[node name="Floating Enemy" parent="Enemies/Floating Enemy Path/PathFollow2D" groups=["enemy"] instance=ExtResource( 29 )]
+
+[node name="Floating Enemy Path2" type="Path2D" parent="Enemies"]
+position = Vector2( 12640, 1064 )
+rotation = -1.57079
+curve = SubResource( 248 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Floating Enemy Path2"]
+position = Vector2( 1066.12, -62.0648 )
+rotation = -1.5708
+rotate = false
+
+[node name="Floating Enemy" parent="Enemies/Floating Enemy Path2/PathFollow2D" groups=["enemy"] instance=ExtResource( 29 )]
+rotation = 3.14159
 
 [node name="Flying Enemy Path5" type="Path2D" parent="Enemies"]
 position = Vector2( 49536, 3136 )
@@ -7511,6 +7606,7 @@ wait_time = 2.0
 one_shot = true
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
+[connection signal="to_main_menu" from="CanvasLayer/HUD" to="." method="_on_HUD_to_main_menu"]
 [connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]

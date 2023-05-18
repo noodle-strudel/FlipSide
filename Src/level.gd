@@ -8,10 +8,11 @@ var first_checkpoint = true
 var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 var going_out_of_cave = false
+var in_bat_cutscene = false
 
 func _ready():
+	GameSwitches.can_flip = true
 	GameSwitches.save_data()
-	$Assassin/Camera2D.limit_bottom = 10000
 	GameSwitches.assassin_spawnpoint = Vector2(200, 0)
 	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
 	$Assassin.position = GameSwitches.assassin_spawnpoint
@@ -26,7 +27,12 @@ func _process(delta):
 			$CanvasLayer/HUD/Options.visible = false
 		else:
 			$CanvasLayer/HUD/Options.visible = true
-		
+	if $Assassin.global_position.y > 2000 or $Assassin.global_position.x > 38000:
+		$ParallaxBackground/Cave.show()
+		$ParallaxBackground/Forest.hide()
+	else:
+		$ParallaxBackground/Cave.hide()
+		$ParallaxBackground/Forest.show()
 
 func _physics_process(delta):
 	if GameSwitches.can_flip:
@@ -46,11 +52,13 @@ func do_a_flip():
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
-			
+			$ParallaxBackground/Forest/ForestBackground.play("forestflip")
+			$ParallaxBackground/Cave/CaveBackground.play("caveflip")
 			GameSwitches.flipped = true
 		else:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_original)
-			
+			$ParallaxBackground/Forest/ForestBackground.play("forestnoflip")
+			$ParallaxBackground/Cave/CaveBackground.play("cavenoflip")
 			GameSwitches.flipped = false
 		GameSwitches.gonna_flip = false
 
@@ -126,6 +134,7 @@ func _on_BoundPadLanding_body_entered(body):
 
  
 func _on_To_Castle_body_entered(body):
+	in_bat_cutscene = true
 	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flying_down = true
 	$Assassin.velocity = Vector2.ZERO
 	GameSwitches.state = GameSwitches.INACTIVE
@@ -160,7 +169,7 @@ func _on_HideFlipperTimer_timeout():
 	GameSwitches.state = GameSwitches.NORMAL
 
 func _on_Assassin_on_friendly_bat():
-	if going_out_of_cave == false:
+	if in_bat_cutscene == true and going_out_of_cave == false:
 		initiate_liftoff()
 		going_out_of_cave = true
 
@@ -175,3 +184,8 @@ func initiate_liftoff():
 	yield(get_tree().create_timer(2.0), "timeout")
 	$Assassin.global_position = Vector2(200,0)
 	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/Castle.tscn")
+
+
+func _on_HUD_to_main_menu():
+	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/menu.tscn")
+
