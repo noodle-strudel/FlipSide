@@ -68,7 +68,6 @@ func _ready():
 ----------------------------------------------------------------------
 """
 func _physics_process(delta):
-	print(global_position)
 	velocity.y += gravity * delta
 	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
 	
@@ -440,4 +439,4 @@ func _on_BounceDelay_timeout():
 func _on_VisibilityNotifier2D_screen_exited():
 	if $Camera2D.current == false and GameSwitches.state != GameSwitches.INACTIVE:
 		global_position = Vector2(53566.839844, 5569.997559)
-	GameSwitches.state = GameSwitches.REVIVE
+		GameSwitches.state = GameSwitches.REVIVE
