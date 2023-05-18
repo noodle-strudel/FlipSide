@@ -1,4 +1,4 @@
-[gd_scene load_steps=224 format=2]
+[gd_scene load_steps=225 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://Assets/Sprites/flying enemy/batflip1.png" type="Texture" id=26]
 [ext_resource path="res://Src/Up Bat.gd" type="Script" id=27]
 [ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=28]
+[ext_resource path="res://SFX/flipFlop.wav" type="AudioStream" id=29]
 
 [sub_resource type="ConvexPolygonShape2D" id=107]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
@@ -7474,6 +7475,12 @@ one_shot = true
 [node name="TransitionToCastleTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="flipFlop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 29 )
+volume_db = -10.0
+pitch_scale = 2.0
+bus = "SFX"
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]

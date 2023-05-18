@@ -371,6 +371,8 @@ func attack():
 
 func create_swoosh():
 	var air_swoosh = air_swoosh_scene.instance()
+	if charged_up == true:
+		air_swoosh.damage = 3
 	if direction == "right":
 		air_swoosh.position = $SwooshRight.global_position
 		air_swoosh.speed = 1000

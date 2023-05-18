@@ -12,8 +12,8 @@ var going_out_of_cave = false
 func _ready():
 	GameSwitches.save_data()
 	$Assassin/Camera2D.limit_bottom = 10000
-	GameSwitches.assassin_spawnpoint = Vector2(200, 200)
-	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
+	GameSwitches.assassin_spawnpoint = Vector2(22000, 200)
+	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game or 22000 to go to before the Flipper
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
   
@@ -43,6 +43,7 @@ func do_a_flip():
 		
 	# Flips when they release the button
 	if Input.is_action_just_released("flip"):
+		$flipFlop.play()
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)

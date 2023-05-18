@@ -4,6 +4,7 @@ onready var hit_sparkle_scene = preload("res://Scenes/hit_sparkle.tscn")
 
 # specifying that it has to be an integer
 export var speed: int
+export var damage: int
 export (Vector2) var velocity
 
 func _ready():
@@ -52,7 +53,7 @@ func _physics_process(delta):
 			get_parent().add_child(hit_sparkle)
 			
 			if collision.collider.get_parent() is PathFollow2D:
-				collision.collider.deplete_health(1)
+				collision.collider.deplete_health(damage)
 			
 			queue_free()
 
