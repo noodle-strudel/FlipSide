@@ -91,6 +91,8 @@ func _physics_process(delta):
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 			elif "Flying Enemy" in collision.collider.name and GameSwitches.flipped == true:
 				emit_signal("on_friendly_bat")
+			elif "Fungus Enemy" in collision.collider.name and GameSwitches.flipped == false:
+				pass
 			else:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 		elif "BigBouncepad" in collision.collider.name:
