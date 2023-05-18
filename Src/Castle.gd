@@ -7,6 +7,8 @@ var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 
 var got_a_ride = false
 
+var dialog = Dialogic.start("king_dialog")
+
 func _ready():
 	GameSwitches.can_flip = false
 	GameSwitches.flipped = true
@@ -113,3 +115,21 @@ func _on_TriggerKing_body_entered(body):
 		$Assassin/Camera2D.global_position, Vector2(6336, $Assassin/Camera2D.global_position.y), 
 		1.0, Tween.TRANS_SINE)
 	$"Assassin/Change Camera Zoom".start()
+	yield(get_tree().create_timer(1.0), "timeout")
+	add_child(dialog)
+	dialog.connect("dialogic_signal", self, "king_movements")
+
+func king_movements(movement):
+	match movement:
+		"open":
+			$King/Face.play("open")
+		"rest":
+			$King/Face.play("resting face")
+		"talk":
+			$King/Face.play("talk")
+		"laugh":
+			$King/Face.play("laugh")
+		"arms_up":
+			$King/Torso.play("king arms move up")
+		"arms_down":
+			$King/Torso.play("king arms move down")

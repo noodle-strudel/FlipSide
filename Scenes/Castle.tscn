@@ -51,9 +51,14 @@ extents = Vector2( 16, 352 )
 
 [sub_resource type="SpriteFrames" id=199]
 animations = [ {
+"frames": [ ExtResource( 15 ), ExtResource( 13 ), ExtResource( 21 ) ],
+"loop": false,
+"name": "king arms move down",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 21 ), ExtResource( 13 ), ExtResource( 15 ) ],
 "loop": false,
-"name": "king arms move",
+"name": "king arms move up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 21 ) ],
@@ -67,6 +72,11 @@ animations = [ {
 "frames": [ ExtResource( 17 ), ExtResource( 16 ) ],
 "loop": true,
 "name": "laugh",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "open",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 18 ) ],
@@ -188,19 +198,20 @@ position = Vector2( 6808, 128 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 19 )
 
-[node name="Sprite" type="Sprite" parent="King"]
+[node name="Legs" type="Sprite" parent="King"]
 position = Vector2( 6808, 128 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 14 )
 
-[node name="KingThrone" type="AnimatedSprite" parent="King"]
+[node name="Torso" type="AnimatedSprite" parent="King"]
 position = Vector2( 6808, 128 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 199 )
-animation = "king sitting"
+animation = "king arms move down"
+frame = 2
 playing = true
 
-[node name="RestingFace" type="AnimatedSprite" parent="King"]
+[node name="Face" type="AnimatedSprite" parent="King"]
 position = Vector2( 6830, 82 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 200 )
