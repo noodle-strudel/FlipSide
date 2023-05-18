@@ -13,7 +13,6 @@
 [ext_resource path="res://Resource/main_theme.tres" type="Theme" id=11]
 [ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=12]
 
-
 [sub_resource type="AnimatedTexture" id=1]
 flags = 4
 frames = 4
@@ -62,12 +61,12 @@ text = "New Game"
 [node name="Continue" type="Button" parent="VBoxContainer"]
 margin_top = 39.0
 margin_right = 192.0
-margin_bottom = 75.0
+margin_bottom = 74.0
 size_flags_vertical = 3
 text = "Continue"
 
 [node name="Options" type="Button" parent="VBoxContainer"]
-margin_top = 79.0
+margin_top = 78.0
 margin_right = 192.0
 margin_bottom = 114.0
 size_flags_vertical = 3
@@ -76,14 +75,14 @@ text = "Options"
 [node name="Credits" type="Button" parent="VBoxContainer"]
 margin_top = 118.0
 margin_right = 192.0
-margin_bottom = 154.0
+margin_bottom = 153.0
 size_flags_vertical = 3
 text = "Credits"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
-margin_top = 158.0
+margin_top = 157.0
 margin_right = 192.0
-margin_bottom = 194.0
+margin_bottom = 193.0
 size_flags_vertical = 3
 text = "Quit "
 
