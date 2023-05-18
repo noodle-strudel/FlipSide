@@ -1,0 +1,142 @@
+{
+	"events": [
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "..."
+		},
+		{
+			"emit_signal": "arms_up",
+			"event_id": "dialogic_040"
+		},
+		{
+			"emit_signal": "open",
+			"event_id": "dialogic_040"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "HAH!"
+		},
+		{
+			"emit_signal": "arms_down",
+			"event_id": "dialogic_040"
+		},
+		{
+			"emit_signal": "talk",
+			"event_id": "dialogic_040"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I was vaguely wondering if you were even going to show up."
+		},
+		{
+			"emit_signal": "rest",
+			"event_id": "dialogic_040"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "So…"
+		},
+		{
+			"emit_signal": "arms_up",
+			"event_id": "dialogic_040"
+		},
+		{
+			"emit_signal": "talk",
+			"event_id": "dialogic_040"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You're going to kill me."
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I’ve had my troops out in the realm attempting to stop you."
+		},
+		{
+			"emit_signal": "arms_down",
+			"event_id": "dialogic_040"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "But I bet you knew that."
+		},
+		{
+			"emit_signal": "laugh",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_023",
+			"hide_dialogbox": true,
+			"wait_seconds": 3
+		},
+		{
+			"emit_signal": "rest",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_023",
+			"hide_dialogbox": true,
+			"wait_seconds": 1
+		},
+		{
+			"emit_signal": "talk",
+			"event_id": "dialogic_040"
+		},
+		{
+			"emit_signal": "arms_up",
+			"event_id": "dialogic_040"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Been a while since I’ve seen you, small one."
+		},
+		{
+			"emit_signal": "rest",
+			"event_id": "dialogic_040"
+		},
+		{
+			"emit_signal": "arms_down",
+			"event_id": "dialogic_040"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Let’s make sure I don’t see you again."
+		},
+		{
+			"emit_signal": "assassinate",
+			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_023",
+			"hide_dialogbox": true,
+			"wait_seconds": 1
+		},
+		{
+			"emit_signal": "poof",
+			"event_id": "dialogic_040"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1684388125.json",
+		"name": "king_dialog"
+	}
+}

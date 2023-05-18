@@ -4,10 +4,13 @@ var dust_resource = preload("res://Scenes/dust.tscn")
 
 var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
-
 var got_a_ride = false
+var throw_knife = false
+
+var dialog = Dialogic.start("king_dialog")
 
 func _ready():
+	GameSwitches.can_flip = false
 	GameSwitches.flipped = true
 	get_tree().call_group("enemy", "flip")
 	$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
@@ -16,12 +19,18 @@ func _ready():
 	Music.change_music(Music.higher_level)
 
 func _physics_process(delta):
+	
+	
 	if got_a_ride == false:
 		GameSwitches.state = GameSwitches.INACTIVE
 		if $"Flying Enemy Path/PathFollow2D".unit_offset == 1:
 			GameSwitches.state = GameSwitches.NORMAL
+			GameSwitches.can_flip = true
 			got_a_ride = true
-	
+		
+	if throw_knife == true:
+		$KnifePath/PathFollow2D.unit_offset += 2 * delta
+		
 	if GameSwitches.can_flip:
 		if Input.is_action_pressed("flip"):
 			GameSwitches.gonna_flip = true
@@ -113,3 +122,35 @@ func _on_TriggerKing_body_entered(body):
 		$Assassin/Camera2D.global_position, Vector2(6336, $Assassin/Camera2D.global_position.y), 
 		1.0, Tween.TRANS_SINE)
 	$"Assassin/Change Camera Zoom".start()
+	yield(get_tree().create_timer(1.0), "timeout")
+	add_child(dialog)
+	dialog.connect("dialogic_signal", self, "king_movements")
+
+func king_movements(movement):
+	match movement:
+		"open":
+			$King/Face.play("open")
+		"rest":
+			$King/Face.play("resting face")
+		"talk":
+			$King/Face.play("talk")
+		"laugh":
+			$King/Face.play("laugh")
+		"arms_up":
+			$King/Torso.play("king arms move up")
+		"arms_down":
+			$King/Torso.play("king arms move down")
+		"assassinate":
+			$Assassin.velocity.y -= 1000
+			yield(get_tree().create_timer(0.5), "timeout")
+			$KnifePath.show()
+			throw_knife = true
+			yield(get_tree().create_timer(0.25), "timeout")
+			$King/Face.play("open")
+		"poof":
+			$KnifePath.hide()
+			$King/Legs.hide()
+			$King/Torso.hide()
+			$King/Face.hide()
+			
+		

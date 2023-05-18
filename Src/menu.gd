@@ -17,6 +17,7 @@ func _on_NewGame_pressed():
 	BackgroundMusic.playing = false
 	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
 	$Select.playing = true
+	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($Select, "finished")
 	
 
@@ -26,6 +27,7 @@ func _on_Continue_pressed():
 	BackgroundMusic.playing = false
 	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
 	$Select.playing = true
+	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($Select, "finished")
 	
 
@@ -46,6 +48,7 @@ func _on_Options_pressed():
 
 func _on_Credits_pressed():
 	$clickChoose.playing = true
+	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($clickChoose, "finished")
 	BackgroundMusic.playing = false
 	$SceneTransitionRect.transition_to("res://Scenes/Credits.tscn")

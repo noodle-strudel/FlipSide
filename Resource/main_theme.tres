@@ -13,6 +13,7 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxTexture" id=13]
 texture = ExtResource( 5 )
+
 region_rect = Rect2( 0, 0, 150, 30 )
 
 [sub_resource type="StyleBoxTexture" id=9]

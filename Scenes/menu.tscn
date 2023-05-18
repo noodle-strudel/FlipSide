@@ -125,6 +125,11 @@ mode = 2
 
 [node name="SceneTransitionRect" parent="." instance=ExtResource( 12 )]
 
+[node name="StopMouse" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
 [connection signal="mouse_entered" from="VBoxContainer/NewGame" to="." method="_on_NewGame_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Continue" to="." method="_on_Continue_mouse_entered"]
