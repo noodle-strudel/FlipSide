@@ -26,8 +26,10 @@ theme = ExtResource( 8 )
 script = ExtResource( 1 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_right = 192.0
-margin_bottom = 48.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 200.0
+margin_bottom = 56.0
 bbcode_enabled = true
 bbcode_text = "Health: 9999999999"
 text = "Health: 9999999999"

@@ -130,6 +130,12 @@
 			"wait_seconds": 1
 		},
 		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "!!!"
+		},
+		{
 			"emit_signal": "poof",
 			"event_id": "dialogic_040"
 		}

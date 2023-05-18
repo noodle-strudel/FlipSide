@@ -1,9 +1,8 @@
-[gd_resource type="Theme" load_steps=13 format=2]
+[gd_resource type="Theme" load_steps=12 format=2]
 
 [ext_resource path="res://Fonts/dogica/OTF/dogica.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/dogica/TTF/dogicapixel.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Fonts/dogica/TTF/dogicabold.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Assets/Main Menu Button.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/menu stuff/Main Menu Button.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=6]
@@ -13,11 +12,10 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxTexture" id=13]
 texture = ExtResource( 5 )
-
 region_rect = Rect2( 0, 0, 150, 30 )
 
 [sub_resource type="StyleBoxTexture" id=9]
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 150, 30 )
 
 [sub_resource type="StyleBoxTexture" id=14]

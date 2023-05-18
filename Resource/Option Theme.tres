@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Fonts/dogica/OTF/dogicabold.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/dogica/OTF/dogicapixel.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://Assets/Option Button.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/menu stuff/Option Button.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 23

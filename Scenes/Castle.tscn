@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://Assets/Sprites/king/open mouth wide.png" type="Texture" id=20]
 [ext_resource path="res://Assets/Sprites/king/torso resting.png" type="Texture" id=21]
 [ext_resource path="res://Assets/Sprites/knife/knife.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=23]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -54,6 +55,16 @@ extents = Vector2( 16, 352 )
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 5776, -64, -292.33, -2.66968, 292.33, 2.66968, 6272, -128, 0, 0, 0, 0, 6784, -64 )
 }
+
+[sub_resource type="Gradient" id=202]
+offsets = PoolRealArray( 0.00632911, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0, 0, 0 )
+
+[sub_resource type="GradientTexture2D" id=203]
+gradient = SubResource( 202 )
+fill = 1
+fill_from = Vector2( 0.504167, 0.509722 )
+fill_to = Vector2( 0, 1 )
 
 [sub_resource type="SpriteFrames" id=199]
 animations = [ {
@@ -95,6 +106,18 @@ animations = [ {
 "name": "talk",
 "speed": 2.0
 } ]
+
+[sub_resource type="ParticlesMaterial" id=204]
+emission_shape = 1
+emission_sphere_radius = 128.0
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 73.64
+gravity = Vector3( 0, 10, 0 )
+initial_velocity = 181.82
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
 
 [node name="Castle" type="Node2D"]
 script = ExtResource( 5 )
@@ -169,7 +192,6 @@ shape = SubResource( 197 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 196 )
 animation = "noflip"
-frame = 1
 playing = true
 flip_h = true
 
@@ -212,6 +234,19 @@ rotation = 0.785397
 scale = Vector2( 4, 4 )
 texture = ExtResource( 22 )
 
+[node name="ThroneGlow" type="Light2D" parent="."]
+visible = false
+position = Vector2( 6784, 120 )
+scale = Vector2( 3.75, 6.25 )
+texture = SubResource( 203 )
+
+[node name="ThroneTouch" type="Area2D" parent="."]
+position = Vector2( 6672, 184 )
+collision_layer = 128
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThroneTouch"]
+polygon = PoolVector2Array( 112, -248, 224, -248, 224, 136, -16, 136, -8, 0, 104, -8 )
+
 [node name="King" type="Node2D" parent="."]
 
 [node name="Throne" type="Sprite" parent="King"]
@@ -239,6 +274,16 @@ frames = SubResource( 200 )
 animation = "resting face"
 playing = true
 
+[node name="StonePoof" type="Particles2D" parent="King"]
+modulate = Color( 0.65098, 0.65098, 0.65098, 1 )
+position = Vector2( 6768, 152 )
+scale = Vector2( 0.5, 0.5 )
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 204 )
+texture = ExtResource( 23 )
+
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
@@ -246,3 +291,4 @@ playing = true
 [connection signal="touch_floor" from="Assassin" to="." method="_on_Assassin_touch_floor"]
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="body_entered" from="TriggerKing" to="." method="_on_TriggerKing_body_entered"]
+[connection signal="body_entered" from="ThroneTouch" to="." method="_on_ThroneTouch_body_entered"]

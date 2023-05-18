@@ -7,6 +7,8 @@ var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 var got_a_ride = false
 var throw_knife = false
 
+
+
 var dialog = Dialogic.start("king_dialog")
 
 func _ready():
@@ -148,9 +150,16 @@ func king_movements(movement):
 			yield(get_tree().create_timer(0.25), "timeout")
 			$King/Face.play("open")
 		"poof":
+			$King/StonePoof.emitting = true
 			$KnifePath.hide()
 			$King/Legs.hide()
 			$King/Torso.hide()
 			$King/Face.hide()
-			
+			$ThroneGlow.show()
+			GameSwitches.state = GameSwitches.NORMAL
 		
+
+
+func _on_ThroneTouch_body_entered(body):
+	GameSwitches.state = GameSwitches.INACTIVE
+	$CanvasLayer/SceneTransitionRect.transition_to("res://Scenes/credits.tscn")
