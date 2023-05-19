@@ -1,12 +1,15 @@
 extends StaticBody2D
 
 onready var path_follow = get_parent()
+onready var coin = preload("res://Scenes/Coin.tscn")
 
 export var _speed = 100
 
 export var hit_point = 3
 
 var hit = false
+var defeated = false
+var dropped_coin = false
 
 func _ready():
 	if GameSwitches.flipped == true:
@@ -22,9 +25,19 @@ func _physics_process(delta):
 		else:
 			$AnimatedSprite.flip_h = true
 	
-		if hit_point <= 0:
+		if hit_point <= 0 and defeated == false:
+			if dropped_coin == false:
+				var coin_instance = coin.instance()
+				coin_instance.global_position = global_position
+				get_tree().get_current_scene().add_child(coin_instance)
+			
+			dropped_coin = true
 			yield($hitHurt, "finished")
-			queue_free()
+			collision_layer = 0
+			collision_mask = 0
+			defeated = true
+			$TrueEnemyArea.monitoring = false
+			hide()
 
 
 func _on_TrueEnemyArea_body_entered(body):
@@ -50,3 +63,16 @@ func flip():
 	else:
 		$AnimatedSprite.play("noflip")
 		$TrueEnemyArea.monitoring = false
+		
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	if defeated:
+		if GameSwitches.flipped:
+			$TrueEnemyArea.monitoring = true
+		else:
+			$TrueEnemyArea.monitoring = false
+		collision_layer = GameSwitches.terrain_layer
+		collision_mask = GameSwitches.player_layer
+		hit_point = 3
+		show()
