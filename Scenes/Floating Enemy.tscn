@@ -52,4 +52,9 @@ pitch_scale = 1.2
 [node name="HitTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 3.74496, -4.30759 )
+scale = Vector2( 6.34548, 6.39631 )
+
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

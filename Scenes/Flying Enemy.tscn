@@ -50,3 +50,9 @@ pitch_scale = 1.2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/flip = SubResource( 198 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0.133585, -1.58586 )
+scale = Vector2( 4.77656, 4.66174 )
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
