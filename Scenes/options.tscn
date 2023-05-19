@@ -103,7 +103,7 @@ text = "Brightness"
 valign = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
-margin_left = 257.0
+margin_left = 261.0
 margin_top = 69.0
 margin_right = 679.0
 margin_bottom = 85.0
@@ -111,14 +111,15 @@ size_flags_horizontal = 10
 size_flags_vertical = 4
 
 [node name="BrightnessValue" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 18.0
-margin_bottom = 16.0
+margin_top = 2.0
+margin_right = 14.0
+margin_bottom = 14.0
 custom_fonts/font = ExtResource( 5 )
 text = "0"
 
 [node name="BrightnessSlider" type="HSlider" parent="TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 22.0
-margin_right = 422.0
+margin_left = 18.0
+margin_right = 418.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 10

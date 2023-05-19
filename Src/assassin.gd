@@ -78,7 +78,7 @@ func _physics_process(delta):
 	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-		print("I collided with ", collision.collider.name)
+#		print("I collided with ", collision.collider.name)
 		
 		collided_with_bouncepad = false
 		
@@ -370,6 +370,10 @@ func attack():
 
 func create_swoosh():
 	var air_swoosh = air_swoosh_scene.instance()
+	if charged_up == true:
+		air_swoosh.damage = 3
+	else:
+		air_swoosh.damage = 1
 	if direction == "right":
 		air_swoosh.position = $SwooshRight.global_position
 		air_swoosh.speed = 1000

@@ -18,7 +18,6 @@ func _ready():
 		$AnimatedSprite.play("noflip")
 	
 func _physics_process(delta):
-	print(hit_point)
 	if $AnimationPlayer.current_animation == "bounce":
 		revert()
 	else:

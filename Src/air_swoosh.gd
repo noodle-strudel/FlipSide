@@ -5,6 +5,7 @@ onready var hit_sparkle_scene = preload("res://Scenes/hit_sparkle.tscn")
 var hit_enemy = false
 # specifying that it has to be an integer
 export var speed: int
+export var damage: int
 export (Vector2) var velocity
 
 func _ready():
@@ -54,7 +55,7 @@ func _physics_process(delta):
 			
 			if collision.collider.get_parent() is PathFollow2D:
 				if hit_enemy == false:
-					collision.collider.deplete_health(1)
+					collision.collider.deplete_health(damage)
 					hit_enemy = true
 			
 		queue_free()

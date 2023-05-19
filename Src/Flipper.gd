@@ -19,6 +19,7 @@ func _ready():
 func _on_Flipper_body_entered(body):
 	GameSwitches.can_flip = true
 	$flipFlop.play()
+	$ominousNoise.playing = false
 	hide()
 	yield($flipFlop, "finished")
 	queue_free()

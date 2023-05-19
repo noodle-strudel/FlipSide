@@ -13,7 +13,7 @@ var in_bat_cutscene = false
 func _ready():
 	GameSwitches.can_flip = true
 	GameSwitches.save_data()
-	GameSwitches.assassin_spawnpoint = Vector2(200, 0)
+	GameSwitches.assassin_spawnpoint = Vector2(22000, 0)
   
 	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
 	$Assassin.position = GameSwitches.assassin_spawnpoint
@@ -43,13 +43,10 @@ func _physics_process(delta):
 		if GameSwitches.gonna_flip == true:
 			do_a_flip()
 
-func do_a_flip():
-	# Blank for now until we want something special to happen while we hold down the flip button
-	if GameSwitches.flipped == false:
-		pass
-		
+func do_a_flip():		
 	# Flips when they release the button
 	if Input.is_action_just_released("flip"):
+		$flipFlop.play()
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
