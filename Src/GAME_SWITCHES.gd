@@ -14,6 +14,8 @@ var flipped = false
 
 var player_layer = 0b0001
 var terrain_layer = 0b0010
+var air_swoosh_layer = 0b100
+var sword_layer = 0b0101
 var coin_layer = 0b0111
 var no_collision = 0b0000
 
