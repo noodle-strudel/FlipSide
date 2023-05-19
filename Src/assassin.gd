@@ -68,6 +68,7 @@ func _ready():
 ----------------------------------------------------------------------
 """
 func _physics_process(delta):
+	print(global_position)
 	velocity.y += gravity * delta
 	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
 	
@@ -414,7 +415,6 @@ func revive():
 
 
 func _on_Bottomless_Pit_body_entered(body):
-	print("touched")
 	GameSwitches.health = 0
 	BackgroundMusic.playing = false
 	GameSwitches.state = GameSwitches.DED
@@ -443,5 +443,8 @@ func _on_BounceDelay_timeout():
 
 func _on_VisibilityNotifier2D_screen_exited():
 	if $Camera2D.current == false and GameSwitches.state != GameSwitches.INACTIVE:
-		global_position = Vector2(53566.839844, 5569.997559)
+		if get_tree().root.get_child(6).name == "Castle":
+			global_position = Vector2(5749.986328, 319.99765)
+		else:
+			global_position = Vector2(53566.839844, 5569.997559)
 		GameSwitches.state = GameSwitches.REVIVE

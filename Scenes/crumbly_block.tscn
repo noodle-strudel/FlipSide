@@ -133,6 +133,7 @@ position = Vector2( 0, -28.5 )
 shape = SubResource( 2 )
 
 [node name="CrumbleTimer" type="Timer" parent="."]
+wait_time = 0.7
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

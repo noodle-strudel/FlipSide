@@ -8,17 +8,17 @@ var got_a_ride = false
 var throw_knife = false
 
 
-
 var dialog = Dialogic.start("king_dialog")
 
 func _ready():
 	GameSwitches.can_flip = false
 	GameSwitches.flipped = true
+	GameSwitches.assassin_spawnpoint = Vector2(785, 384)
 	get_tree().call_group("enemy", "flip")
 	$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
 	GameSwitches.save_data()
 	
-	Music.change_music(Music.higher_level)
+	Music.change_music(null)
 
 func _physics_process(delta):
 	
@@ -84,9 +84,6 @@ func _on_HUD_respawn():
 	$Assassin.dead = false
 	$Assassin.reviving = true
 	
-	# enables collision again for the assassin
-	$Assassin.collision_layer = GameSwitches.player_layer
-	
 	# "|" adds binary numbers together
 	$Assassin.collision_mask = GameSwitches.terrain_layer | GameSwitches.coin_layer
 	
@@ -125,8 +122,15 @@ func _on_TriggerKing_body_entered(body):
 		1.0, Tween.TRANS_SINE)
 	$"Assassin/Change Camera Zoom".start()
 	yield(get_tree().create_timer(1.0), "timeout")
+	
 	add_child(dialog)
 	dialog.connect("dialogic_signal", self, "king_movements")
+	var new_camera = Camera2D.new()
+	new_camera.global_position = $Assassin/Camera2D.global_position
+	new_camera.current = true
+	new_camera.zoom = Vector2(1.25, 1.25)
+	new_camera.limit_bottom = 600
+	add_child(new_camera)
 
 func king_movements(movement):
 	match movement:
@@ -156,6 +160,8 @@ func king_movements(movement):
 			$King/Torso.hide()
 			$King/Face.hide()
 			$ThroneGlow.show()
+			$TriggerKing.monitoring = false
+			yield(get_tree().create_timer(0.2), "timeout")
 			GameSwitches.state = GameSwitches.NORMAL
 		
 
@@ -163,3 +169,6 @@ func king_movements(movement):
 func _on_ThroneTouch_body_entered(body):
 	GameSwitches.state = GameSwitches.INACTIVE
 	$CanvasLayer/SceneTransitionRect.transition_to("res://Scenes/credits.tscn")
+
+func _on_HUD_to_main_menu():
+	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/menu.tscn")

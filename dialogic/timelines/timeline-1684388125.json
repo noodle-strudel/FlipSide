@@ -42,7 +42,7 @@
 			"character": "",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "So…"
+			"text": "So..."
 		},
 		{
 			"emit_signal": "arms_up",
