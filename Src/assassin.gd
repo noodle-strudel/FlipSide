@@ -100,6 +100,7 @@ func _physics_process(delta):
 				set_position_x = position.x
 				gonna_jump_on_bounce_pad = true
 				$BounceDelay.start()
+				
 				collision.collider.get_node("AnimationPlayer").play("bounce")
 	
 	if gonna_jump_on_bounce_pad == true and collided_with_big_bouncepad == false:
