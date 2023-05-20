@@ -133,6 +133,7 @@ position = Vector2( 0, -28.5 )
 shape = SubResource( 2 )
 
 [node name="CrumbleTimer" type="Timer" parent="."]
+wait_time = 0.7
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -149,6 +150,11 @@ explosiveness = 1.0
 process_material = SubResource( 7 )
 texture = ExtResource( 2 )
 
+[node name="RecoverTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="timeout" from="CrumbleTimer" to="." method="_on_CrumbleTimer_timeout"]
+[connection signal="timeout" from="RecoverTimer" to="." method="_on_RecoverTimer_timeout"]

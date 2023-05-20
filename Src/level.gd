@@ -13,7 +13,8 @@ var in_bat_cutscene = false
 func _ready():
 	GameSwitches.can_flip = true
 	GameSwitches.save_data()
-	GameSwitches.assassin_spawnpoint = Vector2(22000, 0)
+	GameSwitches.assassin_spawnpoint = Vector2(47936, 2048)
+	$Assassin/Camera2D.limit_bottom = 100000
   
 	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
 	$Assassin.position = GameSwitches.assassin_spawnpoint
@@ -23,11 +24,6 @@ func _ready():
 	
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_pause"):
-		if $CanvasLayer/HUD/Options.visible == true:
-			$CanvasLayer/HUD/Options.visible = false
-		else:
-			$CanvasLayer/HUD/Options.visible = true
 	if $Assassin.global_position.y > 2000 or $Assassin.global_position.x > 38000:
 		$ParallaxBackground/Cave.show()
 		$ParallaxBackground/Forest.hide()
@@ -43,9 +39,9 @@ func _physics_process(delta):
 		if GameSwitches.gonna_flip == true:
 			do_a_flip()
 
-func do_a_flip():		
+func do_a_flip(bypass = false):
 	# Flips when they release the button
-	if Input.is_action_just_released("flip"):
+	if Input.is_action_just_released("flip") || bypass == true:
 		$flipFlop.play()
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
@@ -133,6 +129,8 @@ func _on_BoundPadLanding_body_entered(body):
  
 func _on_To_Castle_body_entered(body):
 	in_bat_cutscene = true
+	if GameSwitches.flipped:
+		do_a_flip(true)
 	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flying_down = true
 	$Assassin.velocity = Vector2.ZERO
 	GameSwitches.state = GameSwitches.INACTIVE

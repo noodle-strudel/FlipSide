@@ -5,6 +5,14 @@ signal to_main_menu
 	
 func _process(delta):
 	$RichTextLabel.bbcode_text = "Health: " + str(GameSwitches.health) + "\n\n" + "Coins: " + str(GameSwitches.coins)
+	
+	if Input.is_action_just_pressed("ui_pause"):
+		if $Options.visible == true:
+			get_tree().paused = false
+			$Options.visible = false
+		else:
+			get_tree().paused = true
+			$Options.visible = true
 
 func _on_Button_pressed():
 	$clickChoose.playing = true

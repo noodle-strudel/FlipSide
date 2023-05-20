@@ -1,4 +1,4 @@
-[gd_scene load_steps=235 format=2]
+[gd_scene load_steps=241 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -34,6 +34,10 @@
 [ext_resource path="res://Assets/Sprites/backgrounds/cave bg flipped.png" type="Texture" id=32]
 [ext_resource path="res://Assets/Sprites/backgrounds/cave bg.png" type="Texture" id=33]
 [ext_resource path="res://SFX/flipFlop.wav" type="AudioStream" id=34]
+[ext_resource path="res://Scenes/Fungus Enemy.tscn" type="PackedScene" id=35]
+[ext_resource path="res://Src/Flipper.gd" type="Script" id=36]
+[ext_resource path="res://Assets/Sprites/items/ominous_crystal.png" type="Texture" id=37]
+[ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=38]
 
 [sub_resource type="Gradient" id=303]
 offsets = PoolRealArray( 0, 0.352941, 0.75817, 1 )
@@ -5914,6 +5918,19 @@ extents = Vector2( 348, 10 )
 [sub_resource type="RectangleShape2D" id=297]
 extents = Vector2( 24, 728 )
 
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 28 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 2
+emission_box_extents = Vector3( 10, 1, 1 )
+flag_rotate_y = true
+flag_disable_z = true
+gravity = Vector3( 0, -98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 0.85098, 0.25098, 0.25098, 1 )
+
 [sub_resource type="RectangleShape2D" id=182]
 extents = Vector2( 1290, 596 )
 
@@ -6060,6 +6077,7 @@ position = Vector2( 72, 86 )
 collision_mask = 6
 
 [node name="No Flip Level Terrain" type="TileMap" parent="."]
+modulate = Color( 1, 1, 1, 0.266667 )
 position = Vector2( 0, -64 )
 tile_set = SubResource( 43 )
 collision_layer = 2
@@ -7160,12 +7178,33 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="To Castle"]
 shape = SubResource( 297 )
 
-[node name="Flipper" parent="To Castle" instance=ExtResource( 12 )]
+[node name="Flipper" type="Area2D" parent="To Castle"]
 visible = false
 position = Vector2( 32, 680 )
 rotation = 0.261799
 collision_layer = 0
 collision_mask = 0
+script = ExtResource( 36 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="To Castle/Flipper"]
+visible = false
+position = Vector2( 0, -4 )
+shape = SubResource( 1 )
+
+[node name="Particles2D" type="Particles2D" parent="To Castle/Flipper"]
+position = Vector2( 0, -8 )
+rotation = -0.261799
+scale = Vector2( 4, 4 )
+process_material = SubResource( 2 )
+
+[node name="OminousCrystal" type="Sprite" parent="To Castle/Flipper"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 37 )
+
+[node name="Light2D" type="Light2D" parent="To Castle/Flipper"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 38 )
+color = Color( 0.945098, 0.345098, 0.345098, 1 )
 
 [node name="CameraTogglers" type="Node2D" parent="."]
 
@@ -7536,6 +7575,16 @@ rotate = false
 
 [node name="Ground Enemy" parent="Enemies/Ground Enemy Path/PathFollow2D" instance=ExtResource( 21 )]
 
+[node name="Ground Enemy Path10" type="Path2D" parent="Enemies"]
+position = Vector2( 728, 8 )
+curve = SubResource( 246 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Ground Enemy Path10"]
+position = Vector2( 768, 288 )
+rotate = false
+
+[node name="Fungus Enemy" parent="Enemies/Ground Enemy Path10/PathFollow2D" groups=["enemy"] instance=ExtResource( 35 )]
+
 [node name="Up Bat" type="Path2D" parent="Enemies"]
 position = Vector2( 54128, 4640 )
 curve = SubResource( 298 )
@@ -7565,7 +7614,6 @@ shape = SubResource( 299 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 300 )
 animation = "noflip"
-frame = 1
 playing = true
 flip_h = true
 
@@ -7622,6 +7670,7 @@ bus = "SFX"
 [connection signal="body_entered" from="Bottomless Pit3" to="Assassin" method="_on_Bottomless_Pit_body_entered"]
 [connection signal="body_entered" from="BoundPadLanding" to="." method="_on_BoundPadLanding_body_entered"]
 [connection signal="body_entered" from="To Castle" to="." method="_on_To_Castle_body_entered"]
+[connection signal="body_entered" from="To Castle/Flipper" to="To Castle/Flipper" method="_on_Flipper_body_entered"]
 [connection signal="body_entered" from="CameraTogglers/ToggleCameraHealth" to="CameraTogglers/ToggleCameraHealth" method="_on_ToggleCameraLeftHealth_body_entered"]
 [connection signal="body_exited" from="CameraTogglers/ToggleCameraHealth" to="CameraTogglers/ToggleCameraHealth" method="_on_ToggleCameraLeftHealth_body_exited"]
 [connection signal="body_entered" from="CameraTogglers/ToggleCameraSpikes" to="CameraTogglers/ToggleCameraSpikes" method="_on_ToggleCameraLeftSpikes_body_entered"]

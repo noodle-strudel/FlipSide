@@ -72,7 +72,9 @@ func _on_VisibilityNotifier2D_screen_exited():
 			$TrueEnemyArea.monitoring = true
 		else:
 			$TrueEnemyArea.monitoring = false
-		collision_layer = GameSwitches.terrain_layer
-		collision_mask = GameSwitches.player_layer
+		set_collision_layer_bit(2, true)
+		set_collision_mask_bit(3, true) 
+		set_collision_mask_bit(4, true)
+		set_collision_mask_bit(0, true)
 		hit_point = 3
 		show()
