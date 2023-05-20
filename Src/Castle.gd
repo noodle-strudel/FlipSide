@@ -50,10 +50,12 @@ func do_a_flip():
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
+			$ParallaxBackground/Forest/ForestBackground.play("forestflip")
 			
 			GameSwitches.flipped = true
 		else:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_original)
+			$ParallaxBackground/Forest/ForestBackground.play("forestnoflip")
 			
 			GameSwitches.flipped = false
 		GameSwitches.gonna_flip = false

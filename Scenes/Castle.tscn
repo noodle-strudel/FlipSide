@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -26,6 +26,8 @@
 [ext_resource path="res://Music/Higher Level.mp3" type="AudioStream" id=24]
 [ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=25]
 [ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Assets/Sprites/backgrounds/background.png" type="Texture" id=27]
+[ext_resource path="res://Assets/Sprites/backgrounds/flipped background.png" type="Texture" id=28]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -128,6 +130,19 @@ extents = Vector2( 801, 9 )
 [sub_resource type="RectangleShape2D" id=206]
 extents = Vector2( 32, 352 )
 
+[sub_resource type="SpriteFrames" id=207]
+animations = [ {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "forestflip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 27 ) ],
+"loop": true,
+"name": "forestnoflip",
+"speed": 5.0
+} ]
+
 [node name="Castle" type="Node2D"]
 script = ExtResource( 5 )
 
@@ -201,6 +216,7 @@ shape = SubResource( 197 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 196 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
@@ -326,6 +342,32 @@ shape = SubResource( 206 )
 
 [node name="Light2D" parent="Lighting" index="0"]
 visible = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Forest" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 2176, 0 )
+
+[node name="ForestBackground" type="AnimatedSprite" parent="ParallaxBackground/Forest"]
+position = Vector2( 1088, -432 )
+scale = Vector2( 9.06667, 20.1 )
+frames = SubResource( 207 )
+animation = "forestnoflip"
+
+[node name="Cave" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 36960, 3968 )
+motion_mirroring = Vector2( 2176, 2654 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="ParallaxBackground/Cave"]
+
+[node name="Forest" type="ParallaxLayer" parent="ParallaxBackground/Cave/ParallaxBackground"]
+motion_mirroring = Vector2( 2176, 0 )
+
+[node name="ForestBackground" type="AnimatedSprite" parent="ParallaxBackground/Cave/ParallaxBackground/Forest"]
+position = Vector2( 1088, -432 )
+scale = Vector2( 9.06667, 20.1 )
+frames = SubResource( 207 )
+animation = "forestnoflip"
 
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
