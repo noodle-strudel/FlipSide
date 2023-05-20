@@ -1,5 +1,9 @@
 extends Node
 
+"""
+Global variables and functions that can be used by any node
+"""
+
 enum {NORMAL, HIT, DED, ATTACK, REVIVE, INACTIVE, DISABLED}
 var state
 var health: int

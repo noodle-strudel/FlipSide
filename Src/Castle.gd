@@ -9,6 +9,10 @@ var throw_knife = false
 
 var dialog = Dialogic.start("king_dialog")
 
+"""
+configures assassin data, flips the world
+"""
+
 func _ready():
 	GameSwitches.assassin_spawnpoint = Vector2(768, 384)
 	GameSwitches.can_flip = false
@@ -20,6 +24,7 @@ func _ready():
 	
 	Music.change_music(null)
 
+# flip mechanic and cutscene trigger logic
 func _physics_process(delta):
 	
 	
@@ -40,11 +45,8 @@ func _physics_process(delta):
 		if GameSwitches.gonna_flip == true:
 			do_a_flip()
 
+# flips the world
 func do_a_flip():
-	# Blank for now until we want something special to happen while we hold down the flip button
-	if GameSwitches.flipped == false:
-		pass
-		
 	# Flips when they release the button
 	if Input.is_action_just_released("flip"):
 		get_tree().call_group("enemy", "flip")
@@ -115,6 +117,10 @@ func _on_Assassin_on_friendly_bat():
 func _on_Assassin_jumped():
 	$"Flying Enemy Path/PathFollow2D/RemoteTransform2D".set_remote_node("")
 
+
+"""
+logic for the king cutscene
+"""
 
 func _on_TriggerKing_body_entered(body):
 	$Assassin.velocity = Vector2.ZERO

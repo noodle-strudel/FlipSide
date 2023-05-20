@@ -8,10 +8,12 @@ export var hit_point = 3
 var defeated = false
 var dropped_coin = false
 
+# doesnt drop coin if you've already passed the enemy after loading the save
 func _ready():
 	if GameSwitches.assassin_spawnpoint.x > global_position.x:
 		dropped_coin = true
-	
+
+# logic for if the health is 0 and sprite configuration
 func _physics_process(delta):
 	path_follow.offset += _speed * delta
 	if path_follow.unit_offset > 0.5:
@@ -54,7 +56,7 @@ func flip():
 		if not defeated:
 			collision_layer = GameSwitches.pass_through_layer
 
-
+# respawns after they are no longer on screen
 func _on_VisibilityNotifier2D_screen_exited():
 	if defeated:
 		if GameSwitches.flipped:

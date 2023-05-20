@@ -12,6 +12,7 @@ var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 var going_out_of_cave = false
 var in_bat_cutscene = false
 
+# loads assassin spawnpoint if continuing or makes new spawnpoint if loading new game
 func _ready():
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	if GameSwitches.assassin_spawnpoint.y < 2176:

@@ -1,5 +1,9 @@
 extends Node
 
+
+"""
+Option menu settings
+"""
 signal brightness_updated(value)
 
 
