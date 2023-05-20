@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -23,6 +23,8 @@
 [ext_resource path="res://Assets/Sprites/king/torso resting.png" type="Texture" id=21]
 [ext_resource path="res://Assets/Sprites/knife/knife.png" type="Texture" id=22]
 [ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=23]
+[ext_resource path="res://Music/Higher Level.mp3" type="AudioStream" id=24]
+[ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=25]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -118,6 +120,9 @@ initial_velocity = 181.82
 initial_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+
+[sub_resource type="RectangleShape2D" id=205]
+extents = Vector2( 801, 9 )
 
 [node name="Castle" type="Node2D"]
 script = ExtResource( 5 )
@@ -284,6 +289,25 @@ explosiveness = 1.0
 process_material = SubResource( 204 )
 texture = ExtResource( 23 )
 
+[node name="higherLevel" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 6312, 184 )
+stream = ExtResource( 24 )
+volume_db = -5.0
+autoplay = true
+max_distance = 5000.0
+
+[node name="Bottomless Pit" type="Area2D" parent="."]
+position = Vector2( 824, 1160 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottomless Pit"]
+position = Vector2( -791, -1 )
+shape = SubResource( 205 )
+
+[node name="Checkpoint" parent="." instance=ExtResource( 25 )]
+position = Vector2( 1944, 384 )
+collision_layer = 32
+
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
@@ -292,3 +316,4 @@ texture = ExtResource( 23 )
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="body_entered" from="TriggerKing" to="." method="_on_TriggerKing_body_entered"]
 [connection signal="body_entered" from="ThroneTouch" to="." method="_on_ThroneTouch_body_entered"]
+[connection signal="body_entered" from="Bottomless Pit" to="." method="_on_Bottomless_Pit_body_entered"]

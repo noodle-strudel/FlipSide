@@ -1,19 +1,6 @@
 extends StaticBody2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+var broke = false
 
 
 func _on_Area2D_body_entered(body):
@@ -30,5 +17,15 @@ func _on_CrumbleTimer_timeout():
 	$AnimationPlayer.play("break")
 	collision_layer = 0
 	collision_mask = 0
-	yield(get_tree().create_timer(1), "timeout")
-	queue_free()
+	broke = true
+	$RecoverTimer.start()
+
+
+
+func _on_RecoverTimer_timeout():
+	if broke:
+		$AnimationPlayer.play_backwards("break")
+		set_collision_layer_bit(1, true)
+		set_collision_mask_bit(0, true)
+		set_collision_mask_bit(3, true)
+		broke = false

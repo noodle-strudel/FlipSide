@@ -13,16 +13,11 @@ var in_bat_cutscene = false
 func _ready():
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-  
+	
 	Music.change_music(Music.chip_joy_loop)
 	
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_pause"):
-		if $CanvasLayer/HUD/Options.visible == true:
-			$CanvasLayer/HUD/Options.visible = false
-		else:
-			$CanvasLayer/HUD/Options.visible = true
 	if $Assassin.global_position.y > 2000 or $Assassin.global_position.x > 38000:
 		$ParallaxBackground/Cave.show()
 		$ParallaxBackground/Forest.hide()
@@ -38,9 +33,9 @@ func _physics_process(delta):
 		if GameSwitches.gonna_flip == true:
 			do_a_flip()
 
-func do_a_flip():		
+func do_a_flip(bypass = false):
 	# Flips when they release the button
-	if Input.is_action_just_released("flip"):
+	if Input.is_action_just_released("flip") || bypass == true:
 		$flipFlop.play()
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
@@ -128,6 +123,8 @@ func _on_BoundPadLanding_body_entered(body):
  
 func _on_To_Castle_body_entered(body):
 	in_bat_cutscene = true
+	if GameSwitches.flipped:
+		do_a_flip(true)
 	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flying_down = true
 	$Assassin.velocity = Vector2.ZERO
 	GameSwitches.state = GameSwitches.INACTIVE
