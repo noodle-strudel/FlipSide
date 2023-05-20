@@ -1,10 +1,11 @@
 extends Node
 
-const SAVEFILE = "C:/Users/Wesley/Documents/FlipSide/SAVEFILE.save"
+const SAVEFILE = "user://SAVEFILE.save"
 
 var game_data = {}
 
 func _ready():
+	print("hi")
 	load_data()
 
 
@@ -21,7 +22,8 @@ func load_data():
 			"spawn": 0,
 			"continue": false,
 			"health": 3,
-			"coins": 0
+			"coins": 0,
+			"scene": "res://Scenes/level.tscn"
 		}
 		save_data()
 	file.open(SAVEFILE, File.READ)

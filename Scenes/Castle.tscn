@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -124,6 +124,9 @@ orbit_velocity_random = 0.0
 [sub_resource type="RectangleShape2D" id=205]
 extents = Vector2( 801, 9 )
 
+[sub_resource type="RectangleShape2D" id=206]
+extents = Vector2( 32, 352 )
+
 [node name="Castle" type="Node2D"]
 script = ExtResource( 5 )
 
@@ -197,6 +200,7 @@ shape = SubResource( 197 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 196 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
@@ -281,6 +285,7 @@ playing = true
 
 [node name="StonePoof" type="Particles2D" parent="King"]
 modulate = Color( 0.65098, 0.65098, 0.65098, 1 )
+light_mask = 2
 position = Vector2( 6768, 152 )
 scale = Vector2( 0.5, 0.5 )
 emitting = false
@@ -307,6 +312,15 @@ shape = SubResource( 205 )
 [node name="Checkpoint" parent="." instance=ExtResource( 25 )]
 position = Vector2( 1944, 384 )
 collision_layer = 32
+
+[node name="NoEscape" type="StaticBody2D" parent="."]
+position = Vector2( 5632, -384 )
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoEscape"]
+position = Vector2( 32, 352 )
+shape = SubResource( 206 )
 
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]

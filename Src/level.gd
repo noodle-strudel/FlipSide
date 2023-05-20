@@ -12,9 +12,12 @@ var in_bat_cutscene = false
 
 func _ready():
 	$Assassin.position = GameSwitches.assassin_spawnpoint
+	if GameSwitches.assassin_spawnpoint.y < 2176:
+		Music.change_music(Music.chip_joy_loop)
+	else:
+		$Assassin/Camera2D.limit_bottom = 10000
+		Music.change_music(Music.switcharoo)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-	
-	Music.change_music(Music.chip_joy_loop)
 	
 
 func _process(delta):
@@ -87,7 +90,10 @@ func _on_HUD_respawn():
 	$Assassin.collision_mask = GameSwitches.terrain_layer | GameSwitches.coin_layer
 	
 	$CanvasLayer/HUD/Retry.hide()
-	Music.change_music(Music.chip_joy_loop)
+	if GameSwitches.assassin_spawnpoint.y < 2176: 
+		Music.change_music(Music.chip_joy_loop)
+	else:
+		Music.change_music(Music.switcharoo)
 
 
 func _on_Flipper_body_entered(body):

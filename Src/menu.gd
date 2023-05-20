@@ -3,6 +3,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	$VBoxContainer/NewGame.grab_focus()
 	if Save.game_data.continue == false:
 		$VBoxContainer/Continue.disabled = true
@@ -36,7 +37,7 @@ func _on_Continue_pressed():
 	GameSwitches.load_data()
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
-	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
+	$SceneTransitionRect.transition_to(Save.game_data.scene)
 	$Select.playing = true
 	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($Select, "finished")

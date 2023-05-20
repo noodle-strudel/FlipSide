@@ -12,6 +12,8 @@ var defeated = false
 var dropped_coin = false
 
 func _ready():
+	if GameSwitches.assassin_spawnpoint.x > global_position.x:
+		dropped_coin = true
 	if GameSwitches.flipped == true:
 		$AnimatedSprite.play("flip")  
 	else: 

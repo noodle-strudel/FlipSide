@@ -9,7 +9,8 @@ var defeated = false
 var dropped_coin = false
 
 func _ready():
-	pass
+	if GameSwitches.assassin_spawnpoint.x > global_position.x:
+		dropped_coin = true
 	
 func _physics_process(delta):
 	path_follow.offset += _speed * delta

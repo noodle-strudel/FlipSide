@@ -7,8 +7,6 @@ var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 var got_a_ride = false
 var throw_knife = false
 
-
-
 var dialog = Dialogic.start("king_dialog")
 
 func _ready():
@@ -17,6 +15,7 @@ func _ready():
 	GameSwitches.flipped = true
 	get_tree().call_group("enemy", "flip")
 	$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
+	Save.game_data.scene = get_tree().get_current_scene().filename
 	GameSwitches.save_data()
 	
 	Music.change_music(null)
@@ -168,6 +167,7 @@ func king_movements(movement):
 			$King/Face.hide()
 			$ThroneGlow.show()
 			$TriggerKing.monitoring = false
+			$NoEscape.collision_mask = 0b0001
 			GameSwitches.state = GameSwitches.NORMAL
 		
 
