@@ -18,6 +18,8 @@ func _process(delta):
 
 func _on_NewGame_pressed():
 	GameSwitches.assassin_spawnpoint = Vector2(200, 0)
+	GameSwitches.health = 3
+	GameSwitches.coins = 0
 	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
 	Save.game_data.continue = false
 	Save.save_data()

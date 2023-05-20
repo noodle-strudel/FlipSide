@@ -23,11 +23,13 @@ var no_collision = 0b0000
 
 
 func save_data():
-	Save.game_data.health = health
+	Save.game_data.health = GameSwitches.health
+	Save.game_data.coins = GameSwitches.coins
 	Save.game_data.continue = true
 	Save.game_data.spawn = GameSwitches.assassin_spawnpoint
 	Save.save_data()
 	
 func load_data():
-	health = Save.game_data.health
+	GameSwitches.health = Save.game_data.health
+	GameSwitches.coins = Save.game_data.coins
 	GameSwitches.assassin_spawnpoint = Save.game_data.spawn

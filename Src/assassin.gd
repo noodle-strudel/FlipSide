@@ -59,8 +59,7 @@ var direction = "right"
 
 func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
-	GameSwitches.health = 3
-	GameSwitches.coins = 0
+
 
 """
 ----------------------------------------------------------------------

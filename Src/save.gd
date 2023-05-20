@@ -20,7 +20,8 @@ func load_data():
 			"sfx_vol": 0,
 			"spawn": 0,
 			"continue": false,
-			"health": 3
+			"health": 3,
+			"coins": 0
 		}
 		save_data()
 	file.open(SAVEFILE, File.READ)

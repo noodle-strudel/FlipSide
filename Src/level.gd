@@ -13,7 +13,6 @@ var in_bat_cutscene = false
 func _ready():
 	GameSwitches.can_flip = true
 	GameSwitches.save_data()
-	GameSwitches.health = Save.game_data.health
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
   
