@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=23]
 [ext_resource path="res://Music/Higher Level.mp3" type="AudioStream" id=24]
 [ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=26]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -200,7 +201,6 @@ shape = SubResource( 197 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 196 )
 animation = "noflip"
-frame = 1
 playing = true
 flip_h = true
 
@@ -322,6 +322,11 @@ collision_mask = 0
 position = Vector2( 32, 352 )
 shape = SubResource( 206 )
 
+[node name="Lighting" parent="." instance=ExtResource( 26 )]
+
+[node name="Light2D" parent="Lighting" index="0"]
+visible = false
+
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
 [connection signal="jumped" from="Assassin" to="." method="_on_Assassin_jumped"]
@@ -331,3 +336,5 @@ shape = SubResource( 206 )
 [connection signal="body_entered" from="TriggerKing" to="." method="_on_TriggerKing_body_entered"]
 [connection signal="body_entered" from="ThroneTouch" to="." method="_on_ThroneTouch_body_entered"]
 [connection signal="body_entered" from="Bottomless Pit" to="." method="_on_Bottomless_Pit_body_entered"]
+
+[editable path="Lighting"]

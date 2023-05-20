@@ -47,10 +47,12 @@ func _on_HitTimer_timeout():
 func flip():
 	if $AnimatedSprite.animation == "noflip":
 		$AnimatedSprite.play("flip")
-		collision_layer = GameSwitches.enemy_layer
+		if not defeated:
+			collision_layer = GameSwitches.enemy_layer
 	else:
 		$AnimatedSprite.play("noflip")
-		collision_layer = GameSwitches.pass_through_layer
+		if not defeated:
+			collision_layer = GameSwitches.pass_through_layer
 
 
 func _on_VisibilityNotifier2D_screen_exited():
