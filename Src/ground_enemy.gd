@@ -33,8 +33,8 @@ func _physics_process(delta):
 				var coin_instance = coin.instance()
 				coin_instance.global_position = global_position
 				get_tree().get_current_scene().add_child(coin_instance)
+				dropped_coin = true
 			
-			dropped_coin = true
 			yield($hitHurt, "finished")
 			collision_layer = 0
 			collision_mask = 0

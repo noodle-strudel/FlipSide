@@ -79,7 +79,7 @@ func _physics_process(delta):
 	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-#		print("I collided with ", collision.collider.name)
+		print("I collided with ", collision.collider.name)
 		
 		collided_with_bouncepad = false
 		
