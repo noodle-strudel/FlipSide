@@ -6078,7 +6078,7 @@ collision_layer = 4
 position = Vector2( 408, 384 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike68" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike68" index="3"]
 autoplay = "to_spike"
 anims/RESET = SubResource( 189 )
 anims/bounce = SubResource( 190 )
@@ -6089,7 +6089,7 @@ anims/to_spike = SubResource( 192 )
 position = Vector2( 472, 384 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike72" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike72" index="3"]
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 185 )
 anims/bounce = SubResource( 186 )
@@ -6332,7 +6332,7 @@ collision_layer = 4
 position = Vector2( 40832, 4424 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike89" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike89" index="3"]
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 242 )
 anims/bounce = SubResource( 243 )
@@ -6347,7 +6347,7 @@ collision_layer = 4
 position = Vector2( 46472, 7244 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike146" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike146" index="3"]
 root_node = NodePath("../../Spike146")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 250 )
@@ -6367,7 +6367,7 @@ collision_layer = 4
 position = Vector2( 46704, 7240 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike154" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike154" index="3"]
 root_node = NodePath("../../Spike154")
 anims/RESET = SubResource( 254 )
 anims/bounce = SubResource( 255 )
@@ -6390,7 +6390,7 @@ collision_layer = 4
 position = Vector2( 46832, 7240 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike158" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike158" index="3"]
 root_node = NodePath("../../Spike158")
 anims/RESET = SubResource( 258 )
 anims/bounce = SubResource( 259 )
@@ -6401,7 +6401,7 @@ anims/to_spike = SubResource( 261 )
 position = Vector2( 45584, 7248 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike159" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike159" index="3"]
 root_node = NodePath("../../Spike159")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 262 )
@@ -6429,7 +6429,7 @@ collision_layer = 4
 position = Vector2( 45776, 7248 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike164" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike164" index="3"]
 root_node = NodePath("../../Spike164")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 266 )
@@ -6441,7 +6441,7 @@ anims/to_spike = SubResource( 269 )
 position = Vector2( 45440, 7248 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike165" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike165" index="3"]
 root_node = NodePath("../../Spike165")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 270 )
@@ -6453,7 +6453,7 @@ anims/to_spike = SubResource( 273 )
 position = Vector2( 46032, 7248 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike166" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike166" index="3"]
 root_node = NodePath("../../Spike166")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 274 )
@@ -6465,7 +6465,7 @@ anims/to_spike = SubResource( 277 )
 position = Vector2( 47072, 7240 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike167" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike167" index="3"]
 root_node = NodePath("../../Spike167")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 278 )
@@ -6477,7 +6477,7 @@ anims/to_spike = SubResource( 281 )
 position = Vector2( 45904, 7248 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike168" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike168" index="3"]
 root_node = NodePath("../../Spike168")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 282 )
@@ -6489,7 +6489,7 @@ anims/to_spike = SubResource( 285 )
 position = Vector2( 46288, 7244 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike169" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike169" index="3"]
 root_node = NodePath("../../Spike169")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 286 )
@@ -6509,7 +6509,7 @@ collision_layer = 4
 position = Vector2( 46160, 7248 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike172" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike172" index="3"]
 root_node = NodePath("../../Spike172")
 anims/RESET = SubResource( 290 )
 anims/bounce = SubResource( 291 )
@@ -6520,7 +6520,7 @@ anims/to_spike = SubResource( 293 )
 position = Vector2( 49488, 7360 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike136" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike136" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike173" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
@@ -6539,7 +6539,7 @@ collision_layer = 4
 position = Vector2( 49880, 7616 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike137" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike137" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike139" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
@@ -6578,7 +6578,7 @@ collision_layer = 4
 position = Vector2( 49624, 7616 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike141" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike141" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike142" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
@@ -6593,7 +6593,7 @@ collision_layer = 4
 position = Vector2( 49752, 7616 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike144" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike144" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike145" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
@@ -6608,14 +6608,14 @@ collision_layer = 4
 position = Vector2( 48632, 7300 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike123" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike123" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike125" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 48952, 7300 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike125" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike125" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike126" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
@@ -6626,21 +6626,21 @@ collision_layer = 4
 position = Vector2( 48824, 7300 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike127" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike127" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike128" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 48760, 7300 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike128" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike128" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike129" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 49208, 7300 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike129" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike129" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike130" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
@@ -6651,7 +6651,7 @@ collision_layer = 4
 position = Vector2( 49080, 7300 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike131" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike131" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike132" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
@@ -6666,7 +6666,7 @@ collision_layer = 4
 position = Vector2( 49368, 7360 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike134" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike134" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike135" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
@@ -6777,7 +6777,7 @@ collision_layer = 4
 position = Vector2( 42208, 6400 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike109" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike109" index="3"]
 root_node = NodePath("../../Spike109")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 194 )
@@ -6789,14 +6789,14 @@ anims/to_spike = SubResource( 197 )
 position = Vector2( 42656, 5056 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike110" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike110" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike111" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 43296, 5376 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike111" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike111" index="3"]
 root_node = NodePath("../../Spike109")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 198 )
@@ -6808,17 +6808,17 @@ anims/to_spike = SubResource( 201 )
 position = Vector2( 41947, 4738 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike112" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike112" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike113" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 42528, 5952 )
 collision_layer = 4
 
-[node name="AnimatedSprite" parent="Spikes/Spike113" index="1"]
+[node name="AnimatedSprite" parent="Spikes/Spike113" index="2"]
 position = Vector2( 0, -16 )
 
-[node name="AnimationPlayer" parent="Spikes/Spike113" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike113" index="3"]
 root_node = NodePath("../../Spike109")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 202 )
@@ -6830,7 +6830,7 @@ anims/to_spike = SubResource( 205 )
 position = Vector2( 43488, 5696 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike114" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike114" index="3"]
 root_node = NodePath("../../Spike109")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 206 )
@@ -6850,7 +6850,7 @@ collision_layer = 4
 position = Vector2( 43032, 5184 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike117" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike117" index="3"]
 root_node = NodePath("../../Spike109")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 210 )
@@ -6866,7 +6866,7 @@ collision_layer = 4
 position = Vector2( 43040, 6016 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike119" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike119" index="3"]
 root_node = NodePath("../../Spike109")
 anims/RESET = SubResource( 214 )
 anims/bounce = SubResource( 215 )
@@ -6925,7 +6925,7 @@ collision_layer = 4
 position = Vector2( 36896, 4232 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike104" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike104" index="3"]
 root_node = NodePath("../../Spike104")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 218 )
@@ -6937,7 +6937,7 @@ anims/to_spike = SubResource( 221 )
 position = Vector2( 37544, 4360 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike106" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike106" index="3"]
 root_node = NodePath("../../Spike106")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 222 )
@@ -6949,7 +6949,7 @@ anims/to_spike = SubResource( 225 )
 position = Vector2( 37600, 4360 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike108" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike108" index="3"]
 root_node = NodePath("../../Spike108")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 226 )
@@ -6961,7 +6961,7 @@ anims/to_spike = SubResource( 229 )
 position = Vector2( 37544, 4360 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike107" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike107" index="3"]
 root_node = NodePath("../../Spike107")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 230 )
@@ -6973,7 +6973,7 @@ anims/to_spike = SubResource( 233 )
 position = Vector2( 37088, 4288 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike105" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike105" index="3"]
 root_node = NodePath("../../Spike105")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 234 )
@@ -6985,7 +6985,7 @@ anims/to_spike = SubResource( 237 )
 position = Vector2( 36768, 4232 )
 collision_layer = 4
 
-[node name="AnimationPlayer" parent="Spikes/Spike103" index="2"]
+[node name="AnimationPlayer" parent="Spikes/Spike103" index="3"]
 root_node = NodePath("../../Spike103")
 autoplay = "to_bounce_pad"
 anims/RESET = SubResource( 238 )
@@ -7114,6 +7114,10 @@ collision_layer = 32
 
 [node name="Health" parent="." instance=ExtResource( 13 )]
 position = Vector2( 6080, -344 )
+collision_layer = 32
+
+[node name="Health2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 19360, -576 )
 collision_layer = 32
 
 [node name="Bottomless Pit2" type="Area2D" parent="."]
@@ -7561,6 +7565,7 @@ shape = SubResource( 299 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 300 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
@@ -7612,6 +7617,7 @@ bus = "SFX"
 [connection signal="touch_floor" from="Assassin" to="." method="_on_assassin_touch_floor"]
 [connection signal="body_entered" from="Flipper" to="." method="_on_Flipper_body_entered"]
 [connection signal="body_entered" from="Health" to="." method="_on_Health_body_entered"]
+[connection signal="body_entered" from="Health2" to="." method="_on_Health_body_entered"]
 [connection signal="body_entered" from="Bottomless Pit2" to="Assassin" method="_on_Bottomless_Pit_body_entered"]
 [connection signal="body_entered" from="Bottomless Pit3" to="Assassin" method="_on_Bottomless_Pit_body_entered"]
 [connection signal="body_entered" from="BoundPadLanding" to="." method="_on_BoundPadLanding_body_entered"]

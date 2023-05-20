@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Src/ground_enemy.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Sprites/ground enemy/bouncebug standing.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Sprites/ground enemy/bugbounce frame5.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Sprites/ground enemy/bugbounce frame4.png" type="Texture" id=12]
+[ext_resource path="res://SFX/bounceBoing.wav" type="AudioStream" id=13]
 
 [sub_resource type="RectangleShape2D" id=195]
 extents = Vector2( 24, 24 )
@@ -75,6 +76,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("bounceBoing:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=203]
 resource_name = "bounce"
@@ -114,6 +127,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("bounceBoing:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 5.09824 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="Ground Enemy" type="StaticBody2D" groups=["enemy"]]
 collision_layer = 4
@@ -127,7 +152,6 @@ shape = SubResource( 195 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 200 )
 animation = "flip"
-frame = 2
 playing = true
 flip_h = true
 
@@ -135,6 +159,11 @@ flip_h = true
 stream = ExtResource( 1 )
 volume_db = -10.0
 pitch_scale = 1.2
+
+[node name="bounceBoing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -30.0
+bus = "SFX"
 
 [node name="TrueEnemyArea" type="Area2D" parent="."]
 collision_layer = 0
