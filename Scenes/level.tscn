@@ -1,4 +1,4 @@
-[gd_scene load_steps=235 format=2]
+[gd_scene load_steps=227 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -1816,320 +1816,6 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 77/shape_one_way_margin = 0.0
 77/shapes = [  ]
 77/z_index = 0
-
-[sub_resource type="Animation" id=189]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ "spike" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, -16 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AnimatedSprite:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("AnimatedSprite:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=190]
-resource_name = "bounce"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "boucing" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AnimatedSprite:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("CollisionShape2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 2, -2 ), Vector2( 2, 0 ), Vector2( 2, 0 ), Vector2( 2, -16 ) ]
-}
-
-[sub_resource type="Animation" id=191]
-resource_name = "to_bounce_pad"
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "bounce_pad" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, -16 ) ]
-}
-
-[sub_resource type="Animation" id=192]
-resource_name = "to_spike"
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "spike" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, -28 ) ]
-}
-
-[sub_resource type="Animation" id=185]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ "spike" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, -16 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AnimatedSprite:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("AnimatedSprite:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=186]
-resource_name = "bounce"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "boucing" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AnimatedSprite:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("CollisionShape2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 2, -2 ), Vector2( 2, 0 ), Vector2( 2, 0 ), Vector2( 2, -16 ) ]
-}
-
-[sub_resource type="Animation" id=187]
-resource_name = "to_bounce_pad"
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "bounce_pad" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, -16 ) ]
-}
-
-[sub_resource type="Animation" id=188]
-resource_name = "to_spike"
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "spike" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, -28 ) ]
-}
 
 [sub_resource type="Animation" id=242]
 length = 0.001
@@ -6056,7 +5742,7 @@ position = Vector2( 11072, 320 )
 collision_layer = 32
 
 [node name="Assassin" parent="." instance=ExtResource( 1 )]
-position = Vector2( 72, 86 )
+position = Vector2( -176, 160 )
 collision_mask = 6
 
 [node name="No Flip Level Terrain" type="TileMap" parent="."]
@@ -6073,28 +5759,6 @@ position = Vector2( 0, -64 )
 [node name="Spike" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 1248, 384 )
 collision_layer = 4
-
-[node name="Spike68" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 408, 384 )
-collision_layer = 4
-
-[node name="AnimationPlayer" parent="Spikes/Spike68" index="3"]
-autoplay = "to_spike"
-anims/RESET = SubResource( 189 )
-anims/bounce = SubResource( 190 )
-anims/to_bounce_pad = SubResource( 191 )
-anims/to_spike = SubResource( 192 )
-
-[node name="Spike72" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 472, 384 )
-collision_layer = 4
-
-[node name="AnimationPlayer" parent="Spikes/Spike72" index="3"]
-autoplay = "to_bounce_pad"
-anims/RESET = SubResource( 185 )
-anims/bounce = SubResource( 186 )
-anims/to_bounce_pad = SubResource( 187 )
-anims/to_spike = SubResource( 188 )
 
 [node name="Spike2" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 1312, 384 )
@@ -7217,18 +6881,6 @@ shape = SubResource( 193 )
 
 [node name="Crumbly Blocks" type="Node2D" parent="."]
 
-[node name="Crumbly Block4" parent="Crumbly Blocks" instance=ExtResource( 18 )]
-position = Vector2( 752, 216 )
-
-[node name="Crumbly Block3" parent="Crumbly Blocks" instance=ExtResource( 18 )]
-position = Vector2( 688, 216 )
-
-[node name="Crumbly Block2" parent="Crumbly Blocks" instance=ExtResource( 18 )]
-position = Vector2( 624, 216 )
-
-[node name="Crumbly Block" parent="Crumbly Blocks" instance=ExtResource( 18 )]
-position = Vector2( 560, 216 )
-
 [node name="Crumbly Block5" parent="Crumbly Blocks" instance=ExtResource( 18 )]
 position = Vector2( 39456, 4128 )
 
@@ -7526,16 +7178,6 @@ rotate = false
 
 [node name="Ground Enemy" parent="Enemies/Ground Enemy Path2/PathFollow2D" instance=ExtResource( 21 )]
 
-[node name="Ground Enemy Path" type="Path2D" parent="Enemies"]
-position = Vector2( -32, 8 )
-curve = SubResource( 246 )
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Ground Enemy Path"]
-position = Vector2( 768, 288 )
-rotate = false
-
-[node name="Ground Enemy" parent="Enemies/Ground Enemy Path/PathFollow2D" instance=ExtResource( 21 )]
-
 [node name="Up Bat" type="Path2D" parent="Enemies"]
 position = Vector2( 54128, 4640 )
 curve = SubResource( 298 )
@@ -7640,8 +7282,6 @@ bus = "SFX"
 
 [editable path="Lighting"]
 [editable path="CanvasLayer/HUD"]
-[editable path="Spikes/Spike68"]
-[editable path="Spikes/Spike72"]
 [editable path="Spikes/Spike89"]
 [editable path="Spikes/Spike146"]
 [editable path="Spikes/Spike154"]

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=2]
+[gd_resource type="Theme" load_steps=24 format=2]
 
 [ext_resource path="res://Fonts/dogica/OTF/dogicabold.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/dogica/OTF/dogicapixel.otf" type="DynamicFontData" id=2]
@@ -8,6 +8,15 @@
 size = 23
 extra_spacing_char = -2
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id=21]
 
 [sub_resource type="StyleBoxFlat" id=18]
 bg_color = Color( 0.509804, 0.509804, 0.509804, 1 )
@@ -96,8 +105,8 @@ Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
 Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = SubResource( 1 )
-Button/styles/disabled = null
-Button/styles/focus = null
+Button/styles/disabled = SubResource( 20 )
+Button/styles/focus = SubResource( 21 )
 Button/styles/hover = SubResource( 18 )
 Button/styles/normal = SubResource( 3 )
 Button/styles/pressed = SubResource( 19 )

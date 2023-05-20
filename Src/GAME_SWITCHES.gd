@@ -23,9 +23,11 @@ var no_collision = 0b0000
 
 
 func save_data():
-	checkpoint_save = {
-		"health" : health,
-	}
-
+	Save.game_data.health = health
+	Save.game_data.continue = true
+	Save.game_data.spawn = GameSwitches.assassin_spawnpoint
+	Save.save_data()
+	
 func load_data():
-	health = checkpoint_save["health"]
+	health = Save.game_data.health
+	GameSwitches.assassin_spawnpoint = Save.game_data.spawn

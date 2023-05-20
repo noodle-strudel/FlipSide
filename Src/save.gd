@@ -1,6 +1,6 @@
 extends Node
 
-const SAVEFILE = "user://SAVEFILE.save"
+const SAVEFILE = "C:/Users/Wesley/Documents/FlipSide/SAVEFILE.save"
 
 var game_data = {}
 
@@ -18,6 +18,9 @@ func load_data():
 			"master_vol": 0,
 			"music_vol": 0,
 			"sfx_vol": 0,
+			"spawn": 0,
+			"continue": false,
+			"health": 3
 		}
 		save_data()
 	file.open(SAVEFILE, File.READ)

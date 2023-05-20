@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Resource/Font.tres" type="Theme" id=1]
 [ext_resource path="res://Src/credits.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Sprites/Disco Lights.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Resource/Option Theme.tres" type="Theme" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -119,9 +120,8 @@ margin_top = 128.0
 margin_right = 139.0
 margin_bottom = 184.0
 size_flags_vertical = 10
-theme = ExtResource( 1 )
+theme = ExtResource( 13 )
 text = "Back"
-align = 0
 
 [node name="changeSwitch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
