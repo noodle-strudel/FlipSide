@@ -18,7 +18,7 @@ func _process(delta):
 
 func _on_NewGame_pressed():
 	Save.game_data.spawn = Vector2(200, 0)
-	Save.game_data.health = 3
+	Save.game_data.health = 10
 	Save.game_data.coins = 0
 	Save.game_data.continue = false
 	Save.save_data()

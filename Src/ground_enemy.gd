@@ -13,9 +13,7 @@ var dropped_coin = false
 
 func _ready():
 	if GameSwitches.flipped == true:
-		$AnimatedSprite.play("flip")  
-	else: 
-		$AnimatedSprite.play("noflip")
+		flip()
 	
 func _physics_process(delta):
 	if $AnimationPlayer.current_animation == "bounce":

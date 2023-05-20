@@ -14,6 +14,8 @@ func _ready():
 		dropped_coin = true
 	if get_tree().root.get_child(6).name == "Castle":
 		_speed = 200
+	if GameSwitches.flipped == true:
+		flip()
 	
 func _physics_process(delta):
 	path_follow.offset += _speed * delta

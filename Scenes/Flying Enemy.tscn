@@ -40,6 +40,7 @@ shape = SubResource( 197 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 196 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 

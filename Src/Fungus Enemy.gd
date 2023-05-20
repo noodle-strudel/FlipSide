@@ -15,9 +15,7 @@ func _ready():
 	if GameSwitches.assassin_spawnpoint.x > global_position.x:
 		dropped_coin = true
 	if GameSwitches.flipped == true:
-		$AnimatedSprite.play("flip")  
-	else: 
-		$AnimatedSprite.play("noflip")
+		flip()
 	
 func _physics_process(delta):
 	if hit == false:

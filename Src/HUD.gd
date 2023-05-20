@@ -20,6 +20,7 @@ func _on_Button_pressed():
 	emit_signal("respawn")
 
 func _on_Menu_pressed():
+	GameSwitches.flipped = false
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
 	$Select.playing = true

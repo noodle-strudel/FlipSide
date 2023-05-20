@@ -50,7 +50,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ "flip" ]
+"values": [ "noflip" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("AnimatedSprite:frame")
@@ -151,7 +151,8 @@ shape = SubResource( 195 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 3, 3 )
 frames = SubResource( 200 )
-animation = "flip"
+animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
