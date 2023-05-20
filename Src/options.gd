@@ -1,5 +1,7 @@
 extends Control
 
+signal to_main_menu
+
 onready var display_mode_button = $TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeButton
 onready var brightness_slide = $TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer/BrightnessSlider
 
@@ -50,7 +52,8 @@ func _on_Main_Menu_pressed():
 	if get_tree().get_current_scene().get_name() != "Level":
 		visible = false
 	else:
-		get_tree().change_scene("res://Scenes/menu.tscn")
+		get_tree().paused = false
+		emit_signal("to_main_menu")
 	
 func _on_Video_tab_clicked():
 	$clickChoose.playing = true

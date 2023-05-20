@@ -5299,6 +5299,7 @@ shape = SubResource( 299 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 300 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
@@ -5342,6 +5343,7 @@ bus = "SFX"
 
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="to_main_menu" from="CanvasLayer/HUD" to="." method="_on_HUD_to_main_menu"]
+[connection signal="to_main_menu" from="CanvasLayer/HUD/Options" to="." method="_on_HUD_to_main_menu"]
 [connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]

@@ -26,3 +26,4 @@ func _on_Menu_pressed():
 	$Retry/VBoxContainer/Retry.disabled = true
 	yield($Select, "finished")
 	emit_signal("to_main_menu")
+
