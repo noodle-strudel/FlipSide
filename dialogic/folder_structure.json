@@ -29,7 +29,8 @@
 		},
 		"Themes": {
 			"files": [
-				"default-theme.cfg"
+				"default-theme.cfg",
+				"theme-1684575134.cfg"
 			],
 			"folders": {
 
@@ -41,7 +42,8 @@
 		},
 		"Timelines": {
 			"files": [
-				"timeline-1684388125.json"
+				"timeline-1684388125.json",
+				"timeline-1684574930.json"
 			],
 			"folders": {
 

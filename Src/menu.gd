@@ -26,7 +26,7 @@ func _on_NewGame_pressed():
 	GameSwitches.load_data()
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
-	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
+	$SceneTransitionRect.transition_to("res://Scenes/Prelude.tscn")
 	$Select.playing = true
 	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($Select, "finished")
