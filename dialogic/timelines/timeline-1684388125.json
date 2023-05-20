@@ -15,10 +15,17 @@
 			"event_id": "dialogic_040"
 		},
 		{
-			"character": "",
-			"event_id": "dialogic_001",
-			"portrait": "",
-			"text": "HAH!"
+			"audio": "play",
+			"audio_bus": "Master",
+			"event_id": "dialogic_030",
+			"event_name": "AudioEvent",
+			"file": "res://SFX/Hah.wav",
+			"volume": 0
+		},
+		{
+			"event_id": "dialogic_023",
+			"hide_dialogbox": true,
+			"wait_seconds": 2
 		},
 		{
 			"emit_signal": "arms_down",
@@ -42,7 +49,7 @@
 			"character": "",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "So…"
+			"text": "So..."
 		},
 		{
 			"emit_signal": "arms_up",
@@ -101,6 +108,10 @@
 			"event_id": "dialogic_040"
 		},
 		{
+			"emit_signal": "feign_fight",
+			"event_id": "dialogic_040"
+		},
+		{
 			"character": "",
 			"event_id": "dialogic_001",
 			"portrait": "",
@@ -119,6 +130,11 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Let’s make sure I don’t see you again."
+		},
+		{
+			"event_id": "dialogic_023",
+			"hide_dialogbox": true,
+			"wait_seconds": 1
 		},
 		{
 			"emit_signal": "assassinate",

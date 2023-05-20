@@ -59,8 +59,9 @@ var direction = "right"
 
 func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
-	GameSwitches.health = 3
+	GameSwitches.health = 3000000
 	GameSwitches.coins = 0
+	
 
 """
 ----------------------------------------------------------------------
@@ -78,7 +79,7 @@ func _physics_process(delta):
 	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-#		print("I collided with ", collision.collider.name)
+		print("I collided with ", collision.collider.name)
 		
 		collided_with_bouncepad = false
 		
@@ -91,6 +92,8 @@ func _physics_process(delta):
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 			elif "Flying Enemy" in collision.collider.name and GameSwitches.flipped == true:
 				emit_signal("on_friendly_bat")
+			elif "Fungus Enemy" in collision.collider.name and GameSwitches.flipped == false:
+				pass
 			else:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 		elif "BigBouncepad" in collision.collider.name:
@@ -416,7 +419,6 @@ func revive():
 
 
 func _on_Bottomless_Pit_body_entered(body):
-	print("touched")
 	GameSwitches.health = 0
 	BackgroundMusic.playing = false
 	GameSwitches.state = GameSwitches.DED
