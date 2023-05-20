@@ -11,12 +11,6 @@ var going_out_of_cave = false
 var in_bat_cutscene = false
 
 func _ready():
-	GameSwitches.can_flip = true
-	GameSwitches.save_data()
-	GameSwitches.assassin_spawnpoint = Vector2(200, 0)
-	$Assassin/Camera2D.limit_bottom = 100000
-  
-	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
 	$Assassin.position = GameSwitches.assassin_spawnpoint
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 	
