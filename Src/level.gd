@@ -4,6 +4,8 @@ var dust_resource = preload("res://Scenes/dust.tscn")
 
 var first_heart = true
 var first_checkpoint = true
+var first_ground_attack = true
+var first_air_attack = true
 
 var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
@@ -17,6 +19,13 @@ func _ready():
 	else:
 		$Assassin/Camera2D.limit_bottom = 10000
 		Music.change_music(Music.switcharoo)
+	if GameSwitches.assassin_spawnpoint == Vector2(200, 0):
+		$CanvasLayer/HUD/ToolTip.show()
+		$CanvasLayer/HUD/ToolTip/StartFromBasics.show()
+		yield(get_tree().create_timer(5.0), "timeout")
+		$CanvasLayer/HUD/ToolTip.hide()
+		$CanvasLayer/HUD/ToolTip/StartFromBasics.hide()
+	
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 	
 
@@ -108,7 +117,7 @@ func _on_Health_body_entered(body):
 	if (first_heart == true):
 		$CanvasLayer/HUD/ToolTip.show()
 		$CanvasLayer/HUD/ToolTip/RealHumanHearts.show()
-		yield(get_tree().create_timer(5.0), "timeout")
+		yield(get_tree().create_timer(4.0), "timeout")
 		$CanvasLayer/HUD/ToolTip.hide()
 		$CanvasLayer/HUD/ToolTip/RealHumanHearts.hide()
 		first_heart = false
@@ -185,3 +194,22 @@ func initiate_liftoff():
 func _on_HUD_to_main_menu():
 	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/menu.tscn")
 
+
+func _on_TeachGroundAttack_body_entered(body):
+	if first_ground_attack:
+		$CanvasLayer/HUD/ToolTip.show()
+		$CanvasLayer/HUD/ToolTip/SwordsOut.show()
+		yield(get_tree().create_timer(7.0), "timeout")
+		$CanvasLayer/HUD/ToolTip.hide()
+		$CanvasLayer/HUD/ToolTip/SwordsOut.hide()
+		first_ground_attack = false
+
+
+func _on_TeachAirAttacks_body_entered(body):
+	if first_air_attack:
+		$CanvasLayer/HUD/ToolTip.show()
+		$CanvasLayer/HUD/ToolTip/ThrowingKnives.show()
+		yield(get_tree().create_timer(7.0), "timeout")
+		$CanvasLayer/HUD/ToolTip.hide()
+		$CanvasLayer/HUD/ToolTip/ThrowingKnives.hide()
+		first_air_attack = false

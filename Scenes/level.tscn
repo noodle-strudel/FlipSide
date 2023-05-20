@@ -1,4 +1,4 @@
-[gd_scene load_steps=148 format=2]
+[gd_scene load_steps=149 format=2]
 
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/level.gd" type="Script" id=2]
@@ -3472,6 +3472,9 @@ animations = [ {
 [sub_resource type="Animation" id=301]
 resource_name = "flip"
 
+[sub_resource type="RectangleShape2D" id=308]
+extents = Vector2( 17, 540 )
+
 [node name="Level" type="Node"]
 script = ExtResource( 2 )
 __meta__ = {
@@ -3509,6 +3512,12 @@ visible = false
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
+
+[node name="ToolTip" parent="CanvasLayer/HUD" index="2"]
+visible = false
+
+[node name="StartFromBasics" parent="CanvasLayer/HUD/ToolTip" index="3"]
+visible = false
 
 [node name="Lighting" parent="CanvasLayer/HUD" index="6"]
 visible = false
@@ -5299,7 +5308,6 @@ shape = SubResource( 299 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 300 )
 animation = "noflip"
-frame = 1
 playing = true
 flip_h = true
 
@@ -5341,6 +5349,22 @@ volume_db = -10.0
 pitch_scale = 2.0
 bus = "SFX"
 
+[node name="TeachGroundAttack" type="Area2D" parent="."]
+position = Vector2( 3904, 48 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeachGroundAttack"]
+position = Vector2( 7, -276 )
+shape = SubResource( 308 )
+
+[node name="TeachAirAttacks" type="Area2D" parent="."]
+position = Vector2( 7208, 56 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeachAirAttacks"]
+position = Vector2( 7, -276 )
+shape = SubResource( 308 )
+
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="to_main_menu" from="CanvasLayer/HUD" to="." method="_on_HUD_to_main_menu"]
 [connection signal="to_main_menu" from="CanvasLayer/HUD/Options" to="." method="_on_HUD_to_main_menu"]
@@ -5375,6 +5399,8 @@ bus = "SFX"
 [connection signal="timeout" from="ShowFlipperTimer" to="." method="_on_ShowFlipperTimer_timeout"]
 [connection signal="timeout" from="FlipEnemyTimer" to="." method="_on_FlipEnemyTimer_timeout"]
 [connection signal="timeout" from="HideFlipperTimer" to="." method="_on_HideFlipperTimer_timeout"]
+[connection signal="body_entered" from="TeachGroundAttack" to="." method="_on_TeachGroundAttack_body_entered"]
+[connection signal="body_entered" from="TeachAirAttacks" to="." method="_on_TeachAirAttacks_body_entered"]
 
 [editable path="Lighting"]
 [editable path="CanvasLayer/HUD"]

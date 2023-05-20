@@ -123,6 +123,53 @@ margin_right = 268.0
 margin_bottom = -22.0
 text = "If you die you'll respawn at this CHECKPOINT"
 
+[node name="StartFromBasics" type="RichTextLabel" parent="ToolTip"]
+visible = false
+anchor_left = 0.508
+anchor_right = 0.508
+margin_left = -227.968
+margin_top = -104.0
+margin_right = 250.032
+margin_bottom = -25.0
+text = "LEFT/RIGHT ARROW KEYS to MOVE,
+
+SPACE/ARROW UP to JUMP.
+
+Press SPACE in air to DOUBLE JUMP"
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="SwordsOut" type="RichTextLabel" parent="ToolTip"]
+visible = false
+anchor_left = 0.508
+anchor_right = 0.508
+margin_left = -211.968
+margin_top = -96.0
+margin_right = 372.032
+margin_bottom = -25.0
+text = "Tap Z on the GROUND to CLOSE ATTACK
+
+	Hold Z on the GROUND to CHARGE a
+
+		POWERFUL RANGED ATTACK"
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ThrowingKnives" type="RichTextLabel" parent="ToolTip"]
+visible = false
+anchor_left = 0.508
+anchor_right = 0.508
+margin_left = -243.968
+margin_top = -48.0
+margin_right = 340.032
+margin_bottom = 15.0
+text = "Tap Z in AIR to do a QUICK RANGED ATTACK"
+__meta__ = {
+"_editor_description_": ""
+}
+
 [node name="Options" parent="." instance=ExtResource( 2 )]
 
 [node name="Select" type="AudioStreamPlayer" parent="."]
@@ -135,7 +182,7 @@ stream = ExtResource( 3 )
 bus = "SFX"
 
 [node name="Lighting" parent="." instance=ExtResource( 4 )]
-position = Vector2( 11, -3 )
+position = Vector2( 24, 0 )
 
 [connection signal="pressed" from="Retry/VBoxContainer/Retry" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Retry/VBoxContainer/Menu" to="." method="_on_Menu_pressed"]
