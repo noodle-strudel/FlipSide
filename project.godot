@@ -73,6 +73,11 @@ _global_script_classes=[ {
 "class": "ToggleCamera",
 "language": "GDScript",
 "path": "res://Src/ToggleCamera.gd"
+}, {
+"base": "Node",
+"class": "level",
+"language": "GDScript",
+"path": "res://Src/levels.gd"
 } ]
 _global_script_class_icons={
 "DTS": "",
@@ -87,7 +92,8 @@ _global_script_class_icons={
 "DialogicUtil": "",
 "GitAPI": "",
 "HistoryRow": "",
-"ToggleCamera": ""
+"ToggleCamera": "",
+"level": ""
 }
 
 [application]
