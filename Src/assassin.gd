@@ -19,6 +19,7 @@ export (Vector2) var velocity = Vector2.ZERO
 export var in_the_air = true
 export var has_jumped = false
 export var hurting = false
+export var damaged = false
 export var dead = false
 export var attacking = false
 
@@ -102,10 +103,10 @@ func _physics_process(delta):
 		collided_with_bouncepad = false
 		
 		# handles logic when colliding with special objects
-		# when reviving, don't care about what its colliding with
-		print("is revive")
-		if GameSwitches.state != GameSwitches.REVIVE:
-			print("NOT revive")
+		# when hurt, don't care about what its colliding with
+		print("is invuln")
+		if damaged == false:
+			print("NOT invuln")
 			if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
 				if ("Spike" in collision.collider.name and collision.collider.is_bounce_pad == true) || (collision.collider.name == "Ground Enemy" and GameSwitches.flipped == true):
 						initiate_bounce_pad(collision)
@@ -231,19 +232,20 @@ func on_floor(delta):
 	double_jump = false
 	if in_the_air == true and gonna_jump_on_bounce_pad == false:
 		emit_signal("touch_floor")
-	if in_the_air == true:
-		in_the_air = false
-		sprite.animation = "landing"
-	
-	if sprite.animation == "landing":
-		# wait for the animation to emit signal "animation_finished" to continue
-		yield(sprite, "animation_finished")
+	if hurting == false:
+		if in_the_air == true:
+			in_the_air = false
+			sprite.animation = "landing"
+		
+		if sprite.animation == "landing":
+			# wait for the animation to emit signal "animation_finished" to continue
+			yield(sprite, "animation_finished")
 
-	if in_the_air == false and attacking == false:
-		if velocity.x == 0:
-			sprite.animation = "idle"
-		else:
-			sprite.animation = "run"
+		if in_the_air == false and attacking == false:
+			if velocity.x == 0:
+				sprite.animation = "idle"
+			else:
+				sprite.animation = "run"
 
 func in_air():
 	in_the_air = true
@@ -253,13 +255,14 @@ func in_air():
 		double_jump = true
 	
 	# will use double jump animation once your oppurtunity to double jump has been used
-	if double_jump == false:
-		sprite.animation = "double_jump"
-	else:
-		if velocity.y < 0:
-			sprite.animation = "jump_up"
-		elif velocity.y > 300:
-			sprite.animation = "jump_down"
+	if hurting == false:
+		if double_jump == false:
+			sprite.animation = "double_jump"
+		else:
+			if velocity.y < 0:
+				sprite.animation = "jump_up"
+			elif velocity.y > 300:
+				sprite.animation = "jump_down"
 
 func push(delta):
 	in_the_air = false
@@ -285,6 +288,7 @@ func hit():
 			snap = Vector2.ZERO
 			velocity.y = -800
 		hurting = true
+		damaged = true
 
 		$HitPauseTimer.start()
 		
@@ -294,9 +298,8 @@ func hit():
 		sprite.frame = 0
 		if GameSwitches.health <= 0:
 			BackgroundMusic.playing = false
-
-
 	sprite.animation = "hit"
+	
 
 func _on_HitPauseTimer_timeout():
 	get_tree().paused = false
@@ -472,9 +475,10 @@ func revive(delta):
 	gravity = 2300
 	$AnimationPlayer.play("recover")
 	normal(delta)
-	yield(get_tree().create_timer(1), "timeout")
+	yield($AnimationPlayer, "animation_finished")
 	
 	# enables collision again for the assassin
+	damaged = false
 	GameSwitches.state = GameSwitches.NORMAL
 	collision_layer = GameSwitches.player_layer
 
