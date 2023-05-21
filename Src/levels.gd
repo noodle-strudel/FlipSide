@@ -64,7 +64,6 @@ func respawn():
 	GameSwitches.load_data()
 	
 	$Assassin.dead = false
-	$Assassin.reviving = true
 	
 	# collision layer for the assassin comes back after they are revived
 	

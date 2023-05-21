@@ -2,14 +2,15 @@ extends StaticBody2D
 
 onready var path_follow = get_parent()
 onready var coin = preload("res://Scenes/Coin.tscn")
+onready var health_bar = preload("res://Scenes/HealthBar.tscn")
 
+# Initial Variables
 export var _speed = 100
-
 var hit_point = 3
-
 var hit = false
 var defeated = false
 var dropped_coin = false
+var no_health_bar = true
 
 func _ready():
 	if GameSwitches.flipped == true:
@@ -42,15 +43,30 @@ func _physics_process(delta):
 
 
 func _on_TrueEnemyArea_body_entered(body):
-	GameSwitches.state = GameSwitches.HIT
+	if GameSwitches.state != GameSwitches.REVIVE:
+		GameSwitches.state = GameSwitches.HIT
 
-func deplete_health(health):
+func deplete_health(damage):
+	print(damage)
+	if damage != 3:
+		configure_health_bar()
+		$HealthBar/ProgressBar.value -= 1
 	$hitHurt.play()
-	hit_point -= health
+	hit_point -= damage
 	hit = true
 	$AnimatedSprite.playing = false
 	$HitTimer.start()
 	
+
+func configure_health_bar():
+	# if the enemy is hit for the first time, instance a health bar above them
+	# if they already have a health bar, don't make a new one!
+	var health_bar_instance = health_bar.instance()
+	for child in get_children():
+		if child.name == "HealthBar":
+			no_health_bar = false
+	if no_health_bar:
+		add_child(health_bar_instance)
 
 func _on_HitTimer_timeout():
 	hit = false
@@ -75,6 +91,7 @@ func revert():
 
 func _on_VisibilityNotifier2D_screen_exited():
 	if defeated:
+		
 		if GameSwitches.flipped:
 			$TrueEnemyArea.monitoring = false
 		else:
@@ -84,5 +101,8 @@ func _on_VisibilityNotifier2D_screen_exited():
 		set_collision_mask_bit(4, true)
 		set_collision_mask_bit(0, true)
 		hit_point = 3
+		# if there's a healthbar, the bar fills up
+		if no_health_bar == false:
+			$HealthBar/ProgressBar.value = 3
 		defeated = false
 		show()

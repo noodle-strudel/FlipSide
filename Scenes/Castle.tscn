@@ -25,9 +25,10 @@
 [ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=23]
 [ext_resource path="res://Music/Higher Level.mp3" type="AudioStream" id=24]
 [ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=25]
-[ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Assets/Sprites/backgrounds/background.png" type="Texture" id=27]
 [ext_resource path="res://Assets/Sprites/backgrounds/flipped background.png" type="Texture" id=28]
+
 
 [sub_resource type="Curve2D" id=1]
 _data = {

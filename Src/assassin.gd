@@ -21,7 +21,6 @@ export var has_jumped = false
 export var hurting = false
 export var dead = false
 export var attacking = false
-export var reviving = false
 
 var can_jump = true
 var going_out_of_cave = false
@@ -81,7 +80,7 @@ when the assassin collides with something,
 	if you're about to jump on a bounce pad,
 		the assassin can't move until a certain point in the animation.
 	
-state machine for tne assassin
+state machine for the assassin
 when the assassin is in the normal state,
 	they can jump, attack and go into the attack state,
 	and logic for when they are in the air, on the ground, and trying to push something are executed.
@@ -103,18 +102,21 @@ func _physics_process(delta):
 		collided_with_bouncepad = false
 		
 		# handles logic when colliding with special objects
-		#
-		if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
-			if ("Spike" in collision.collider.name and collision.collider.is_bounce_pad == true) || (collision.collider.name == "Ground Enemy" and GameSwitches.flipped == true):
-					initiate_bounce_pad(collision)
-			elif "Anti Coin" in collision.collider.name:
-				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
-			elif "Flying Enemy" in collision.collider.name and GameSwitches.flipped == true:
-				emit_signal("on_friendly_bat")
-			elif "Fungus Enemy" in collision.collider.name and GameSwitches.flipped == false:
-				pass
-			else:
-				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
+		# when reviving, don't care about what its colliding with
+		print("is revive")
+		if GameSwitches.state != GameSwitches.REVIVE:
+			print("NOT revive")
+			if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
+				if ("Spike" in collision.collider.name and collision.collider.is_bounce_pad == true) || (collision.collider.name == "Ground Enemy" and GameSwitches.flipped == true):
+						initiate_bounce_pad(collision)
+				elif "Anti Coin" in collision.collider.name:
+					GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
+				elif "Flying Enemy" in collision.collider.name and GameSwitches.flipped == true:
+					emit_signal("on_friendly_bat")
+				elif "Fungus Enemy" in collision.collider.name and GameSwitches.flipped == false:
+					pass
+				else:
+					GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 		elif "BigBouncepad" in collision.collider.name:
 			collided_with_big_bouncepad = true
 			if gonna_jump_on_bounce_pad == false and is_on_floor():
@@ -130,7 +132,7 @@ func _physics_process(delta):
 	# state logic (will replace with a switch eventually)
 	match GameSwitches.state:
 		GameSwitches.REVIVE:
-			revive()
+			revive(delta)
 		GameSwitches.DED:
 			ded()
 		GameSwitches.HIT:
@@ -138,42 +140,7 @@ func _physics_process(delta):
 		GameSwitches.ATTACK:
 			attack()
 		GameSwitches.NORMAL:
-			snap = Vector2.DOWN * 16 if is_on_floor() else Vector2.ZERO
-			get_input()
-			determine_direction()
-		
-		
-		# you can jump when you are in normal state
-			if Input.is_action_just_pressed("jump"):
-				if can_jump:
-					if is_on_floor():
-						emit_signal("jumped")
-						sprite.animation = "jump_up"
-						$jumpBound.play()
-						has_jumped = true
-						velocity.y = jump_speed
-						double_jump = true
-				
-					elif double_jump == true:
-						emit_signal("jumped")
-						emit_signal("air_jumped")
-						velocity.y = jump_speed
-						$jumpBound2.play()
-						double_jump = false
-						has_jumped = true
-			
-			# transition to attack state
-			elif Input.is_action_pressed("attack"):
-				GameSwitches.state = GameSwitches.ATTACK
-				
-			# if just directional keys are being pressed
-			else:
-				if is_on_floor() and is_on_wall():
-					push(delta);
-				elif is_on_floor():
-					on_floor(delta);
-				else:
-					in_air();
+			normal(delta)
 """"""
 
 # plays the animation for the small bounce pads and makes assassin unable to move during so.
@@ -194,6 +161,44 @@ func get_input():
 """"""
 
 """NORMAL STATE FUNCTIONS ---------------------------------------------------"""
+func normal(delta):
+	snap = Vector2.DOWN * 16 if is_on_floor() else Vector2.ZERO
+	get_input()
+	determine_direction()
+		
+		
+# you can jump when you are in normal state
+	if Input.is_action_just_pressed("jump"):
+		if can_jump:
+			if is_on_floor():
+				emit_signal("jumped")
+				sprite.animation = "jump_up"
+				$jumpBound.play()
+				has_jumped = true
+				velocity.y = jump_speed
+				double_jump = true
+		
+			elif double_jump == true:
+				emit_signal("jumped")
+				emit_signal("air_jumped")
+				velocity.y = jump_speed
+				$jumpBound2.play()
+				double_jump = false
+				has_jumped = true
+	
+	# transition to attack state
+	elif Input.is_action_pressed("attack"):
+		GameSwitches.state = GameSwitches.ATTACK
+		
+	# if just directional keys are being pressed
+	else:
+		if is_on_floor() and is_on_wall():
+			push(delta);
+		elif is_on_floor():
+			on_floor(delta);
+		else:
+			in_air();
+
 func determine_direction():
 	# going forward
 	if velocity.x > 0 or Input.is_action_pressed("ui_right"):
@@ -234,7 +239,7 @@ func on_floor(delta):
 		# wait for the animation to emit signal "animation_finished" to continue
 		yield(sprite, "animation_finished")
 
-	if in_the_air == false and GameSwitches.state == GameSwitches.NORMAL:
+	if in_the_air == false and attacking == false:
 		if velocity.x == 0:
 			sprite.animation = "idle"
 		else:
@@ -272,6 +277,8 @@ func hit():
 	get_input()
 	determine_direction()
 	if hurting == false:
+		charged_up = false
+		charging_attack = false
 		GameSwitches.health -= 1
 		
 		if prev_y_velocity > 0:
@@ -299,7 +306,7 @@ func _on_RecoverTimer_timeout():
 	if GameSwitches.health <= 0:
 		GameSwitches.state = GameSwitches.DED
 	else:
-		GameSwitches.state = GameSwitches.NORMAL
+		GameSwitches.state = GameSwitches.REVIVE
 	hurting = false
 	
 """"""
@@ -461,15 +468,15 @@ func _on_Sword_body_entered(body):
 
 # when reviving, you're invulnerable
 """REVIVE STATE -------------------------------------------------------------"""
-func revive():
+func revive(delta):
 	gravity = 2300
 	$AnimationPlayer.play("recover")
-	GameSwitches.state = GameSwitches.NORMAL
-	yield($AnimationPlayer, "animation_finished")
+	normal(delta)
+	yield(get_tree().create_timer(1), "timeout")
 	
 	# enables collision again for the assassin
+	GameSwitches.state = GameSwitches.NORMAL
 	collision_layer = GameSwitches.player_layer
-	reviving = false
 
 
 func _on_Bottomless_Pit_body_entered(body):

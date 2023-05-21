@@ -16,7 +16,7 @@
 [ext_resource path="res://Src/ToggleCameraLeftSpikes.gd" type="Script" id=16]
 [ext_resource path="res://Src/ToggleCameraFlipper.gd" type="Script" id=17]
 [ext_resource path="res://Scenes/Ground Enemy.tscn" type="PackedScene" id=21]
-[ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Scenes/Floating Enemy.tscn" type="PackedScene" id=29]
 [ext_resource path="res://Assets/Sprites/backgrounds/background.png" type="Texture" id=30]

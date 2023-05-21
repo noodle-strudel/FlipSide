@@ -86,7 +86,6 @@ func _on_HUD_respawn():
 	GameSwitches.load_data()
 	
 	$Assassin.dead = false
-	$Assassin.reviving = true
 	
 	# enables collision again for the assassin
 	$Assassin.collision_layer = GameSwitches.player_layer
