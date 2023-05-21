@@ -6239,7 +6239,6 @@ position = Vector2( 2988, 3890 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 22 )]
-visible = false
 
 [node name="SceneTransitionRect" parent="CanvasLayer" instance=ExtResource( 23 )]
 
@@ -7355,6 +7354,7 @@ shape = SubResource( 156 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 157 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
@@ -7383,8 +7383,36 @@ volume_db = -10.0
 pitch_scale = 2.0
 bus = "SFX"
 
+[node name="CameraPanTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ShowFlipperTimer" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
+
+[node name="FlipEnemyTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="HideFlipperTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HopOnBatTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TransitionToCastleTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="to_main_menu" from="CanvasLayer/HUD" to="." method="_on_HUD_to_main_menu"]
+[connection signal="body_entered" from="To Castle" to="." method="_on_To_Castle_body_entered"]
 [connection signal="body_entered" from="To Castle/Flipper" to="To Castle/Flipper" method="_on_Flipper_body_entered"]
+[connection signal="timeout" from="CameraPanTimer" to="." method="_on_CameraPanTimer_timeout"]
+[connection signal="timeout" from="ShowFlipperTimer" to="." method="_on_ShowFlipperTimer_timeout"]
+[connection signal="timeout" from="FlipEnemyTimer" to="." method="_on_FlipEnemyTimer_timeout"]
+[connection signal="timeout" from="HideFlipperTimer" to="." method="_on_HideFlipperTimer_timeout"]
+[connection signal="timeout" from="HopOnBatTimer" to="." method="_on_HopOnBatTimer_timeout"]
+[connection signal="timeout" from="TransitionToCastleTimer" to="." method="_on_TransitionToCastleTimer_timeout"]
 
 [editable path="Spikes/Spike89"]
 [editable path="Spikes/Spike146"]

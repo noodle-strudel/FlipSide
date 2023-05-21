@@ -7,6 +7,7 @@ export var rave_squence: int
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Assassin/Camera2D.limit_bottom = 10000
+	$Assassin/Camera2D.zoom = Vector2(1.5, 1.5)
 
 func _on_To_Castle_body_entered(body):
 	in_bat_cutscene = true
@@ -54,14 +55,17 @@ func initiate_liftoff():
 	$Assassin.velocity = Vector2.ZERO
 	$Assassin/AnimatedSprite.play("idle")
 	GameSwitches.state = GameSwitches.INACTIVE
-	yield(get_tree().create_timer(1.0), "timeout")
+	$HopOnBatTimer.start()
+
+func _on_HopOnBatTimer_timeout():
 	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flying_up = true
 	$"Enemies/Up Bat/PathFollow2D/RemoteTransform2D".global_position.x = $Assassin.global_position.x
 	$"Enemies/Up Bat/PathFollow2D/RemoteTransform2D".set_remote_node("../../../../Assassin")
-	yield(get_tree().create_timer(2.0), "timeout")
+	$TransitionToCastleTimer.start()
+
+func _on_TransitionToCastleTimer_timeout():
 	$Assassin.global_position = Vector2(200,0)
 	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/Castle.tscn")
-
 
 func _on_HUD_to_main_menu():
 	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/menu.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Src/Floating Enemy.gd" type="Script" id=1]
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/Sprites/cloud bug/spikeguy2.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/cloud bug/spikeguy.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sprites/cloud bug/cloudguy.png" type="Texture" id=6]
+[ext_resource path="res://SFX/cloudReflect.wav" type="AudioStream" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 63.0079
@@ -55,6 +56,11 @@ one_shot = true
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 position = Vector2( 3.74496, -4.30759 )
 scale = Vector2( 6.34548, 6.39631 )
+
+[node name="cloudReflect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -10.0
+bus = "SFX"
 
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

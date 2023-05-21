@@ -42,6 +42,8 @@ func deplete_health(health):
 		$AnimatedSprite.play("hurt")
 		hit_point -= health
 		$HitTimer.start()
+	else:
+		$cloudReflect.play()
 
 func _on_HitTimer_timeout():
 	if GameSwitches.flipped == false:
