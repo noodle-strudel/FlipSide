@@ -15,6 +15,14 @@ func _ready():
 	
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 
+func _physics_process(delta):
+	if GameSwitches.can_flip:
+		if Input.is_action_pressed("flip"):
+			GameSwitches.gonna_flip = true
+		
+		if GameSwitches.gonna_flip == true:
+			do_a_flip()
+
 func do_a_flip(bypass = false):
 	# Flips when they release the button
 	if Input.is_action_just_released("flip") || bypass == true:
@@ -22,13 +30,13 @@ func do_a_flip(bypass = false):
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
-			$ParallaxBackground/Forest/ForestBackground.play("forestflip")
-			$ParallaxBackground/Cave/CaveBackground.play("caveflip")
+			if get_tree().get_current_scene().name != "Cave":
+				$ParallaxBackground/Forest/ForestBackground.play("forestflip")
 			GameSwitches.flipped = true
 		else:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_original)
-			$ParallaxBackground/Forest/ForestBackground.play("forestnoflip")
-			$ParallaxBackground/Cave/CaveBackground.play("cavenoflip")
+			if get_tree().get_current_scene().name != "Cave":
+				$ParallaxBackground/Forest/ForestBackground.play("forestnoflip")
 			GameSwitches.flipped = false
 		GameSwitches.gonna_flip = false
 

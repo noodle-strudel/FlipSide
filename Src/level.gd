@@ -1,16 +1,11 @@
-extends Node
+extends level
 
-var dust_resource = preload("res://Scenes/dust.tscn")
+signal revert_flipper
 
 var first_heart = true
 var first_checkpoint = true
 var first_ground_attack = true
 var first_air_attack = true
-
-var flip_original = preload("res://Assets/Tileset/real_tileset.png")
-var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
-var going_out_of_cave = false
-var in_bat_cutscene = false
 
 # loads assassin spawnpoint if continuing or makes new spawnpoint if loading new game
 func _ready():
@@ -28,82 +23,26 @@ func _ready():
 		$CanvasLayer/HUD/ToolTip/StartFromBasics.hide()
 	
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-	
-
-func _process(delta):
-	if $Assassin.global_position.y > 2000 or $Assassin.global_position.x > 38000:
-		$ParallaxBackground/Cave.show()
-		$ParallaxBackground/Forest.hide()
-	else:
-		$ParallaxBackground/Cave.hide()
-		$ParallaxBackground/Forest.show()
-
-func _physics_process(delta):
-	if GameSwitches.can_flip:
-		if Input.is_action_pressed("flip"):
-			GameSwitches.gonna_flip = true
-		
-		if GameSwitches.gonna_flip == true:
-			do_a_flip()
-
-func do_a_flip(bypass = false):
-	# Flips when they release the button
-	if Input.is_action_just_released("flip") || bypass == true:
-		$flipFlop.play()
-		get_tree().call_group("enemy", "flip")
-		if GameSwitches.flipped == false:
-			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
-			$ParallaxBackground/Forest/ForestBackground.play("forestflip")
-			$ParallaxBackground/Cave/CaveBackground.play("caveflip")
-			GameSwitches.flipped = true
-		else:
-			$"Details Foreground".tile_set.tile_set_texture(0, flip_original)
-			$ParallaxBackground/Forest/ForestBackground.play("forestnoflip")
-			$ParallaxBackground/Cave/CaveBackground.play("cavenoflip")
-			GameSwitches.flipped = false
-		GameSwitches.gonna_flip = false
 
 func _on_Assassin_jumped():
 	pass
 
 func _on_assassin_touch_floor():
-	var dust = dust_resource.instance()
-	dust.position = $Assassin.position
-	dust.get_node("dust").animation = "landing"
-	add_child(dust)
+	create_land_dust()
 
 func _on_Assassin_ded():
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -5)
-	Music.change_music(Music.you_died)
-	$CanvasLayer/HUD/Retry.show()
-
+	die()
 
 func _on_Assassin_air_jumped():
-	var dust = dust_resource.instance()
-	dust.position = $Assassin.position
-	dust.get_node("dust").animation = "before_jump"
-	add_child(dust)
-
+	create_air_dust()
 
 func _on_HUD_respawn():
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-	$Assassin.position = GameSwitches.assassin_spawnpoint
-	GameSwitches.state = GameSwitches.REVIVE
-	GameSwitches.load_data()
-	
-	$Assassin.dead = false
-	$Assassin.reviving = true
-	
-	# collision layer for the assassin comes back after they are revived
-	
-	# "|" adds binary numbers together
-	$Assassin.collision_mask = GameSwitches.terrain_layer | GameSwitches.coin_layer
-	
-	$CanvasLayer/HUD/Retry.hide()
-	if GameSwitches.assassin_spawnpoint.y < 2176: 
-		Music.change_music(Music.chip_joy_loop)
-	else:
-		Music.change_music(Music.switcharoo)
+	respawn()
+	# if the assassin's spawn point is to the left of the flipper,
+	if GameSwitches.assassin_spawnpoint.x < $Flipper.global_position.x:
+		# you can't flip and the flipper reappears
+		GameSwitches.can_flip = false
+		emit_signal("revert_flipper")
 
 
 func _on_Flipper_body_entered(body):
@@ -136,66 +75,6 @@ func _on_Checkpoint_body_entered(body):
 func _on_BoundPadLanding_body_entered(body):
 	GameSwitches.state = GameSwitches.NORMAL
 
- 
-func _on_To_Castle_body_entered(body):
-	in_bat_cutscene = true
-	if GameSwitches.flipped:
-		do_a_flip(true)
-	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flying_down = true
-	$Assassin.velocity = Vector2.ZERO
-	GameSwitches.state = GameSwitches.INACTIVE
-	$Assassin/AnimatedSprite.play("idle")
-	$CameraPanTimer.start()
-
-func _on_CameraPanTimer_timeout():
-	$"Assassin/Change Camera Zoom".interpolate_property(
-		$Assassin/Camera2D, "global_position", 
-		$Assassin/Camera2D.global_position, $TransitionCameraPos.position, 
-		1.0, Tween.TRANS_SINE)
-	$"Assassin/Change Camera Zoom".start()
-	$ShowFlipperTimer.start()
-
-func _on_ShowFlipperTimer_timeout():
-	$"To Castle/Flipper".show()
-	$FlipEnemyTimer.start()
-
-func _on_FlipEnemyTimer_timeout():
-	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flip()
-	GameSwitches.flipped = true
-	$HideFlipperTimer.start()
-
-func _on_HideFlipperTimer_timeout():
-	$"To Castle/Flipper".hide()
-	var new_camera = Camera2D.new()
-	new_camera.global_position = $TransitionCameraPos.position
-	new_camera.current = true
-	new_camera.zoom = Vector2(1.5, 1.5)
-	add_child(new_camera)
-	$"To Castle".monitoring = false
-	GameSwitches.state = GameSwitches.NORMAL
-
-func _on_Assassin_on_friendly_bat():
-	if in_bat_cutscene == true and going_out_of_cave == false:
-		initiate_liftoff()
-		going_out_of_cave = true
-
-func initiate_liftoff():
-	$Assassin.velocity = Vector2.ZERO
-	$Assassin/AnimatedSprite.play("idle")
-	GameSwitches.state = GameSwitches.INACTIVE
-	yield(get_tree().create_timer(1.0), "timeout")
-	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flying_up = true
-	$"Enemies/Up Bat/PathFollow2D/RemoteTransform2D".global_position.x = $Assassin.global_position.x
-	$"Enemies/Up Bat/PathFollow2D/RemoteTransform2D".set_remote_node("../../../../Assassin")
-	yield(get_tree().create_timer(2.0), "timeout")
-	$Assassin.global_position = Vector2(200,0)
-	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/Castle.tscn")
-
-
-func _on_HUD_to_main_menu():
-	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/menu.tscn")
-
-
 func _on_TeachGroundAttack_body_entered(body):
 	if first_ground_attack:
 		$CanvasLayer/HUD/ToolTip.show()
@@ -205,7 +84,6 @@ func _on_TeachGroundAttack_body_entered(body):
 		$CanvasLayer/HUD/ToolTip/SwordsOut.hide()
 		first_ground_attack = false
 
-
 func _on_TeachAirAttacks_body_entered(body):
 	if first_air_attack:
 		$CanvasLayer/HUD/ToolTip.show()
@@ -214,3 +92,11 @@ func _on_TeachAirAttacks_body_entered(body):
 		$CanvasLayer/HUD/ToolTip.hide()
 		$CanvasLayer/HUD/ToolTip/ThrowingKnives.hide()
 		first_air_attack = false
+
+func _on_HUD_to_main_menu():
+	$CanvasLayer/SceneTransitionRect.transition_to("res://Scenes/menu.tscn")
+
+
+func _on_Cave_Entrance_body_entered(body):
+	GameSwitches.assassin_spawnpoint = Vector2(2696, 3880)
+	$CanvasLayer/SceneTransitionRect.transition_to("res://Scenes/Cave.tscn")

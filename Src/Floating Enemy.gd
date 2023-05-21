@@ -44,10 +44,13 @@ func deplete_health(health):
 		$HitTimer.start()
 
 func _on_HitTimer_timeout():
-	$AnimatedSprite.play("noflip")
+	if GameSwitches.flipped == false:
+		$AnimatedSprite.play("noflip")
+	else:
+		$AnimatedSprite.play("flip")
 
 func flip():
-	if $AnimatedSprite.animation == "noflip":
+	if $AnimatedSprite.animation == "noflip" or $AnimatedSprite.animation == "hurt":
 		$AnimatedSprite.play("flip")
 		if not defeated:
 			collision_layer = GameSwitches.enemy_layer

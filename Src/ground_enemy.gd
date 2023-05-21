@@ -67,7 +67,10 @@ func flip():
 
 func revert():
 	yield($AnimationPlayer, "animation_finished")
-	$AnimatedSprite.play("flip")
+	if GameSwitches.flipped:
+		$AnimatedSprite.play("flip")
+	else:
+		$AnimatedSprite.play("noflip")
 
 
 func _on_VisibilityNotifier2D_screen_exited():

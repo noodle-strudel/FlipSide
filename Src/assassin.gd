@@ -477,14 +477,6 @@ func _on_Bottomless_Pit_body_entered(body):
 	BackgroundMusic.playing = false
 	GameSwitches.state = GameSwitches.DED
 
-func fall_into_cave(part):
-	if part == "falling":
-		$Camera2D.limit_bottom = 10000
-		gravity = 500
-		velocity.y = 1000
-	elif part == "landing":
-		gravity = 2300
-
 func _on_BounceDelay_timeout():
 	if collided_with_big_bouncepad == true:
 		collided_with_big_bouncepad = false
