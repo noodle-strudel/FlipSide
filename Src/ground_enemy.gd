@@ -3,6 +3,7 @@ extends StaticBody2D
 onready var path_follow = get_parent()
 onready var coin = preload("res://Scenes/Coin.tscn")
 onready var health_bar = preload("res://Scenes/HealthBar.tscn")
+onready var assassin = get_tree().get_current_scene().get_node("Assassin")
 
 # Initial Variables
 export var _speed = 100
@@ -17,6 +18,10 @@ func _ready():
 		flip()
 	
 func _physics_process(delta):
+	# if the true enemy area is overlapping with the assassin when they are not reviving,
+	# hurt them
+	if $TrueEnemyArea.overlaps_body(assassin) and GameSwitches.state != GameSwitches.REVIVE:
+		GameSwitches.state = GameSwitches.HIT
 	if $AnimationPlayer.current_animation == "bounce":
 		revert()
 	else:
@@ -40,11 +45,6 @@ func _physics_process(delta):
 			defeated = true
 			$TrueEnemyArea.monitoring = false
 			hide()
-
-
-func _on_TrueEnemyArea_body_entered(body):
-	if GameSwitches.state != GameSwitches.REVIVE:
-		GameSwitches.state = GameSwitches.HIT
 
 func deplete_health(damage):
 	print(damage)
