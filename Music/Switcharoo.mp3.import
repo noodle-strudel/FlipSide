@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Switcharoo.mp3-191a10ec00c5a778120067cd5bd6727b.mp3str"
+
+[deps]
+
+source_file="res://Music/Switcharoo.mp3"
+dest_files=[ "res://.import/Switcharoo.mp3-191a10ec00c5a778120067cd5bd6727b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

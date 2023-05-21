@@ -1,12 +1,17 @@
-[gd_resource type="Theme" load_steps=12 format=2]
+[gd_resource type="Theme" load_steps=14 format=2]
 
 [ext_resource path="res://Fonts/dogica/OTF/dogica.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/dogica/TTF/dogicapixel.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Fonts/dogica/TTF/dogicabold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Sprites/menu stuff/Main Menu Button Off.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/menu stuff/Main Menu Button.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=6]
 font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxTexture" id=15]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 150, 30 )
 
 [sub_resource type="StyleBoxEmpty" id=12]
 
@@ -36,6 +41,7 @@ Button/colors/font_color_hover = Color( 0.815686, 0.815686, 0.815686, 1 )
 Button/colors/font_color_pressed = Color( 0.815686, 0.815686, 0.815686, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = SubResource( 6 )
+Button/styles/disabled = SubResource( 15 )
 Button/styles/focus = SubResource( 12 )
 Button/styles/hover = SubResource( 13 )
 Button/styles/normal = SubResource( 9 )

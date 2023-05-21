@@ -1,5 +1,9 @@
 extends Node
 
+"""
+Global variables and functions that can be used by any node
+"""
+
 enum {NORMAL, HIT, DED, ATTACK, REVIVE, INACTIVE, DISABLED}
 var state
 var health: int
@@ -23,9 +27,13 @@ var no_collision = 0b0000
 
 
 func save_data():
-	checkpoint_save = {
-		"health" : health,
-	}
-
+	Save.game_data.health = GameSwitches.health
+	Save.game_data.coins = GameSwitches.coins
+	Save.game_data.continue = true
+	Save.game_data.spawn = GameSwitches.assassin_spawnpoint
+	Save.save_data()
+	
 func load_data():
-	health = checkpoint_save["health"]
+	GameSwitches.health = Save.game_data.health
+	GameSwitches.coins = Save.game_data.coins
+	GameSwitches.assassin_spawnpoint = Save.game_data.spawn

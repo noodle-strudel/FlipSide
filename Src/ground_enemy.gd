@@ -13,12 +13,9 @@ var dropped_coin = false
 
 func _ready():
 	if GameSwitches.flipped == true:
-		$AnimatedSprite.play("flip")  
-	else: 
-		$AnimatedSprite.play("noflip")
+		flip()
 	
 func _physics_process(delta):
-	print(hit_point)
 	if $AnimationPlayer.current_animation == "bounce":
 		revert()
 	else:
@@ -34,8 +31,8 @@ func _physics_process(delta):
 				var coin_instance = coin.instance()
 				coin_instance.global_position = global_position
 				get_tree().get_current_scene().add_child(coin_instance)
+				dropped_coin = true
 			
-			dropped_coin = true
 			yield($hitHurt, "finished")
 			collision_layer = 0
 			collision_mask = 0

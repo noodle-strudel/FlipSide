@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Src/Flipper.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/items/ominous_crystal.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=3]
 [ext_resource path="res://SFX/flipFlop.wav" type="AudioStream" id=4]
+[ext_resource path="res://SFX/ominousNoise.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 28 )
@@ -43,5 +44,12 @@ color = Color( 0.945098, 0.345098, 0.345098, 1 )
 
 [node name="flipFlop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="ominousNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
+max_distance = 1000.0
+bus = "SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_Flipper_body_entered"]

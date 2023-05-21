@@ -1,9 +1,13 @@
 extends Control
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	$VBoxContainer/NewGame.grab_focus()
+	if Save.game_data.continue == false:
+		$VBoxContainer/Continue.disabled = true
+	else:
+		$VBoxContainer/Continue.disabled = false
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
 	BackgroundMusic.stream = Music.here_go
 	BackgroundMusic.playing = true
@@ -13,9 +17,15 @@ func _process(delta):
 		$CanvasLayer/Options.hide()
 
 func _on_NewGame_pressed():
+	Save.game_data.spawn = Vector2(200, 0)
+	Save.game_data.health = 10
+	Save.game_data.coins = 0
+	Save.game_data.continue = false
+	Save.save_data()
+	GameSwitches.load_data()
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
-	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
+	$SceneTransitionRect.transition_to("res://Scenes/Prelude.tscn")
 	$Select.playing = true
 	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($Select, "finished")
@@ -23,9 +33,10 @@ func _on_NewGame_pressed():
 
 
 func _on_Continue_pressed():
+	GameSwitches.load_data()
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
-	$SceneTransitionRect.transition_to("res://Scenes/level.tscn")
+	$SceneTransitionRect.transition_to(Save.game_data.scene)
 	$Select.playing = true
 	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP
 	yield($Select, "finished")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
@@ -23,6 +23,11 @@
 [ext_resource path="res://Assets/Sprites/king/torso resting.png" type="Texture" id=21]
 [ext_resource path="res://Assets/Sprites/knife/knife.png" type="Texture" id=22]
 [ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=23]
+[ext_resource path="res://Music/Higher Level.mp3" type="AudioStream" id=24]
+[ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Assets/Sprites/backgrounds/background.png" type="Texture" id=27]
+[ext_resource path="res://Assets/Sprites/backgrounds/flipped background.png" type="Texture" id=28]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -119,6 +124,25 @@ initial_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
+[sub_resource type="RectangleShape2D" id=205]
+extents = Vector2( 801, 9 )
+
+[sub_resource type="RectangleShape2D" id=206]
+extents = Vector2( 32, 352 )
+
+[sub_resource type="SpriteFrames" id=207]
+animations = [ {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "forestflip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 27 ) ],
+"loop": true,
+"name": "forestnoflip",
+"speed": 5.0
+} ]
+
 [node name="Castle" type="Node2D"]
 script = ExtResource( 5 )
 
@@ -192,6 +216,7 @@ shape = SubResource( 197 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 196 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
@@ -276,6 +301,7 @@ playing = true
 
 [node name="StonePoof" type="Particles2D" parent="King"]
 modulate = Color( 0.65098, 0.65098, 0.65098, 1 )
+light_mask = 2
 position = Vector2( 6768, 152 )
 scale = Vector2( 0.5, 0.5 )
 emitting = false
@@ -283,6 +309,65 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 204 )
 texture = ExtResource( 23 )
+
+[node name="higherLevel" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 6312, 184 )
+stream = ExtResource( 24 )
+volume_db = -5.0
+autoplay = true
+max_distance = 5000.0
+
+[node name="Bottomless Pit" type="Area2D" parent="."]
+position = Vector2( 824, 1160 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottomless Pit"]
+position = Vector2( -791, -1 )
+shape = SubResource( 205 )
+
+[node name="Checkpoint" parent="." instance=ExtResource( 25 )]
+position = Vector2( 1944, 384 )
+collision_layer = 32
+
+[node name="NoEscape" type="StaticBody2D" parent="."]
+position = Vector2( 5632, -384 )
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoEscape"]
+position = Vector2( 32, 352 )
+shape = SubResource( 206 )
+
+[node name="Lighting" parent="." instance=ExtResource( 26 )]
+
+[node name="Light2D" parent="Lighting" index="0"]
+visible = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Forest" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 2176, 0 )
+
+[node name="ForestBackground" type="AnimatedSprite" parent="ParallaxBackground/Forest"]
+position = Vector2( 1088, -432 )
+scale = Vector2( 9.06667, 20.1 )
+frames = SubResource( 207 )
+animation = "forestnoflip"
+
+[node name="Cave" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 36960, 3968 )
+motion_mirroring = Vector2( 2176, 2654 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="ParallaxBackground/Cave"]
+
+[node name="Forest" type="ParallaxLayer" parent="ParallaxBackground/Cave/ParallaxBackground"]
+motion_mirroring = Vector2( 2176, 0 )
+
+[node name="ForestBackground" type="AnimatedSprite" parent="ParallaxBackground/Cave/ParallaxBackground/Forest"]
+position = Vector2( 1088, -432 )
+scale = Vector2( 9.06667, 20.1 )
+frames = SubResource( 207 )
+animation = "forestnoflip"
 
 [connection signal="air_jumped" from="Assassin" to="." method="_on_Assassin_air_jumped"]
 [connection signal="ded" from="Assassin" to="." method="_on_Assassin_ded"]
@@ -292,3 +377,6 @@ texture = ExtResource( 23 )
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
 [connection signal="body_entered" from="TriggerKing" to="." method="_on_TriggerKing_body_entered"]
 [connection signal="body_entered" from="ThroneTouch" to="." method="_on_ThroneTouch_body_entered"]
+[connection signal="body_entered" from="Bottomless Pit" to="." method="_on_Bottomless_Pit_body_entered"]
+
+[editable path="Lighting"]

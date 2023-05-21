@@ -59,14 +59,34 @@ var direction = "right"
 
 func _ready():
 	GameSwitches.state = GameSwitches.NORMAL
-	GameSwitches.health = 3
-	GameSwitches.coins = 0
 
 """
 ----------------------------------------------------------------------
 							RAN EVERY FRAME 
 ----------------------------------------------------------------------
 """
+"""
+every frame it calculates the y velocity
+it stores what the previous velocity was if it isn't 0.
+when the assassin collides with something,
+	if it's an enemy,
+		there's some special enemies that do certain things
+		if its a bounce pad, initiate the bounce pad function
+		if the coin is flipped, make it hurt the assassin instead
+		if you collide with the bat and it is flipped, it doesnt hurt you
+		if you collide with the fungus and it isn't flipped, it doesnt hurt you
+		if it doesnt meet this criteria, then make it hurt you
+	if you collided with the big bounce pad, 
+		initiate big bounce function!
+	if you're about to jump on a bounce pad,
+		the assassin can't move until a certain point in the animation.
+	
+state machine for tne assassin
+when the assassin is in the normal state,
+	they can jump, attack and go into the attack state,
+	and logic for when they are in the air, on the ground, and trying to push something are executed.
+"""
+
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
@@ -78,7 +98,7 @@ func _physics_process(delta):
 	
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-		print("I collided with ", collision.collider.name)
+#		print("I collided with ", collision.collider.name)
 		
 		collided_with_bouncepad = false
 		
@@ -91,6 +111,8 @@ func _physics_process(delta):
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 			elif "Flying Enemy" in collision.collider.name and GameSwitches.flipped == true:
 				emit_signal("on_friendly_bat")
+			elif "Fungus Enemy" in collision.collider.name and GameSwitches.flipped == false:
+				pass
 			else:
 				GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
 		elif "BigBouncepad" in collision.collider.name:
@@ -154,6 +176,7 @@ func _physics_process(delta):
 					in_air();
 """"""
 
+# plays the animation for the small bounce pads and makes assassin unable to move during so.
 func initiate_bounce_pad(collision) -> void:
 	collision.collider.get_node("AnimationPlayer").play("bounce")
 	if gonna_jump_on_bounce_pad == false and is_on_floor():
@@ -188,6 +211,15 @@ func determine_direction():
 		sword_sprite.position.x = -64
 		direction = "left"
 
+"""
+when you're on the floor, youre not jumping nor are you double jumping
+emit dust particle
+play landing Animation
+wait for it to finish
+if you're not moving and not in the air
+	if the assassin is still, they idle
+	else they run
+"""
 func on_floor(delta):
 	# when you touch the floor, you are no longer jumping
 	has_jumped = false
@@ -229,6 +261,12 @@ func push(delta):
 	sprite.animation = "push"
 """"""
 
+"""
+you can still move while hit to evade
+you lose health
+if you were jumping you bounce up a little
+if you are now at 0 hp, enter the DED state
+"""
 """HIT STATE ----------------------------------------------------------------"""
 func hit():
 	get_input()
@@ -284,6 +322,18 @@ func ded():
 """"""
 
 """ATTACK STATE -------------------------------------------------------------"""
+"""
+when you attack on the ground,
+	you stand still
+	you can charge your attack
+		but if you release early you do a normal attack
+	once it's charged, you can change direction
+	and when you release the attack button,
+	create a string swoosh!
+When you attack in the air,
+	create a swoosh once
+	
+"""
 
 func attack():
 	# ground attack when on the ground
@@ -368,8 +418,16 @@ func attack():
 			attacking = false
 			GameSwitches.state = GameSwitches.NORMAL
 
+
+
 func create_swoosh():
 	var air_swoosh = air_swoosh_scene.instance()
+	
+	if charged_up == true:
+		air_swoosh.damage = 3
+	else:
+		air_swoosh.damage = 1
+		
 	if direction == "right":
 		air_swoosh.position = $SwooshRight.global_position
 		air_swoosh.speed = 1000
@@ -379,6 +437,8 @@ func create_swoosh():
 		air_swoosh.speed = -1000
 	get_parent().add_child(air_swoosh)
 
+
+# similar to the air_swoosh, it uses a ray to determine where to make the hit sparkle
 func _on_Sword_body_entered(body):
 	# grab the state of the 2d world
 	var space_state = get_world_2d().direct_space_state
@@ -399,6 +459,7 @@ func _on_Sword_body_entered(body):
 		body.deplete_health(1)
 """"""
 
+# when reviving, you're invulnerable
 """REVIVE STATE -------------------------------------------------------------"""
 func revive():
 	gravity = 2300
@@ -412,7 +473,6 @@ func revive():
 
 
 func _on_Bottomless_Pit_body_entered(body):
-	print("touched")
 	GameSwitches.health = 0
 	BackgroundMusic.playing = false
 	GameSwitches.state = GameSwitches.DED
@@ -436,7 +496,6 @@ func _on_BounceDelay_timeout():
 		velocity.y = jump_speed
 		can_jump = true
 	gonna_jump_on_bounce_pad = false
-
 
 
 func _on_VisibilityNotifier2D_screen_exited():

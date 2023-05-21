@@ -10,8 +10,12 @@ var defeated = false
 var dropped_coin = false
 
 func _ready():
+	if GameSwitches.assassin_spawnpoint.x > global_position.x:
+		dropped_coin = true
 	if get_tree().root.get_child(6).name == "Castle":
 		_speed = 200
+	if GameSwitches.flipped == true:
+		flip()
 	
 func _physics_process(delta):
 	path_follow.offset += _speed * delta
@@ -52,4 +56,6 @@ func _on_VisibilityNotifier2D_screen_exited():
 		set_collision_mask_bit(4, true)
 		set_collision_mask_bit(0, true)
 		hit_point = 3
+		defeated = false
 		show()
+		

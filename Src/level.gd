@@ -4,30 +4,33 @@ var dust_resource = preload("res://Scenes/dust.tscn")
 
 var first_heart = true
 var first_checkpoint = true
+var first_ground_attack = true
+var first_air_attack = true
 
 var flip_original = preload("res://Assets/Tileset/real_tileset.png")
 var flip_warp = preload("res://Assets/Tileset/flip tileset.png")
 var going_out_of_cave = false
 var in_bat_cutscene = false
 
+# loads assassin spawnpoint if continuing or makes new spawnpoint if loading new game
 func _ready():
-	GameSwitches.can_flip = true
-	GameSwitches.save_data()
-	GameSwitches.assassin_spawnpoint = Vector2(200, 0)
-  
-	#33600 to go to the entrance of the cave or 200 to spawn at the start of the game
 	$Assassin.position = GameSwitches.assassin_spawnpoint
+	if GameSwitches.assassin_spawnpoint.y < 2176:
+		Music.change_music(Music.chip_joy_loop)
+	else:
+		$Assassin/Camera2D.limit_bottom = 10000
+		Music.change_music(Music.switcharoo)
+	if GameSwitches.assassin_spawnpoint == Vector2(200, 0):
+		$CanvasLayer/HUD/ToolTip.show()
+		$CanvasLayer/HUD/ToolTip/StartFromBasics.show()
+		yield(get_tree().create_timer(5.0), "timeout")
+		$CanvasLayer/HUD/ToolTip.hide()
+		$CanvasLayer/HUD/ToolTip/StartFromBasics.hide()
+	
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-  
-	Music.change_music(Music.chip_joy_loop)
 	
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_pause"):
-		if $CanvasLayer/HUD/Options.visible == true:
-			$CanvasLayer/HUD/Options.visible = false
-		else:
-			$CanvasLayer/HUD/Options.visible = true
 	if $Assassin.global_position.y > 2000 or $Assassin.global_position.x > 38000:
 		$ParallaxBackground/Cave.show()
 		$ParallaxBackground/Forest.hide()
@@ -43,13 +46,10 @@ func _physics_process(delta):
 		if GameSwitches.gonna_flip == true:
 			do_a_flip()
 
-func do_a_flip():
-	# Blank for now until we want something special to happen while we hold down the flip button
-	if GameSwitches.flipped == false:
-		pass
-		
+func do_a_flip(bypass = false):
 	# Flips when they release the button
-	if Input.is_action_just_released("flip"):
+	if Input.is_action_just_released("flip") || bypass == true:
+		$flipFlop.play()
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
 			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
@@ -100,7 +100,10 @@ func _on_HUD_respawn():
 	$Assassin.collision_mask = GameSwitches.terrain_layer | GameSwitches.coin_layer
 	
 	$CanvasLayer/HUD/Retry.hide()
-	Music.change_music(Music.chip_joy_loop)
+	if GameSwitches.assassin_spawnpoint.y < 2176: 
+		Music.change_music(Music.chip_joy_loop)
+	else:
+		Music.change_music(Music.switcharoo)
 
 
 func _on_Flipper_body_entered(body):
@@ -115,7 +118,7 @@ func _on_Health_body_entered(body):
 	if (first_heart == true):
 		$CanvasLayer/HUD/ToolTip.show()
 		$CanvasLayer/HUD/ToolTip/RealHumanHearts.show()
-		yield(get_tree().create_timer(5.0), "timeout")
+		yield(get_tree().create_timer(4.0), "timeout")
 		$CanvasLayer/HUD/ToolTip.hide()
 		$CanvasLayer/HUD/ToolTip/RealHumanHearts.hide()
 		first_heart = false
@@ -136,6 +139,8 @@ func _on_BoundPadLanding_body_entered(body):
  
 func _on_To_Castle_body_entered(body):
 	in_bat_cutscene = true
+	if GameSwitches.flipped:
+		do_a_flip(true)
 	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flying_down = true
 	$Assassin.velocity = Vector2.ZERO
 	GameSwitches.state = GameSwitches.INACTIVE
@@ -190,3 +195,22 @@ func initiate_liftoff():
 func _on_HUD_to_main_menu():
 	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/menu.tscn")
 
+
+func _on_TeachGroundAttack_body_entered(body):
+	if first_ground_attack:
+		$CanvasLayer/HUD/ToolTip.show()
+		$CanvasLayer/HUD/ToolTip/SwordsOut.show()
+		yield(get_tree().create_timer(7.0), "timeout")
+		$CanvasLayer/HUD/ToolTip.hide()
+		$CanvasLayer/HUD/ToolTip/SwordsOut.hide()
+		first_ground_attack = false
+
+
+func _on_TeachAirAttacks_body_entered(body):
+	if first_air_attack:
+		$CanvasLayer/HUD/ToolTip.show()
+		$CanvasLayer/HUD/ToolTip/ThrowingKnives.show()
+		yield(get_tree().create_timer(7.0), "timeout")
+		$CanvasLayer/HUD/ToolTip.hide()
+		$CanvasLayer/HUD/ToolTip/ThrowingKnives.hide()
+		first_air_attack = false

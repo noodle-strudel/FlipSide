@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Resource/Font.tres" type="Theme" id=1]
 [ext_resource path="res://Src/credits.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Sprites/Disco Lights.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Resource/Option Theme.tres" type="Theme" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -73,37 +74,72 @@ margin_right = -40.0
 margin_bottom = -64.0
 rect_clip_content = false
 theme = ExtResource( 1 )
-text = "FROM THE MINDS OF:
-Yollaine Brooks
-Wesley Carlisle
-and Adeline Moseley
+bbcode_enabled = true
+bbcode_text = "- - - - -FROM THE MINDS OF- - - - -
+[wave]Yollaine Brooks[/wave]
+[wave]Wesley Carlisle[/wave]
+and [wave]Adeline Moseley[/wave]
 
 Game Mechanics - Yollaine Brooks
 Level Design - Adeline Moseley
 Menus - Wesley Carlisle
-Music - Xinx Flenler (Wesley Carlisle)
+Music - Xinx Flenler (Wesley Carlisle) using SoundTrap and GarageBand
 Sprite Designer - Wesley Carlisle
-Sprite Art - Adeline Moseley
+Sprite Art - Adeline Moseley using FireAlpaca
 SFX - Wesley with the help of jsfxr
-Halibut - Wikipedia
 Secret Hider - Wesley Carlisle
 Knowing How Godot Works - Yollaine Brooks
 This Credit - EggSamdwich
 The Rest of the Credits - Wesley Carlisle
 
-FONTS:
+- - - - -FONTS- - - - -
 Shine On by GreyWolf WebWorks
+https://www.fontspace.com/shine-on-font-f38433
+License:
+https://creativecommons.org/licenses/by-nc-sa/2.0/
+
 Dogica by Roberto Mocci 
+https://www.dafont.com/dogica.font
+License:
+OFL (Open Font License)
+https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
+
 Venice Classic by soixantedeux
-Google Fonts
+https://www.dafont.com/venice-classic.font
+License:
+https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
 
-ASSETS:
+Open Sans from Google Fonts
+https://fonts.google.com/specimen/Open+Sans
+License:
+https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
 
+- - - - - ASSETS - - - - -
+PLATFORMER/METROIDVANIA ASSET PACK
+https://o-lobster.itch.io/
+License:
+https://creativecommons.org/licenses/by/4.0/
 
-PRODUCTION BABIES:
+Grassland And Mines
+https://anokolisa.itch.io/basic-140-tiles-grassland-and-mines
+License:
+https://creativecommons.org/licenses/by/4.0/
+
+Castle Tileset
+https://alchymy.itch.io/castle-tileset
+License:
+https://creativecommons.org/licenses/by/4.0/
+
+- - - - -PLUGINS- - - - -
+Dialogic by Emilio Coppola
+https://github.com/coppolaemilio/dialogic/tree/dialogic-1
+MIT License
+https://github.com/coppolaemilio/dialogic/blob/main/LICENSE
+
+- - - - -PRODUCTION BABIES- - - - -:
 David
 
-SPECIAL THANKS:
+- - - - -SPECIAL THANKS- - - - -:
 Mr. Shields
 Lunch Guy
 and...
@@ -111,7 +147,80 @@ and...
 
 
 
-Viewers Like You "
+[wave]Players Like You[/wave]"
+text = "- - - - -FROM THE MINDS OF- - - - -
+Yollaine Brooks
+Wesley Carlisle
+and Adeline Moseley
+
+Game Mechanics - Yollaine Brooks
+Level Design - Adeline Moseley
+Menus - Wesley Carlisle
+Music - Xinx Flenler (Wesley Carlisle) using SoundTrap and GarageBand
+Sprite Designer - Wesley Carlisle
+Sprite Art - Adeline Moseley using FireAlpaca
+SFX - Wesley with the help of jsfxr
+Secret Hider - Wesley Carlisle
+Knowing How Godot Works - Yollaine Brooks
+This Credit - EggSamdwich
+The Rest of the Credits - Wesley Carlisle
+
+- - - - -FONTS- - - - -
+Shine On by GreyWolf WebWorks
+https://www.fontspace.com/shine-on-font-f38433
+License:
+https://creativecommons.org/licenses/by-nc-sa/2.0/
+
+Dogica by Roberto Mocci 
+https://www.dafont.com/dogica.font
+License:
+OFL (Open Font License)
+https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
+
+Venice Classic by soixantedeux
+https://www.dafont.com/venice-classic.font
+License:
+https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
+
+Open Sans from Google Fonts
+https://fonts.google.com/specimen/Open+Sans
+License:
+https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
+
+- - - - - ASSETS - - - - -
+PLATFORMER/METROIDVANIA ASSET PACK
+https://o-lobster.itch.io/
+License:
+https://creativecommons.org/licenses/by/4.0/
+
+Grassland And Mines
+https://anokolisa.itch.io/basic-140-tiles-grassland-and-mines
+License:
+https://creativecommons.org/licenses/by/4.0/
+
+Castle Tileset
+https://alchymy.itch.io/castle-tileset
+License:
+https://creativecommons.org/licenses/by/4.0/
+
+- - - - -PLUGINS- - - - -
+Dialogic by Emilio Coppola
+https://github.com/coppolaemilio/dialogic/tree/dialogic-1
+MIT License
+https://github.com/coppolaemilio/dialogic/blob/main/LICENSE
+
+- - - - -PRODUCTION BABIES- - - - -:
+David
+
+- - - - -SPECIAL THANKS- - - - -:
+Mr. Shields
+Lunch Guy
+and...
+
+
+
+
+Players Like You"
 
 [node name="Main Menu" type="Button" parent="."]
 margin_left = 48.0
@@ -119,9 +228,8 @@ margin_top = 128.0
 margin_right = 139.0
 margin_bottom = 184.0
 size_flags_vertical = 10
-theme = ExtResource( 1 )
+theme = ExtResource( 13 )
 text = "Back"
-align = 0
 
 [node name="changeSwitch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )

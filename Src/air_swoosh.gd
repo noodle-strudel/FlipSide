@@ -5,11 +5,32 @@ onready var hit_sparkle_scene = preload("res://Scenes/hit_sparkle.tscn")
 var hit_enemy = false
 # specifying that it has to be an integer
 export var speed: int
+export var damage: int
 export (Vector2) var velocity
 
+# when it spawns, it automatically plays the animation
 func _ready():
 	$AnimationPlayer.play("swoosh")
+	 
+"""
+every frame, it update its velocity.
 
+When it hits an object it can detect,
+	it gets the state of the scene at that instance.
+	if it collides with the terrain, or tilemap, 
+		it translates from tilemap coordinates to a global position
+		and then stores that position
+	otherwise, it directly gets the posiition of the thing it hit
+	
+	based on the orientation of the air swoosh, it shoots a ray going left or right towards
+	the position of the object, hoping to intersect it
+	
+	if an intersection occurs
+		create a sparkle where the ray got intersected
+		if the thing you hit is an enemy
+			deplete their health
+	lastly it deletes itself
+"""
 func _physics_process(delta):
 	velocity.x = 0
 	velocity.y = 0
@@ -54,11 +75,11 @@ func _physics_process(delta):
 			
 			if collision.collider.get_parent() is PathFollow2D:
 				if hit_enemy == false:
-					collision.collider.deplete_health(1)
+					collision.collider.deplete_health(damage)
 					hit_enemy = true
 			
 		queue_free()
 
-# if it doesnt hit anything by the time the timer runs out, it despawns
+# if it doesnt hit anything by the time the timer runs out, which starts immediately, it despawns
 func _on_DespawnTimer_timeout():
 	queue_free()
