@@ -75,6 +75,11 @@ _global_script_classes=[ {
 "path": "res://Src/ToggleCamera.gd"
 }, {
 "base": "StaticBody2D",
+"class": "air_enemy",
+"language": "GDScript",
+"path": "res://Src/air_enemy.gd"
+}, {
+"base": "StaticBody2D",
 "class": "land_enemy",
 "language": "GDScript",
 "path": "res://Src/land_enemy.gd"
@@ -98,6 +103,7 @@ _global_script_class_icons={
 "GitAPI": "",
 "HistoryRow": "",
 "ToggleCamera": "",
+"air_enemy": "",
 "land_enemy": "",
 "level": ""
 }

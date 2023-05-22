@@ -50,7 +50,6 @@ func _physics_process(delta):
 			hide()
 
 func deplete_health(damage):
-	print(damage)
 	if damage != 3:
 		configure_health_bar()
 		$HealthBar/ProgressBar.value -= 1
