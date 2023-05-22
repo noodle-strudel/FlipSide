@@ -7,7 +7,7 @@ export var rave_squence: int
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if GameSwitches.assassin_spawnpoint != Vector2(3072, 4620):
-		GameSwitches.assassin_spawnpoint = Save.game_data.spawn
+		GameSwitches.assassin_spawnpoint = Vector2(3072, 4620)
 	else:
 		GameSwitches.assassin_spawnpoint = Save.game_data.spawn
 	$Assassin.global_position = GameSwitches.assassin_spawnpoint

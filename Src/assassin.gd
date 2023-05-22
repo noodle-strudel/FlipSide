@@ -189,14 +189,13 @@ func normal(delta):
 				has_jumped = true
 	
 	# transition to attack state
-	elif Input.is_action_pressed("attack"):
+	elif Input.is_action_pressed("attack") and gonna_jump_on_bounce_pad == false and GameSwitches.state != GameSwitches.INACTIVE:
+		print("bruh")
 		GameSwitches.state = GameSwitches.ATTACK
 		
 	# if just directional keys are being pressed
 	else:
-		if is_on_floor() and is_on_wall():
-			push(delta);
-		elif is_on_floor():
+		if is_on_floor():
 			on_floor(delta);
 		else:
 			in_air();
@@ -264,10 +263,6 @@ func in_air():
 				sprite.animation = "jump_up"
 			elif velocity.y > 300:
 				sprite.animation = "jump_down"
-
-func push(delta):
-	in_the_air = false
-	sprite.animation = "push"
 """"""
 
 """
@@ -490,6 +485,9 @@ func _on_Bottomless_Pit_body_entered(body):
 	GameSwitches.state = GameSwitches.DED
 
 func _on_BounceDelay_timeout():
+	charged_up = false
+	charging_attack = false
+	GameSwitches.state = GameSwitches.NORMAL
 	if collided_with_big_bouncepad == true:
 		collided_with_big_bouncepad = false
 		velocity.y = -2000
