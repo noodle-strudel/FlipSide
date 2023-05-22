@@ -99,4 +99,5 @@ func _on_HUD_to_main_menu():
 
 func _on_Cave_Entrance_body_entered(body):
 	GameSwitches.assassin_spawnpoint = Vector2(2696, 3880)
+	GameSwitches.state = GameSwitches.INACTIVE
 	$CanvasLayer/SceneTransitionRect.transition_to("res://Scenes/Cave.tscn")

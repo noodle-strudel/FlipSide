@@ -48,7 +48,7 @@ animations = [ {
 extents = Vector2( 14336, 32 )
 
 [sub_resource type="RectangleShape2D" id=179]
-extents = Vector2( 736.5, 8 )
+extents = Vector2( 1209.5, 8 )
 
 [sub_resource type="RectangleShape2D" id=180]
 extents = Vector2( 348, 10 )
@@ -543,35 +543,35 @@ position = Vector2( 32152, 448 )
 collision_layer = 4
 
 [node name="Spike103" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 29464, 328 )
+position = Vector2( 29464, 322 )
 collision_layer = 4
 
 [node name="Spike104" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 29408, 328 )
+position = Vector2( 29408, 322 )
 collision_layer = 4
 
 [node name="Spike105" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 29352, 328 )
+position = Vector2( 29352, 322 )
 collision_layer = 4
 
 [node name="Spike175" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 29296, 328 )
+position = Vector2( 29296, 322 )
 collision_layer = 4
 
 [node name="Spike176" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 29240, 328 )
+position = Vector2( 29240, 322 )
 collision_layer = 4
 
 [node name="Spike177" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 29184, 328 )
+position = Vector2( 29184, 322 )
 collision_layer = 4
 
 [node name="Spike178" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 29128, 328 )
+position = Vector2( 29128, 322 )
 collision_layer = 4
 
 [node name="Spike179" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
-position = Vector2( 29072, 328 )
+position = Vector2( 29072, 322 )
 collision_layer = 4
 
 [node name="BigBouncepad" parent="." instance=ExtResource( 7 )]
@@ -677,7 +677,7 @@ position = Vector2( 35584, 648 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cave Entrance"]
-position = Vector2( 735.5, 8 )
+position = Vector2( 1208.5, 8 )
 shape = SubResource( 179 )
 
 [node name="BoundPadLanding" type="Area2D" parent="."]

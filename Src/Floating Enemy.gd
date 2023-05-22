@@ -37,7 +37,7 @@ func _physics_process(delta):
 
 
 func deplete_health(health):
-	if $AnimatedSprite.animation == "noflip":
+	if $AnimatedSprite.animation == "noflip" || name != "Floating Enemy":
 		$hitHurt.play()
 		$AnimatedSprite.play("hurt")
 		hit_point -= health

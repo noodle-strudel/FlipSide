@@ -117,13 +117,15 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
-animation = "flip"
+animation = "noflip"
+frame = 1
 playing = true
 
 [node name="hitHurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -10.0
 pitch_scale = 1.2
+bus = "SFX"
 
 [node name="TrueEnemyArea" type="Area2D" parent="."]
 collision_layer = 0

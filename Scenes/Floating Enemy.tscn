@@ -49,6 +49,7 @@ playing = true
 stream = ExtResource( 2 )
 volume_db = -10.0
 pitch_scale = 1.2
+bus = "SFX"
 
 [node name="HitTimer" type="Timer" parent="."]
 one_shot = true

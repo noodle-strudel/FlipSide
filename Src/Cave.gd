@@ -6,7 +6,12 @@ var going_out_of_cave = false
 export var rave_squence: int
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Assassin/Camera2D.limit_bottom = 10000
+	if GameSwitches.assassin_spawnpoint != Vector2(3072, 4620):
+		GameSwitches.assassin_spawnpoint = Save.game_data.spawn
+	else:
+		GameSwitches.assassin_spawnpoint = Save.game_data.spawn
+	$Assassin.global_position = GameSwitches.assassin_spawnpoint
+	$Assassin/Camera2D.limit_bottom = 100000
 	$Assassin/Camera2D.zoom = Vector2(1.5, 1.5)
 
 func _on_To_Castle_body_entered(body):
@@ -70,4 +75,14 @@ func _on_TransitionToCastleTimer_timeout():
 func _on_HUD_to_main_menu():
 	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/menu.tscn")
 
+func _on_Assassin_air_jumped():
+	create_air_dust()
 
+func _on_Assassin_ded():
+	die()
+
+func _on_Assassin_touch_floor():
+	create_land_dust()
+
+func _on_HUD_respawn():
+	respawn()

@@ -104,9 +104,7 @@ func _physics_process(delta):
 		
 		# handles logic when colliding with special objects
 		# when hurt, don't care about what its colliding with
-		print("is invuln")
 		if damaged == false:
-			print("NOT invuln")
 			if collision.collider.is_in_group("enemy") or collision.collider.get_parent().is_in_group("enemy"):
 				if ("Spike" in collision.collider.name and collision.collider.is_bounce_pad == true) || (collision.collider.name == "Ground Enemy" and GameSwitches.flipped == true):
 						initiate_bounce_pad(collision)
@@ -118,13 +116,16 @@ func _physics_process(delta):
 					pass
 				else:
 					GameSwitches.state = GameSwitches.HIT if GameSwitches.health > 0 else GameSwitches.DED
-		elif "BigBouncepad" in collision.collider.name:
-			collided_with_big_bouncepad = true
-			if gonna_jump_on_bounce_pad == false and is_on_floor():
-				set_position_x = position.x
-				gonna_jump_on_bounce_pad = true
-				$BounceDelay.start()
-				collision.collider.get_node("AnimationPlayer").play("bounce")
+			elif "BigBouncepad" in collision.collider.name:
+				collided_with_big_bouncepad = true
+				if gonna_jump_on_bounce_pad == false and is_on_floor():
+					set_position_x = position.x
+					gonna_jump_on_bounce_pad = true
+					$BounceDelay.start()
+					collision.collider.get_node("AnimationPlayer").play("bounce")
+		else:
+			if ("Spike" in collision.collider.name and collision.collider.is_bounce_pad == true) || (collision.collider.name == "Ground Enemy" and GameSwitches.flipped == true):
+				initiate_bounce_pad(collision)
 	
 	if gonna_jump_on_bounce_pad == true and collided_with_big_bouncepad == false:
 		can_jump = false

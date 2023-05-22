@@ -2,7 +2,7 @@ extends StaticBody2D
 
 onready var path_follow = get_parent()
 onready var coin = preload("res://Scenes/Coin.tscn")
-
+onready var health_bar = preload("res://Scenes/HealthBar.tscn")
 export var _speed = 100
 
 export var hit_point = 3
