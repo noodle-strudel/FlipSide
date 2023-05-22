@@ -53,11 +53,16 @@ func deplete_health(damage):
 			if damage != 3:
 				configure_health_bar()
 				$HealthBar/ProgressBar.value -= 1
+				$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.gray
 			$hitHurt.play()
 			$AnimatedSprite.play("hurt")
 			hit_point -= damage
 			$HitTimer.start()
+			
 		else:
+			if no_health_bar == true:
+				configure_health_bar()
+				$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.gray
 			$cloudReflect.play()
 
 func configure_health_bar():
@@ -69,13 +74,17 @@ func configure_health_bar():
 			no_health_bar = false
 	if no_health_bar:
 		add_child(health_bar_instance)
+	$HealthBar.show()
 
 # Use with HitTimer
 func flinch_timeout():
+	
 	if GameSwitches.flipped == false:
+		$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.red
 		$AnimatedSprite.play("noflip")
 	else:
 		$AnimatedSprite.play("flip")
+		$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.gray
 
 func flip():
 	if name == "Flying Enemy":
@@ -91,10 +100,14 @@ func flip():
 	elif name == "Floating Enemy":
 		if $AnimatedSprite.animation == "noflip" or $AnimatedSprite.animation == "hurt":
 			$AnimatedSprite.play("flip")
+			if no_health_bar == false:
+				$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.gray
 			if not defeated:
 				collision_layer = GameSwitches.enemy_layer
 		else:
 			$AnimatedSprite.play("noflip")
+			if no_health_bar == false:
+				$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.red
 			if not defeated:
 				collision_layer = GameSwitches.pass_through_layer
 
@@ -106,10 +119,6 @@ func respawn():
 			set_collision_mask_bit(3, true) 
 			set_collision_mask_bit(4, true)
 			set_collision_mask_bit(0, true)
-			hit_point = 3
-			defeated = false
-			show()
-		
 		elif name == "Floating Enemy":
 			if GameSwitches.flipped:
 				set_collision_layer_bit(2, true)
@@ -117,6 +126,11 @@ func respawn():
 				set_collision_layer_bit(7, true)
 			set_collision_mask_bit(3, true) 
 			set_collision_mask_bit(4, true)
-			hit_point = 3
-			defeated = false
-			show()
+		
+		hit_point = 3
+		defeated = false
+		# if there's a healthbar, the bar fills up
+		if no_health_bar == false:
+			$HealthBar/ProgressBar.value = 3
+			$HealthBar.hide()
+		show()

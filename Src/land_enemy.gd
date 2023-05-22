@@ -68,11 +68,13 @@ func configure_health_bar():
 			no_health_bar = false
 	if no_health_bar:
 		add_child(health_bar_instance)
+	$HealthBar.show()
 
 # Use with HitTimer
 func flinch_timeout():
 	hit = false
 	$AnimatedSprite.playing = true
+	$AnimatedSprite.frame += 1
 
 func flip():
 	if $AnimatedSprite.animation == "noflip":
@@ -117,5 +119,6 @@ func respawn():
 		# if there's a healthbar, the bar fills up
 		if no_health_bar == false:
 			$HealthBar/ProgressBar.value = 3
+			$HealthBar.hide()
 		defeated = false
 		show()
