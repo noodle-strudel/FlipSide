@@ -110,6 +110,19 @@ tracks/2/keys = {
 collision_layer = 4
 script = ExtResource( 5 )
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0, 3.8147e-06 )
+scale = Vector2( 51.2, 30 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ColorRect" type="ColorRect" parent="VisibilityNotifier2D"]
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 10.0
+margin_bottom = 10.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -2 )
 shape = SubResource( 1 )
@@ -118,7 +131,6 @@ shape = SubResource( 1 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
 animation = "noflip"
-frame = 2
 playing = true
 
 [node name="hitHurt" type="AudioStreamPlayer" parent="."]
@@ -142,7 +154,5 @@ anims/bounce = SubResource( 5 )
 wait_time = 0.5
 one_shot = true
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-
-[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

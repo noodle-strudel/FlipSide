@@ -145,6 +145,16 @@ collision_layer = 4
 collision_mask = 25
 script = ExtResource( 2 )
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0, 3.8147e-06 )
+scale = Vector2( 51.2, 30 )
+
+[node name="ColorRect" type="ColorRect" parent="VisibilityNotifier2D"]
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 10.0
+margin_bottom = 10.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 195 )
 
@@ -180,7 +190,5 @@ anims/bounce = SubResource( 203 )
 wait_time = 0.5
 one_shot = true
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-
-[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

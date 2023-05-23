@@ -88,6 +88,7 @@ when the assassin is in the normal state,
 """
 
 func _physics_process(delta):
+	print(global_position)
 	velocity.y += gravity * delta
 	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
 	
@@ -190,7 +191,6 @@ func normal(delta):
 	
 	# transition to attack state
 	elif Input.is_action_pressed("attack") and gonna_jump_on_bounce_pad == false and GameSwitches.state != GameSwitches.INACTIVE:
-		print("bruh")
 		GameSwitches.state = GameSwitches.ATTACK
 		
 	# if just directional keys are being pressed
@@ -342,6 +342,8 @@ When you attack in the air,
 """
 
 func attack():
+	if has_jumped == true and in_the_air == false:
+		GameSwitches.state = GameSwitches.NORMAL
 	# ground attack when on the ground
 	if is_on_floor() and air_attacking == false:
 		in_the_air = false
@@ -356,7 +358,6 @@ func attack():
 			
 			# if you release the attack button, do a normal attack
 			if Input.is_action_just_released("attack"):
-				print("normal attack")
 				# Plays the animation once so it doesnt repeat itself
 				if attacking == false:
 					sprite.animation = "attack"
@@ -495,7 +496,7 @@ func _on_BounceDelay_timeout():
 		in_air()
 		GameSwitches.state = GameSwitches.INACTIVE
 	else:
-		velocity.y = jump_speed
+		velocity.y = -1100
 		can_jump = true
 	gonna_jump_on_bounce_pad = false
 
