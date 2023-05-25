@@ -36,6 +36,7 @@ func _physics_process(delta):
 		
 		hit_point = 0
 		yield($hitHurt, "finished")
+		flinch_timeout()
 		collision_layer = 0
 		collision_mask = 0
 		defeated = true

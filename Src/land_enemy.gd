@@ -36,6 +36,7 @@ func _physics_process(delta):
 				$AnimatedSprite.flip_h = true
 		
 		if hit_point <= 0 and defeated == false:
+			
 			if dropped_coin == false:
 				var coin_instance = coin.instance()
 				coin_instance.global_position = global_position
@@ -43,6 +44,7 @@ func _physics_process(delta):
 				dropped_coin = true
 			
 			yield($hitHurt, "finished")
+			flinch_timeout()
 			collision_layer = 0
 			collision_mask = 0
 			defeated = true

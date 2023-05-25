@@ -6169,45 +6169,13 @@ tracks/0/keys = {
 "update": 1,
 "values": [ true ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
+tracks/1/type = "value"
+tracks/1/path = NodePath("ParallaxBackground/Cave/CaveBackground:frame")
 tracks/1/interp = 1
-tracks/1/loop_wrap = true
+tracks/1/loop_wrap = false
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1.77, 15.43, 29.13, 51.42, 66.85, 94.3, 123.51 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"values": [ {
-"args": [ true ],
-"method": "do_a_flip"
-}, {
-"args": [ true ],
-"method": "do_a_flip"
-}, {
-"args": [ true ],
-"method": "do_a_flip"
-}, {
-"args": [ true ],
-"method": "do_a_flip"
-}, {
-"args": [ true ],
-"method": "do_a_flip"
-}, {
-"args": [ true ],
-"method": "do_a_flip"
-}, {
-"args": [ true ],
-"method": "do_a_flip"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("ParallaxBackground/Cave/CaveBackground:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 0.43, 0.85, 1.29, 1.7, 13.7057, 14.1419, 14.5642, 15.0209, 15.45, 16.29, 17.1732, 18, 18.9, 19.7198, 20.57, 21.41, 22.2932, 23.12, 24.02, 24.8398, 25.71, 26.52, 27.4032, 28.2, 29.13, 29.9498, 30.86, 31.67, 32.5532, 33.35, 34.28, 35.0998, 36.01, 36.82, 37.7032, 38.5, 39.43, 40.2498, 41.16, 41.97, 42.8532, 43.65, 44.58, 45.3998, 46.28, 47.09, 47.9732, 48.77, 49.7, 50.5198, 51.4, 52.24, 53.1232, 53.92, 54.85, 55.6698, 56.55, 57.36, 58.2432, 59.04, 59.97, 60.7898, 61.72, 62.53, 63.4132, 64.21, 65.14, 65.9598, 66.84, 67.65, 68.5332, 69.33, 70.26, 71.0798, 71.95, 72.79, 73.6732, 74.47, 75.4, 76.2198, 77.1, 77.91, 78.7932, 79.59, 80.52, 81.3398, 82.27, 83.08, 83.9632, 84.76, 85.69, 86.5098, 87.39, 88.2, 89.0832, 89.88, 90.81, 91.6298, 92.57, 93.41, 94.2932, 95.09, 96.02, 96.8398, 97.72, 98.53, 99.4132, 100.21, 101.14, 101.96, 102.89, 103.7, 104.583, 105.44, 106.31, 107.17, 108.01, 108.86, 109.74, 110.58, 111.43, 112.32, 113.14, 114, 114.85, 115.73, 116.55, 117.43, 118.3, 119.15, 120.01, 120.87, 121.69, 122.56, 123.51 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
@@ -7357,6 +7325,7 @@ shape = SubResource( 156 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 157 )
 animation = "noflip"
+frame = 1
 playing = true
 flip_h = true
 
