@@ -54,6 +54,7 @@ func _physics_process(delta):
 func deplete_health(damage):
 	if damage != 3:
 		configure_health_bar()
+		$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.red
 		$HealthBar/ProgressBar.value -= 1
 	$hitHurt.play()
 	hit_point -= damage
@@ -81,16 +82,18 @@ func flinch_timeout():
 func flip():
 	if $AnimatedSprite.animation == "noflip":
 		$AnimatedSprite.play("flip")
-		if name == "Ground Enemy":
-			$TrueEnemyArea.monitoring = false
-		else:
-			$TrueEnemyArea.monitoring = true
+		if not defeated:
+			if name == "Ground Enemy":
+				$TrueEnemyArea.monitoring = false
+			else:
+				$TrueEnemyArea.monitoring = true
 	else:
 		$AnimatedSprite.play("noflip")
-		if name == "Ground Enemy":
-			$TrueEnemyArea.monitoring = true
-		else:
-			$TrueEnemyArea.monitoring = false
+		if not defeated:
+			if name == "Ground Enemy":
+				$TrueEnemyArea.monitoring = true
+			else:
+				$TrueEnemyArea.monitoring = false
 
 func revert():
 	yield($AnimationPlayer, "animation_finished")
