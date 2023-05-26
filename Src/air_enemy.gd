@@ -5,7 +5,8 @@ onready var path_follow = get_parent()
 onready var coin = preload("res://Scenes/Coin.tscn")
 onready var health_bar = preload("res://Scenes/HealthBar.tscn")
 onready var assassin = get_tree().get_current_scene().get_node("Assassin")
-onready var health_bar_theme = preload("res://Resource/health_theme.tres")
+onready var red_health_bar_theme = preload("res://Resource/health_red_theme.tres")
+onready var invuln_health_bar_theme = preload("res://Resource/health_invuln_theme.tres")
 
 export var _speed = 100
 var hit_point = 3
@@ -56,7 +57,7 @@ func deplete_health(damage):
 			if damage != 3:
 				configure_health_bar()
 				$HealthBar/ProgressBar.value -= 1
-				$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.gray
+				$HealthBar/ProgressBar.set_theme(invuln_health_bar_theme)
 			$hitHurt.play()
 			$AnimatedSprite.play("hurt")
 			hit_point -= damage
@@ -65,14 +66,13 @@ func deplete_health(damage):
 		else:
 			if no_health_bar == true:
 				configure_health_bar()
-				$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.gray
+				$HealthBar/ProgressBar.set_theme(invuln_health_bar_theme)
 			$cloudReflect.play()
 
 func configure_health_bar():
 	# if the enemy is hit for the first time, instance a health bar above them
 	# if they already have a health bar, don't make a new one!
 	var health_bar_instance = health_bar.instance()
-	health_bar_instance.set_theme(health_bar_theme.duplicate())
 	for child in get_children():
 		if child.name == "HealthBar":
 			no_health_bar = false
@@ -83,16 +83,15 @@ func configure_health_bar():
 
 # Use with HitTimer
 func flinch_timeout():
-	print(self)
 	if GameSwitches.flipped == false:
 		if no_health_bar == false:
-			self.get_node("HealthBar/ProgressBar").get_stylebox("fg").bg_color = Color.red
+			$HealthBar/ProgressBar.set_theme(red_health_bar_theme)
 		$AnimatedSprite.play("noflip")
 	else:
 		$AnimatedSprite.play("flip")
 		if no_health_bar == false:
 			if name == "Floating Enemy":
-				self.get_node("HealthBar/ProgressBar").get_stylebox("fg").bg_color = Color.gray
+				$HealthBar/ProgressBar.set_theme(invuln_health_bar_theme)
 
 func flip():
 	if name == "Flying Enemy":
@@ -100,22 +99,24 @@ func flip():
 			$CollisionShape2D.shape.extents = Vector2(40, 26)
 			$CollisionShape2D.position = Vector2(0, 14)
 			$AnimatedSprite.play("flip")
+			GameSwitches.flipped = true
 		else:
 			$CollisionShape2D.shape.extents = Vector2(40, 44)
 			$CollisionShape2D.position = Vector2(0, -4)
 			$AnimatedSprite.play("noflip")
+			GameSwitches.flipped = false
 	
 	elif name == "Floating Enemy":
 		if $AnimatedSprite.animation == "noflip" or $AnimatedSprite.animation == "hurt":
 			$AnimatedSprite.play("flip")
 			if no_health_bar == false:
-				self.get_node("HealthBar/ProgressBar").get_stylebox("fg").bg_color = Color.gray
+				$HealthBar/ProgressBar.set_theme(invuln_health_bar_theme)
 			if not defeated:
 				collision_layer = GameSwitches.enemy_layer
 		else:
 			$AnimatedSprite.play("noflip")
 			if no_health_bar == false:
-				self.get_node("HealthBar/ProgressBar").get_stylebox("fg").bg_color = Color.red
+				$HealthBar/ProgressBar.set_theme(red_health_bar_theme)
 			if not defeated:
 				collision_layer = GameSwitches.pass_through_layer
 

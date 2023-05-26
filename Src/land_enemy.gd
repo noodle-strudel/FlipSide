@@ -5,6 +5,7 @@ onready var path_follow = get_parent()
 onready var coin = preload("res://Scenes/Coin.tscn")
 onready var health_bar = preload("res://Scenes/HealthBar.tscn")
 onready var assassin = get_tree().get_current_scene().get_node("Assassin")
+onready var red_health_bar_theme = preload("res://Resource/health_red_theme.tres")
 
 # Initial Variables
 export var _speed = 100
@@ -40,6 +41,8 @@ func _physics_process(delta):
 			if dropped_coin == false:
 				var coin_instance = coin.instance()
 				coin_instance.global_position = global_position
+				# set group of the coin
+				coin_instance.add_to_group("enemies")
 				get_tree().get_current_scene().add_child(coin_instance)
 				dropped_coin = true
 			
@@ -54,7 +57,6 @@ func _physics_process(delta):
 func deplete_health(damage):
 	if damage != 3:
 		configure_health_bar()
-		$HealthBar/ProgressBar.get_stylebox("fg").bg_color = Color.red
 		$HealthBar/ProgressBar.value -= 1
 	$hitHurt.play()
 	hit_point -= damage

@@ -72,22 +72,22 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "ToggleCamera",
 "language": "GDScript",
-"path": "res://Src/ToggleCamera.gd"
+"path": "res://src/ToggleCamera.gd"
 }, {
 "base": "StaticBody2D",
 "class": "air_enemy",
 "language": "GDScript",
-"path": "res://Src/air_enemy.gd"
+"path": "res://src/air_enemy.gd"
 }, {
 "base": "StaticBody2D",
 "class": "land_enemy",
 "language": "GDScript",
-"path": "res://Src/land_enemy.gd"
+"path": "res://src/land_enemy.gd"
 }, {
 "base": "Node",
 "class": "level",
 "language": "GDScript",
-"path": "res://Src/levels.gd"
+"path": "res://src/levels.gd"
 } ]
 _global_script_class_icons={
 "DTS": "",
@@ -120,12 +120,12 @@ default_bus_layout="res://Resource/default_bus_layout.tres"
 
 [autoload]
 
-GameSwitches="*res://Src/GAME_SWITCHES.gd"
+GameSwitches="*res://src/GAME_SWITCHES.gd"
 BackgroundMusic="*res://Scenes/BackgroundMusic.tscn"
-Music="*res://Src/music.gd"
-GlobalSettings="*res://Src/global_settings.gd"
+Music="*res://src/music.gd"
+GlobalSettings="*res://src/global_settings.gd"
 Lighting="*res://Scenes/lighting.tscn"
-Save="*res://Src/save.gd"
+Save="*res://src/save.gd"
 
 [debug]
 

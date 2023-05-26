@@ -146,6 +146,11 @@
 			"volume": 0
 		},
 		{
+			"event_id": "dialogic_023",
+			"hide_dialogbox": true,
+			"wait_seconds": 0.5
+		},
+		{
 			"emit_signal": "rest",
 			"event_id": "dialogic_040"
 		},
@@ -204,7 +209,7 @@
 			"character": "",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "!!!"
+			"text": "!!![nw=0.5]"
 		},
 		{
 			"emit_signal": "poof",

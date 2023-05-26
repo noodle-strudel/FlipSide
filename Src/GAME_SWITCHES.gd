@@ -1,5 +1,7 @@
 extends Node
 
+signal respawn_coins
+
 """
 Global variables and functions that can be used by any node
 """

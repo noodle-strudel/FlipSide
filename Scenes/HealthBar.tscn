@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Resource/health_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Resource/health_red_theme.tres" type="Theme" id=1]
 
 [node name="HealthBar" type="Control"]
 anchor_left = -0.5

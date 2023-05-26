@@ -1,6 +1,6 @@
 [gd_scene load_steps=84 format=2]
 
-[ext_resource path="res://Src/assassin.gd" type="Script" id=1]
+[ext_resource path="res://src/assassin.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_idle_anim_strip_4.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_jump_up_anim_strip_3.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Sprites/herochar sprites(new)/herochar_jump_down_anim_strip_3.png" type="Texture" id=4]
@@ -392,7 +392,7 @@ position = Vector2( 0, -32 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "idle"
-frame = 1
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

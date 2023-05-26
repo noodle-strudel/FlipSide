@@ -36,6 +36,7 @@ func _on_Continue_pressed():
 	GameSwitches.load_data()
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
+	print(Save.game_data)
 	$SceneTransitionRect.transition_to(Save.game_data.scene)
 	$Select.playing = true
 	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP

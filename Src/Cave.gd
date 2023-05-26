@@ -6,11 +6,13 @@ var going_out_of_cave = false
 export var rave_squence: int
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if GameSwitches.assassin_spawnpoint != Vector2(3072, 4620):
+	if GameSwitches.assassin_spawnpoint != $Checkpoint3.global_position:
 		GameSwitches.assassin_spawnpoint = Vector2(3072, 4620)
 	else:
 		GameSwitches.assassin_spawnpoint = Save.game_data.spawn
+	GameSwitches.can_flip = true
 	$Assassin.global_position = GameSwitches.assassin_spawnpoint
+	
 	$Assassin/Camera2D.limit_bottom = 100000
 	$Assassin/Camera2D.zoom = Vector2(1.5, 1.5)
 
@@ -18,6 +20,7 @@ func _on_To_Castle_body_entered(body):
 	in_bat_cutscene = true
 	if GameSwitches.flipped:
 		do_a_flip(true)
+	GameSwitches.can_flip = false
 	$"Enemies/Up Bat/PathFollow2D/Flying Enemy".flying_down = true
 	$Assassin.velocity = Vector2.ZERO
 	GameSwitches.state = GameSwitches.INACTIVE

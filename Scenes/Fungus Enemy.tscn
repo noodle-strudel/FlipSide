@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/Sprites/mushroom/spikeshroom walking 1.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sprites/mushroom/spikeshroom walking 2.png" type="Texture" id=3]
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=4]
-[ext_resource path="res://Src/Fungus Enemy.gd" type="Script" id=5]
+[ext_resource path="res://src/Fungus Enemy.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Sprites/mushroom/mushroom standing.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Sprites/mushroom/mushroom walking 1.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Sprites/mushroom/mushroom walking 2.png" type="Texture" id=8]
@@ -116,12 +116,6 @@ scale = Vector2( 51.2, 30 )
 __meta__ = {
 "_editor_description_": ""
 }
-
-[node name="ColorRect" type="ColorRect" parent="VisibilityNotifier2D"]
-margin_left = -10.0
-margin_top = -10.0
-margin_right = 10.0
-margin_bottom = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -2 )

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Src/Floating Enemy.gd" type="Script" id=1]
+[ext_resource path="res://src/Floating Enemy.gd" type="Script" id=1]
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/Sprites/cloud bug/cloudguy hurt.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Sprites/cloud bug/spikeguy2.png" type="Texture" id=4]
@@ -41,12 +41,6 @@ scale = Vector2( 51.2, 30 )
 __meta__ = {
 "_editor_description_": ""
 }
-
-[node name="ColorRect" type="ColorRect" parent="VisibilityNotifier2D"]
-margin_left = -10.0
-margin_top = -10.0
-margin_right = 10.0
-margin_bottom = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 4.00001, -3.99999 )

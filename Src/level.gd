@@ -18,7 +18,7 @@ func _ready():
 	if GameSwitches.assassin_spawnpoint == Vector2(200, 0):
 		$CanvasLayer/HUD/ToolTip.show()
 		$CanvasLayer/HUD/ToolTip/StartFromBasics.show()
-		yield(get_tree().create_timer(5.0), "timeout")
+		yield(get_tree().create_timer(8.0), "timeout")
 		$CanvasLayer/HUD/ToolTip.hide()
 		$CanvasLayer/HUD/ToolTip/StartFromBasics.hide()
 	
@@ -100,4 +100,5 @@ func _on_HUD_to_main_menu():
 func _on_Cave_Entrance_body_entered(body):
 	GameSwitches.assassin_spawnpoint = Vector2(2696, 3880)
 	GameSwitches.state = GameSwitches.INACTIVE
+	GameSwitches.flipped = false
 	$CanvasLayer/SceneTransitionRect.transition_to("res://Scenes/Cave.tscn")

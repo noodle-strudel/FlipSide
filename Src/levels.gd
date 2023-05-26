@@ -11,6 +11,8 @@ export var music: Resource
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Assassin.position = GameSwitches.assassin_spawnpoint
+	Save.game_data.scene = get_tree().get_current_scene().filename
+	GameSwitches.save_data()
 	Music.change_music(music)
 	
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
@@ -29,12 +31,12 @@ func do_a_flip(bypass = false):
 		$flipFlop.play()
 		get_tree().call_group("enemy", "flip")
 		if GameSwitches.flipped == false:
-			$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
+			$"Details Foreground".tile_set.call_deferred("tile_set_texture", 0, flip_warp)
 			if get_tree().get_current_scene().name != "Cave":
 				$ParallaxBackground/Forest/ForestBackground.play("forestflip")
 			GameSwitches.flipped = true
 		else:
-			$"Details Foreground".tile_set.tile_set_texture(0, flip_original)
+			$"Details Foreground".tile_set.call_deferred("tile_set_texture", 0, flip_original)
 			if get_tree().get_current_scene().name != "Cave":
 				$ParallaxBackground/Forest/ForestBackground.play("forestnoflip")
 			GameSwitches.flipped = false

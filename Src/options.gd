@@ -49,11 +49,13 @@ func _on_Main_Menu_pressed():
 	$clickChoose.playing = true
 	yield($clickChoose, "finished")
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)
-	if get_tree().get_current_scene().get_name() != "Level":
-		visible = false
-	else:
+	if get_tree().get_current_scene().get_name() != "Menu":
+		GameSwitches.flipped = false
+		GameSwitches.can_flip = false
 		get_tree().paused = false
 		emit_signal("to_main_menu")
+	else:
+		visible = false
 	
 func _on_Video_tab_clicked():
 	$clickChoose.playing = true

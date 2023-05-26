@@ -88,7 +88,6 @@ when the assassin is in the normal state,
 """
 
 func _physics_process(delta):
-	print(global_position)
 	velocity.y += gravity * delta
 	velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
 	
@@ -321,7 +320,6 @@ func ded():
 	
 	collision_mask = GameSwitches.no_collision
 	collision_layer = GameSwitches.no_collision
-	
 	yield(sprite, "animation_finished")
 	if sprite.animation == "ded":
 		emit_signal("ded")
@@ -342,10 +340,10 @@ When you attack in the air,
 """
 
 func attack():
-	if has_jumped == true and in_the_air == false:
-		GameSwitches.state = GameSwitches.NORMAL
+#	if has_jumped == true and in_the_air == false:
+#		GameSwitches.state = GameSwitches.NORMAL
 	# ground attack when on the ground
-	if is_on_floor() and air_attacking == false:
+	if is_on_floor() and air_attacking == false and has_jumped == false:
 		in_the_air = false
 		velocity = Vector2.ZERO
 		
@@ -424,6 +422,8 @@ func attack():
 			air_attacking = false
 			attacking = false
 			GameSwitches.state = GameSwitches.NORMAL
+	else:
+		GameSwitches.state = GameSwitches.NORMAL
 
 
 
@@ -502,6 +502,11 @@ func _on_BounceDelay_timeout():
 
 
 func _on_VisibilityNotifier2D_screen_exited():
+	print("off screen")
 	if $Camera2D.current == false and GameSwitches.state != GameSwitches.INACTIVE:
-		global_position = Vector2(53566.839844, 5569.997559)
+		print("triggered")
+		if get_tree().get_current_scene().name == "Castle":
+			global_position = Vector2(53566.839844, 5569.997559)
+		elif get_tree().get_current_scene().name == "Cave":
+			global_position = Vector2(20192.087891, 8831.996094)
 		GameSwitches.state = GameSwitches.REVIVE
