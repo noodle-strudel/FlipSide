@@ -15,6 +15,7 @@
 [ext_resource path="res://Assets/Sprites/menu stuff/flipside hellyeah.png" type="Texture" id=13]
 
 [sub_resource type="AnimatedTexture" id=1]
+flags = 4
 frames = 4
 fps = 10.0
 frame_0/texture = ExtResource( 4 )

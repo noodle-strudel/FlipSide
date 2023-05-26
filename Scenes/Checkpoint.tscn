@@ -5,7 +5,6 @@
 [ext_resource path="res://src/Checkpoint.gd" type="Script" id=3]
 [ext_resource path="res://SFX/Save.mp3" type="AudioStream" id=4]
 
-
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 12, 20 )
@@ -78,7 +77,7 @@ position = Vector2( 0, -40 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 13 )
 animation = "idle"
-frame = 8
+frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

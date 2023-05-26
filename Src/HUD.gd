@@ -15,8 +15,6 @@ func _process(delta):
 			$Options.visible = true
 
 func _on_Button_pressed():
-	GameSwitches.flipped = false
-	GameSwitches.can_flip = false
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
 	emit_signal("respawn")
