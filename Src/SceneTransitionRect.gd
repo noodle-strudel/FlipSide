@@ -1,5 +1,7 @@
 extends ColorRect
 
+var prev_scene: String
+
 # Path to the next scene to transition to
 export(String, FILE, "*.tscn") var next_scene_path
 
@@ -13,5 +15,6 @@ func transition_to(_next_scene := next_scene_path) -> void:
 	# Plays the Fade animation and wait until it finishes
 	_anim_player.play("Fade")
 	yield(_anim_player, "animation_finished")
+	prev_scene = get_tree().get_current_scene().name
 	# Changes the scene
 	get_tree().change_scene(_next_scene)

@@ -5,7 +5,6 @@ const SAVEFILE = "user://SAVEFILE.save"
 var game_data = {}
 
 func _ready():
-	print("hi")
 	load_data()
 
 
@@ -23,7 +22,8 @@ func load_data():
 			"continue": false,
 			"health": 3,
 			"coins": 0,
-			"scene": "res://Scenes/level.tscn"
+			"scene": "res://Scenes/level.tscn",
+			"can_flip": false
 		}
 		save_data()
 	file.open(SAVEFILE, File.READ)

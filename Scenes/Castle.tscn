@@ -1,16 +1,16 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
 [ext_resource path="res://Resource/tilemap_terrain_real.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/assassin.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Src/Castle.gd" type="Script" id=5]
+[ext_resource path="res://src/Castle.gd" type="Script" id=5]
 [ext_resource path="res://Resource/tilemap_castyle.tres" type="TileSet" id=6]
 [ext_resource path="res://Assets/Sprites/flying enemy/bat1.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Sprites/flying enemy/greenbat2.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Sprites/flying enemy/bat2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sprites/flying enemy/batflip1.png" type="Texture" id=10]
-[ext_resource path="res://Src/flying_enemy.gd" type="Script" id=11]
+[ext_resource path="res://src/flying_enemy.gd" type="Script" id=11]
 [ext_resource path="res://Scenes/SceneTransitionRect.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Assets/Sprites/king/torso inbetween.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Sprites/king/legs.png" type="Texture" id=14]
@@ -25,7 +25,7 @@
 [ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=23]
 [ext_resource path="res://Music/Higher Level.mp3" type="AudioStream" id=24]
 [ext_resource path="res://Scenes/Checkpoint.tscn" type="PackedScene" id=25]
-[ext_resource path="res://Scenes/Lighting.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Assets/Sprites/backgrounds/background.png" type="Texture" id=27]
 [ext_resource path="res://Assets/Sprites/backgrounds/flipped background.png" type="Texture" id=28]
 
@@ -35,7 +35,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id=197]
-extents = Vector2( 40, 44 )
+extents = Vector2( 40, 24 )
 
 [sub_resource type="SpriteFrames" id=196]
 animations = [ {
@@ -50,8 +50,35 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="Animation" id=208]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "flip" ]
+}
+
 [sub_resource type="Animation" id=2]
 resource_name = "flip"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "flip" ]
+}
 
 [sub_resource type="RectangleShape2D" id=198]
 extents = Vector2( 16, 352 )
@@ -209,14 +236,13 @@ collision_mask = 25
 script = ExtResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flying Enemy Path/PathFollow2D/Flying Enemy"]
-position = Vector2( -1.12884e-06, -4 )
+position = Vector2( -1.12884e-06, 12 )
 shape = SubResource( 197 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Flying Enemy Path/PathFollow2D/Flying Enemy"]
 scale = Vector2( 3, 3 )
 frames = SubResource( 196 )
-animation = "noflip"
-frame = 1
+animation = "flip"
 playing = true
 flip_h = true
 
@@ -226,6 +252,8 @@ volume_db = -10.0
 pitch_scale = 1.2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Flying Enemy Path/PathFollow2D/Flying Enemy"]
+autoplay = "RESET"
+anims/RESET = SubResource( 208 )
 anims/flip = SubResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -375,8 +403,11 @@ animation = "forestnoflip"
 [connection signal="on_friendly_bat" from="Assassin" to="." method="_on_Assassin_on_friendly_bat"]
 [connection signal="touch_floor" from="Assassin" to="." method="_on_Assassin_touch_floor"]
 [connection signal="respawn" from="CanvasLayer/HUD" to="." method="_on_HUD_respawn"]
+[connection signal="to_main_menu" from="CanvasLayer/HUD" to="." method="_on_HUD_to_main_menu"]
+[connection signal="to_main_menu" from="CanvasLayer/HUD/Options" to="." method="_on_HUD_to_main_menu"]
 [connection signal="body_entered" from="TriggerKing" to="." method="_on_TriggerKing_body_entered"]
 [connection signal="body_entered" from="ThroneTouch" to="." method="_on_ThroneTouch_body_entered"]
 [connection signal="body_entered" from="Bottomless Pit" to="." method="_on_Bottomless_Pit_body_entered"]
 
+[editable path="CanvasLayer/HUD"]
 [editable path="Lighting"]

@@ -1,10 +1,11 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Src/Flipper.gd" type="Script" id=1]
+[ext_resource path="res://src/Flipper.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/items/ominous_crystal.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sprites/lighting texture/crystal_glow.png" type="Texture" id=3]
 [ext_resource path="res://SFX/flipFlop.wav" type="AudioStream" id=4]
 [ext_resource path="res://SFX/ominousNoise.wav" type="AudioStream" id=5]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 28 )

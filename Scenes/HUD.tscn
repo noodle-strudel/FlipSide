@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Src/HUD.gd" type="Script" id=1]
+[ext_resource path="res://src/HUD.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/options.tscn" type="PackedScene" id=2]
 [ext_resource path="res://SFX/clickChoose.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/lighting.tscn" type="PackedScene" id=4]
@@ -82,6 +82,7 @@ custom_fonts/font = ExtResource( 6 )
 text = "Main Menu"
 
 [node name="ToolTip" type="Popup" parent="."]
+visible = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -97,11 +98,11 @@ anchor_left = 0.501
 anchor_top = 0.5
 anchor_right = 0.501
 anchor_bottom = 0.5
-margin_left = -90.496
-margin_top = -100.5
-margin_right = 92.504
-margin_bottom = -60.5
-text = "Press X to FLIP"
+margin_left = -224.496
+margin_top = -95.5
+margin_right = 223.504
+margin_bottom = -55.5
+text = "Press X/Right Mouse Button to FLIP"
 
 [node name="RealHumanHearts" type="RichTextLabel" parent="ToolTip"]
 visible = false
@@ -131,11 +132,11 @@ margin_left = -227.968
 margin_top = -104.0
 margin_right = 250.032
 margin_bottom = -25.0
-text = "LEFT/RIGHT ARROW KEYS to MOVE,
+text = "ARROW KEYS/WASD to MOVE,
 
-SPACE/ARROW UP to JUMP.
+SPACE/ARROW UP/W to JUMP.
 
-Press SPACE in air to DOUBLE JUMP"
+JUMP in air to DOUBLE JUMP"
 __meta__ = {
 "_editor_description_": ""
 }
@@ -144,15 +145,17 @@ __meta__ = {
 visible = false
 anchor_left = 0.508
 anchor_right = 0.508
-margin_left = -211.968
-margin_top = -96.0
-margin_right = 372.032
-margin_bottom = -25.0
-text = "Tap Z on the GROUND to CLOSE ATTACK
+margin_left = -243.968
+margin_top = -112.0
+margin_right = 340.032
+margin_bottom = -16.0
+text = "Tap Z/Left Mouse Click on the GROUND to
 
-	Hold Z on the GROUND to CHARGE a
+				    CLOSE ATTACK
 
-		POWERFUL RANGED ATTACK"
+	Hold Z/Left Mouse Click on the GROUND 
+	
+	 to CHARGE a POWERFUL RANGED ATTACK"
 __meta__ = {
 "_editor_description_": ""
 }
@@ -161,11 +164,13 @@ __meta__ = {
 visible = false
 anchor_left = 0.508
 anchor_right = 0.508
-margin_left = -243.968
+margin_left = -259.968
 margin_top = -48.0
-margin_right = 340.032
+margin_right = 324.032
 margin_bottom = 15.0
-text = "Tap Z in AIR to do a QUICK RANGED ATTACK"
+text = "Tap Z/Left Mouse Click in AIR to do a QUICK 
+
+					RANGED ATTACK"
 __meta__ = {
 "_editor_description_": ""
 }

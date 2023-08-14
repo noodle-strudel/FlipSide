@@ -1,5 +1,7 @@
 extends Node
 
+signal respawn_coins
+
 """
 Global variables and functions that can be used by any node
 """
@@ -31,9 +33,11 @@ func save_data():
 	Save.game_data.coins = GameSwitches.coins
 	Save.game_data.continue = true
 	Save.game_data.spawn = GameSwitches.assassin_spawnpoint
+	Save.game_data.can_flip = GameSwitches.can_flip
 	Save.save_data()
 	
 func load_data():
 	GameSwitches.health = Save.game_data.health
 	GameSwitches.coins = Save.game_data.coins
 	GameSwitches.assassin_spawnpoint = Save.game_data.spawn
+	GameSwitches.can_flip = Save.game_data.can_flip

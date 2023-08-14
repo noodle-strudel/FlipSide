@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=1]
-[ext_resource path="res://Src/ground_enemy.gd" type="Script" id=2]
+[ext_resource path="res://src/ground_enemy.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Sprites/ground enemy/spikebug walk2.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Sprites/ground enemy/spikebug walk1.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/ground enemy/spikebug standing.png" type="Texture" id=5]
@@ -81,7 +81,7 @@ tracks/3/path = NodePath("bounceBoing:playing")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -145,6 +145,10 @@ collision_layer = 4
 collision_mask = 25
 script = ExtResource( 2 )
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0, 3.8147e-06 )
+scale = Vector2( 51.2, 30 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 195 )
 
@@ -152,7 +156,6 @@ shape = SubResource( 195 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 200 )
 animation = "noflip"
-frame = 1
 playing = true
 flip_h = true
 
@@ -160,6 +163,7 @@ flip_h = true
 stream = ExtResource( 1 )
 volume_db = -10.0
 pitch_scale = 1.2
+bus = "SFX"
 
 [node name="bounceBoing" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
@@ -180,8 +184,5 @@ anims/bounce = SubResource( 203 )
 wait_time = 0.5
 one_shot = true
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-
-[connection signal="body_entered" from="TrueEnemyArea" to="." method="_on_TrueEnemyArea_body_entered"]
-[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

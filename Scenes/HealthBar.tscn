@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Resource/health_red_theme.tres" type="Theme" id=1]
+
+[node name="HealthBar" type="Control"]
+anchor_left = -0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -88.0
+margin_right = -512.0
+margin_bottom = -88.0
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -40.0
+margin_right = 40.0
+margin_bottom = 24.0
+theme = ExtResource( 1 )
+max_value = 3.0
+value = 3.0
+percent_visible = false

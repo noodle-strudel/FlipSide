@@ -21,6 +21,7 @@ func _on_NewGame_pressed():
 	Save.game_data.health = 10
 	Save.game_data.coins = 0
 	Save.game_data.continue = false
+	Save.game_data.can_flip = false
 	Save.save_data()
 	GameSwitches.load_data()
 	$clickChoose.playing = true
@@ -36,6 +37,7 @@ func _on_Continue_pressed():
 	GameSwitches.load_data()
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
+	print(Save.game_data)
 	$SceneTransitionRect.transition_to(Save.game_data.scene)
 	$Select.playing = true
 	$StopMouse.mouse_filter = Control.MOUSE_FILTER_STOP

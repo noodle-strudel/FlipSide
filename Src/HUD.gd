@@ -18,6 +18,7 @@ func _on_Button_pressed():
 	$clickChoose.playing = true
 	BackgroundMusic.playing = false
 	emit_signal("respawn")
+	GameSwitches.emit_signal("respawn_coins")
 
 func _on_Menu_pressed():
 	GameSwitches.flipped = false
@@ -27,4 +28,3 @@ func _on_Menu_pressed():
 	$Retry/VBoxContainer/Retry.disabled = true
 	yield($Select, "finished")
 	emit_signal("to_main_menu")
-

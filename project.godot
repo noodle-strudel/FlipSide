@@ -72,7 +72,22 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "ToggleCamera",
 "language": "GDScript",
-"path": "res://Src/ToggleCamera.gd"
+"path": "res://src/ToggleCamera.gd"
+}, {
+"base": "StaticBody2D",
+"class": "air_enemy",
+"language": "GDScript",
+"path": "res://src/air_enemy.gd"
+}, {
+"base": "StaticBody2D",
+"class": "land_enemy",
+"language": "GDScript",
+"path": "res://src/land_enemy.gd"
+}, {
+"base": "Node",
+"class": "level",
+"language": "GDScript",
+"path": "res://src/levels.gd"
 } ]
 _global_script_class_icons={
 "DTS": "",
@@ -87,7 +102,10 @@ _global_script_class_icons={
 "DialogicUtil": "",
 "GitAPI": "",
 "HistoryRow": "",
-"ToggleCamera": ""
+"ToggleCamera": "",
+"air_enemy": "",
+"land_enemy": "",
+"level": ""
 }
 
 [application]
@@ -102,12 +120,12 @@ default_bus_layout="res://Resource/default_bus_layout.tres"
 
 [autoload]
 
-GameSwitches="*res://Src/GAME_SWITCHES.gd"
+GameSwitches="*res://src/GAME_SWITCHES.gd"
 BackgroundMusic="*res://Scenes/BackgroundMusic.tscn"
-Music="*res://Src/music.gd"
-GlobalSettings="*res://Src/global_settings.gd"
+Music="*res://src/music.gd"
+GlobalSettings="*res://src/global_settings.gd"
 Lighting="*res://Scenes/lighting.tscn"
-Save="*res://Src/save.gd"
+Save="*res://src/save.gd"
 
 [debug]
 
@@ -165,6 +183,7 @@ jump={
 attack={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 H={
@@ -175,6 +194,7 @@ H={
 flip={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 ui_pause={

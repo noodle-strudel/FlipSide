@@ -17,7 +17,6 @@ func _ready():
 	GameSwitches.assassin_spawnpoint = Vector2(768, 384)
 	GameSwitches.can_flip = false
 	GameSwitches.flipped = true
-	get_tree().call_group("enemy", "flip")
 	$"Details Foreground".tile_set.tile_set_texture(0, flip_warp)
 	Save.game_data.scene = get_tree().get_current_scene().filename
 	GameSwitches.save_data()
@@ -86,7 +85,6 @@ func _on_HUD_respawn():
 	GameSwitches.load_data()
 	
 	$Assassin.dead = false
-	$Assassin.reviving = true
 	
 	# enables collision again for the assassin
 	$Assassin.collision_layer = GameSwitches.player_layer
@@ -182,6 +180,8 @@ func king_movements(movement):
 
 func _on_ThroneTouch_body_entered(body):
 	GameSwitches.state = GameSwitches.INACTIVE
+	GameSwitches.flipped = false
+	GameSwitches.can_flip = false
 	$CanvasLayer/SceneTransitionRect.transition_to("res://Scenes/credits.tscn")
 
 
@@ -189,3 +189,7 @@ func _on_Bottomless_Pit_body_entered(body):
 	GameSwitches.health = 0
 	BackgroundMusic.playing = false
 	GameSwitches.state = GameSwitches.DED
+
+
+func _on_HUD_to_main_menu():
+	$"CanvasLayer/SceneTransitionRect".transition_to("res://Scenes/menu.tscn")

@@ -14,6 +14,7 @@ func _on_Area2D_body_exited(body):
 
 
 func _on_CrumbleTimer_timeout():
+	$Area2D.monitoring = false
 	$AnimationPlayer.play("break")
 	collision_layer = 0
 	collision_mask = 0
@@ -29,3 +30,5 @@ func _on_RecoverTimer_timeout():
 		set_collision_mask_bit(0, true)
 		set_collision_mask_bit(3, true)
 		broke = false
+		yield($AnimationPlayer, "animation_finished")
+		$Area2D.monitoring = true
