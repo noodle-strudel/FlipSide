@@ -59,6 +59,7 @@ func _physics_process(delta):
 				tile_pos = to_global(collision.collider.map_to_world(collision.collider.position)) + collision.collider.cell_size
 
 			object_pos = tile_pos
+			print(object_pos)
 		else:
 			object_pos = collision.collider.global_position
 

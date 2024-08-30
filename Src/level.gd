@@ -16,6 +16,8 @@ func _ready():
 		$Assassin/Camera2D.limit_bottom = 10000
 		Music.change_music(Music.switcharoo)
 	if GameSwitches.assassin_spawnpoint == Vector2(200, 0):
+		GameSwitches.health = 10
+		GameSwitches.coins = 0
 		$CanvasLayer/HUD/ToolTip.show()
 		$CanvasLayer/HUD/ToolTip/StartFromBasics.show()
 		yield(get_tree().create_timer(8.0), "timeout")

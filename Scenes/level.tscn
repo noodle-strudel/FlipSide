@@ -129,6 +129,7 @@ visible = false
 visible = false
 
 [node name="SceneTransitionRect" parent="CanvasLayer" instance=ExtResource( 28 )]
+color = Color( 0, 0, 0, 0 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -496,12 +497,18 @@ collision_layer = 4
 position = Vector2( 32280, 448 )
 collision_layer = 4
 
+[node name="AnimatedSprite" parent="Spikes/Spike93" index="2"]
+playing = false
+
 [node name="AnimationPlayer" parent="Spikes/Spike93" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike98" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 32600, 448 )
 collision_layer = 4
+
+[node name="AnimatedSprite" parent="Spikes/Spike98" index="2"]
+playing = false
 
 [node name="AnimationPlayer" parent="Spikes/Spike98" index="3"]
 autoplay = "to_bounce_pad"
@@ -510,6 +517,9 @@ autoplay = "to_bounce_pad"
 position = Vector2( 32472, 448 )
 collision_layer = 4
 
+[node name="AnimatedSprite" parent="Spikes/Spike96" index="2"]
+playing = false
+
 [node name="AnimationPlayer" parent="Spikes/Spike96" index="3"]
 autoplay = "to_bounce_pad"
 
@@ -517,12 +527,18 @@ autoplay = "to_bounce_pad"
 position = Vector2( 32792, 448 )
 collision_layer = 4
 
+[node name="AnimatedSprite" parent="Spikes/Spike101" index="2"]
+playing = false
+
 [node name="AnimationPlayer" parent="Spikes/Spike101" index="3"]
 autoplay = "to_bounce_pad"
 
 [node name="Spike100" parent="Spikes" groups=["enemy"] instance=ExtResource( 8 )]
 position = Vector2( 32728, 448 )
 collision_layer = 4
+
+[node name="AnimatedSprite" parent="Spikes/Spike100" index="2"]
+playing = false
 
 [node name="AnimationPlayer" parent="Spikes/Spike100" index="3"]
 autoplay = "to_bounce_pad"

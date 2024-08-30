@@ -187,7 +187,7 @@ func normal(delta):
 				$jumpBound2.play()
 				double_jump = false
 				has_jumped = true
-	
+				
 	# transition to attack state
 	elif Input.is_action_pressed("attack") and gonna_jump_on_bounce_pad == false and GameSwitches.state != GameSwitches.INACTIVE:
 		GameSwitches.state = GameSwitches.ATTACK
@@ -195,9 +195,9 @@ func normal(delta):
 	# if just directional keys are being pressed
 	else:
 		if is_on_floor():
-			on_floor(delta);
+			on_floor(delta)
 		else:
-			in_air();
+			in_air()
 
 func determine_direction():
 	# going forward

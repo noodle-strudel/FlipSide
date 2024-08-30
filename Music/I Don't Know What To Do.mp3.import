@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/I Don't Know What To Do.mp3-c7ff8fc53fbafd92909d167e43b9fcce.mp3str"
+
+[deps]
+
+source_file="res://Music/I Don't Know What To Do.mp3"
+dest_files=[ "res://.import/I Don't Know What To Do.mp3-c7ff8fc53fbafd92909d167e43b9fcce.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

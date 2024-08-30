@@ -9,7 +9,7 @@ onready var red_health_bar_theme = preload("res://Resource/health_red_theme.tres
 
 # Initial Variables
 export var _speed = 100
-var hit_point = 3
+export var hit_point = 3
 var hit = false
 var defeated = false
 var dropped_coin = false
@@ -55,9 +55,8 @@ func _physics_process(delta):
 			hide()
 
 func deplete_health(damage):
-	if damage != 3:
-		configure_health_bar()
-		$HealthBar/ProgressBar.value -= 1
+	configure_health_bar()
+	$HealthBar/ProgressBar.value -= damage
 	$hitHurt.play()
 	hit_point -= damage
 	hit = true

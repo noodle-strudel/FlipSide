@@ -15,7 +15,6 @@
 [ext_resource path="res://Assets/Sprites/menu stuff/flipside hellyeah.png" type="Texture" id=13]
 
 [sub_resource type="AnimatedTexture" id=1]
-flags = 4
 frames = 4
 fps = 10.0
 frame_0/texture = ExtResource( 4 )
@@ -133,6 +132,7 @@ position = Vector2( 20915, 2088 )
 mode = 2
 
 [node name="SceneTransitionRect" parent="." instance=ExtResource( 12 )]
+color = Color( 0, 0, 0, 0 )
 
 [node name="StopMouse" type="Control" parent="."]
 anchor_right = 1.0
