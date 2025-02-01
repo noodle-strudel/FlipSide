@@ -1,6 +1,7 @@
 extends level
 
 onready var tooltip_text = $CanvasLayer/Tooltips/RichTextLabel
+onready var transition_rect := $CanvasLayer/SceneTransitionRect
 
 var waiting_for_move_input = false
 var waiting_for_left = false
@@ -101,7 +102,7 @@ func _on_LeverTooltipTrigger_body_entered(body):
 func _on_SwordControlsTimer_timeout():
 	change_tooltip("As an assassin, you're well skilled with a sword-like weapon.")
 	yield(get_tree().create_timer(3), "timeout")
-	change_tooltip("Tap [color=yellow]Z[/color] or [color=yellow]LEFT MOUSE CLIaCK[/color] to swing your sword")
+	change_tooltip("Tap [color=yellow]Z[/color] or [color=yellow]LEFT MOUSE CLICK[/color] to swing your sword")
 	waiting_for_attack = true
 
 func _on_AdvSwordControlsTimer_timeout():
@@ -126,5 +127,5 @@ func _on_LeaveTooltipTrigger_body_entered(body):
 	$LeaveTooltipTrigger.set_deferred("monitoring", false)
 	change_tooltip("You've just about learned the basics! Exit the level to start your adventure.")
 
-
-
+func _on_MainGameTrigger_body_entered(body):
+	transition_rect.transition_to("res://Scenes/level.tscn")
